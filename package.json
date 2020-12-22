@@ -1,13 +1,22 @@
 {
+  "engines": {
+    "node": "14.15.x",
+    "yarn": "1.22.x"
+  },
   "name": "draw-together",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server/src/main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "cd server && npm run dev",
+    "server": "cd server && npm start",
+    "server:dev": "cd server && npm run dev",
     "client": "cd client && yarn start",
-    "start": "concurrently  \"npm run server\" \"npm run client\" "
+    "dev": "concurrently  \"npm run server:dev\" \"npm run client\" ",
+    "start": "npm run server",
+    "server-build": "cd server && npm install && npm run build",
+    "client-build": "cd client && yarn && yarn run build",
+    "heroku-postbuild": "npm run server-build && npm run client-build"
   },
   "author": "",
   "license": "ISC",

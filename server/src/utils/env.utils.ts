@@ -2,15 +2,16 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 type Env = {
-  DB_URL:string,
-  AUTH0_AUDIENCE:string,
-  AUTH0_DOMAIN:string,
-  AUTH0_CLIENT_ID:string,
-  AUTH0_CLIENT_SECRET:string,
-  HOST:string,
-  PORT:string,
-  NODE_ENV:string,
-}
+  DB_URL: string;
+  AUTH0_AUDIENCE: string;
+  AUTH0_DOMAIN: string;
+  AUTH0_CLIENT_ID: string;
+  AUTH0_CLIENT_SECRET: string;
+  HOST: string;
+  PORT: string;
+  NODE_ENV: string;
+  MONGO_ATLAS: string;
+};
 
 const {
   DB_URL,
@@ -20,7 +21,8 @@ const {
   AUTH0_CLIENT_SECRET,
   HOST,
   PORT,
-  NODE_ENV
+  NODE_ENV,
+  MONGO_ATLAS,
 } = process.env;
 
 const env = {
@@ -31,6 +33,7 @@ const env = {
   AUTH0_CLIENT_SECRET,
   HOST,
   PORT,
+  MONGO_ATLAS,
 };
 
 export default env;

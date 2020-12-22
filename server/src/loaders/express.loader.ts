@@ -13,8 +13,5 @@ export const initApp = (app = express(), callback?: () => void) => {
     .get('/private', authMiddleware, (req, res) => {
       res.send('Hello Auth World!');
     })
-    .get('/', (req, res) => {
-      res.send('Hello World!');
-    })
     .listen(env.PORT, callback);
 };
