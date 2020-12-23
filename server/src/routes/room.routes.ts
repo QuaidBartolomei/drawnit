@@ -1,14 +1,15 @@
 export function RoomClientRoutes(roomId = ':id') {
+  const base = '/api/room'
   return {
-    CREATE_ROOM: '/room/create',
-    GET_ROOM: `/room/get/${roomId}`,
-    GET_All: '/room/all',
-    SET_IMAGE: `/room/setImage/${roomId}`,
-    GET_BACKGROUND_IMAGE: `/room/getImage/${roomId}`,
-    UPDATE_CANVAS: `/room/update/${roomId}`,
-    DELETE_ROOM: `/room/delete/${roomId}`,
-    DELETE_ALL: `/room/delete-all`,
-    COUNT: `/room/count`,
+    CREATE_ROOM: `${base}/create`,
+    GET_ROOM: `${base}/get/${roomId}`,
+    GET_All: `${base}/all`,
+    SET_IMAGE: `${base}/setImage/${roomId}`,
+    GET_BACKGROUND_IMAGE: `${base}/getImage/${roomId}`,
+    UPDATE_CANVAS: `${base}/update/${roomId}`,
+    DELETE_ROOM: `${base}/delete/${roomId}`,
+    DELETE_ALL: `${base}/delete-all`,
+    COUNT: `${base}/count`,
   };
 }
 
