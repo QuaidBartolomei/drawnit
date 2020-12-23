@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import { MongoMemoryServer } from 'mongodb-memory-server';
-import { initMemoryDB } from 'loaders/db.memory.loader';
+import { initMemoryDB } from 'loaders/db.loader.dev';
 
 const mongod = new MongoMemoryServer({
   binary: {
