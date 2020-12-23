@@ -1,5 +1,5 @@
 import express from 'express';
-import { initMemoryDB } from 'loaders/db.memory.loader';
+import { initMemoryDB } from 'loaders/db.loader.dev';
 import { initApp } from 'loaders/express.loader';
 import { initSocketServer } from 'loaders/socket.loader';
 import { MongoMemoryServer } from 'mongodb-memory-server';

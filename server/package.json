@@ -7,7 +7,7 @@
     "test": "jest --watchAll",
     "start": "npm run serve",
     "serve": "NODE_PATH=./dist node dist/main.js",
-    "dev": "NODE_PATH=./src ts-node-dev ./src/dev.ts",
+    "dev": "NODE_PATH=./src ts-node-dev ./src/main.dev.ts",
     "build": "npm run tsc",
     "tsc": "tsc"
   },
