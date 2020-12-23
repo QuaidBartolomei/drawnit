@@ -10,7 +10,7 @@ type Env = {
   HOST: string;
   PORT: string;
   NODE_ENV: string;
-  MONGO_ATLAS: string;
+  MONGO_DB_URI: string;
 };
 
 const {
@@ -22,7 +22,7 @@ const {
   HOST,
   PORT,
   NODE_ENV,
-  MONGO_ATLAS,
+  MONGO_DB_URI,
 } = process.env;
 
 const env = {
@@ -33,7 +33,7 @@ const env = {
   AUTH0_CLIENT_SECRET,
   HOST,
   PORT,
-  MONGO_ATLAS,
+  MONGO_DB_URI,
 };
 
 export default env;

@@ -5,7 +5,7 @@ import env from 'utils/env.utils';
 import express from 'express';
 import path from 'path';
 
-initDb(env.MONGO_ATLAS || '');
+initDb(env.MONGO_DB_URI || '');
 const app = express();
 const server = initApp(app, () => {
   console.log('server is listening');

@@ -10,7 +10,10 @@ export const SocketEvents = {
   BrushStroke: 'USEREVENT_BRUSH_STROKE',
 };
 export function initSocket() {
-  const url = `http://localhost:4000`;
+  const url =
+    process.env.NODE_ENV === 'production'
+      ? window.location.hostname
+      : 'http://localhost:4000';
   const clientSocket = io(url, {
     reconnectionDelay: 0,
     forceNew: true,

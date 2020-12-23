@@ -1,3 +1,5 @@
+import { StatusCodes } from 'http-status-codes';
+
 export async function getResponseData<T>(
   res: Response
 ): Promise<T | undefined> {
@@ -28,7 +30,11 @@ export async function postAndGet<T1, T2>(
   route: string,
   dataToPost: T2
 ): Promise<T1 | undefined> {
-  let res = await postData(route, dataToPost);
+  const res = await postData(route, dataToPost);
+  if (res.status !== StatusCodes.OK) {
+    console.log('res.status', res.status);
+    return undefined;
+  }
   let responseData = await getResponseData<T1>(res);
   return responseData;
 }
