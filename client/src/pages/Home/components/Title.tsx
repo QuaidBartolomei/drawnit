@@ -5,7 +5,9 @@ import { Settings } from 'config';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
-    container: {},
+    container: {
+      margin: '1rem',
+    },
   })
 );
 
@@ -13,7 +15,9 @@ const Title = () => {
   const classes = useStyles();
   return (
     <div className={classes.container}>
-      <Typography>{Settings.PAGE_NAME}</Typography>
+      <Typography component='h1' variant='h3'>
+        {Settings.PAGE_NAME}
+      </Typography>
     </div>
   );
 };

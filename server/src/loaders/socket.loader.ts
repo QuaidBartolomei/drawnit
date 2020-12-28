@@ -11,7 +11,7 @@ export const SocketEvents = {
   BrushStroke: 'USEREVENT_BRUSH_STROKE',
 };
 
-const origin = `http://${env.HOST}:${env.PORT}`;
+const origin = `http://localhost:${env.PORT}`;
 
 export const initSocketServer = (server: HttpServer) => {
   const sockerIOServer = new Server(server, {

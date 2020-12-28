@@ -1,12 +1,12 @@
+// import * as serviceWorker from './serviceWorker';
+import 'fontsource-roboto';
+import Homepage from 'pages/Home/Home.page';
+import RoomPage from 'pages/Room.page';
 import React from 'react';
 import ReactDOM from 'react-dom';
-// import * as serviceWorker from './serviceWorker';
-import Homepage from './pages/Home.page';
-import 'fontsource-roboto';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import RoomPage from 'pages/Room.page';
 import { PageRoutes } from 'routes/page.routes';
-import './index.css'
+import './index.css';
 const routes = PageRoutes();
 
 ReactDOM.render(

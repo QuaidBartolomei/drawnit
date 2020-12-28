@@ -1,11 +1,11 @@
-import Button from '@material-ui/core/Button';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import ImageUploadButton from 'components/ImageUploadButton';
-import React from 'react';
-import { useHistory } from 'react-router-dom';
-import { PageRoutes } from 'routes/page.routes';
 import { createRoom, setImage } from 'apis/room.api';
 import RoomsList from 'components/RoomsList';
+import Room from 'interfaces/room.interface';
+import React from 'react';
+import CreateRoomForm from './components/CreateRoomForm';
+import RoomPreview from './components/RoomPreview';
+import Title from './components/Title';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -15,62 +15,43 @@ const useStyles = makeStyles((theme) =>
       alignItems: 'center',
       justifyContent: 'center',
       '&>*': {
-        margin: 8,
+        margin: '1rem',
       },
+    },
+    bordered: {
+      border: 'medium solid black',
+      padding:'1rem'
     },
   })
 );
 
 const Homepage = () => {
   const classes = useStyles();
-  const history = useHistory();
+  const [roomId, setRoomId] = React.useState('');
 
-  const [canvasSize, setCanvasSize] = React.useState({
-    width: 300,
-    height: 300,
-  });
-  const [backgroundImageFile, setBackgroundImageFile] = React.useState<
-    File | undefined
-  >(undefined);
-
-  React.useEffect(() => {
-    if (!backgroundImageFile) return;
-    let img = new Image();
-    img.src = URL.createObjectURL(backgroundImageFile);
-    img.onload = () => {
-      setCanvasSize({
-        width: img.width,
-        height: img.height,
-      });
-    };
-  }, [backgroundImageFile]);
-
-  async function handleCreateRoomButton() {
-    const room = await createRoom(canvasSize);
+  async function handleCreateRoomButton(
+    roomSettings: Partial<Room>,
+    backgroundImageFile?: File
+  ) {
+    const room = await createRoom(roomSettings);
     const roomId = room?._id || 'error';
     if (!room) return;
     if (backgroundImageFile) {
       await setImage(roomId, backgroundImageFile);
     }
-    history.push(PageRoutes(roomId).ROOM);
+    setRoomId(roomId);
   }
 
   return (
     <div className={classes.container}>
-      <ImageUploadButton onFileSelect={setBackgroundImageFile} />
-      {backgroundImageFile ? (
-        <img
-          src={URL.createObjectURL(backgroundImageFile)}
-          alt='uploaded file'
-        />
-      ) : null}
-      <Button
-        onClick={handleCreateRoomButton}
-        variant='contained'
-        color='primary'
-      >
-        Create Room
-      </Button>
+      <Title />
+      <div className={classes.bordered}>
+        {roomId ? (
+          <RoomPreview roomId={roomId} />
+        ) : (
+          <CreateRoomForm onSubmit={handleCreateRoomButton} />
+        )}
+      </div>
       <RoomsList />
     </div>
   );

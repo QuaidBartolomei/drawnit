@@ -1,9 +1,10 @@
+import Button from '@material-ui/core/Button';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
 import React from 'react';
-import { makeStyles, createStyles } from '@material-ui/core/styles';
-import ImageIcon from '@material-ui/icons/Image';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
+    root: {},
     fileButton: {
       backgroundColor: 'white',
       '&:hover': {
@@ -42,17 +43,21 @@ const ImageUploadButton = ({ onFileSelect }: Props) => {
   };
 
   return (
-    <label className={classes.fileButton}>
+    <div className={classes.root}>
       <input
+        accept='image/*'
         className={classes.fileInput}
         id='image-file-input'
         type='file'
         name='file'
-        accept='image/*'
         onChange={handleImageUpload}
       />
-      <ImageIcon /> Upload Image
-    </label>
+      <label htmlFor='image-file-input'>
+        <Button variant='contained' color='primary' component='span'>
+          Upload
+        </Button>
+      </label>
+    </div>
   );
 };
 

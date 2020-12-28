@@ -1,14 +1,13 @@
 import { distance, Vector2 } from '@graph-ts/vector2';
+import { saveCanvasToDb } from 'apis/room.api';
+import { sendBrushStroke } from 'apis/socket.api';
 import { useRoomState } from 'contexts/room.context';
 import React, { useState } from 'react';
 import { drawBrushStroke, getImageString } from 'utils/canvas.utils';
 import {
   mousePositionCanvas,
-  touchPositionCanvas,
-  touchPositionScreen,
+  touchPositionCanvas
 } from 'utils/mouse.utils';
-import { saveCanvasToDb } from 'apis/room.api';
-import { sendBrushStroke } from 'apis/socket.api';
 
 export function useBrushTool(): React.HTMLProps<HTMLCanvasElement> {
   const [isPainting, setIsPainting] = useState(false);

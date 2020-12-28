@@ -11,7 +11,7 @@
     "start": "npm run server",
     "dev": "concurrently  \"npm run server:dev\" \"npm run client\" ",
     "build": "npm run server:build && npm run client:build",
-    "install": "npm run server:install && npm run client:install",
+    "full-install": "npm install && npm run server:install && npm run client:install",
     "test:all": "concurrently  \"npm run server:test\" \"npm run client:test\" ",
     "server": "cd server && npm start",
     "server:dev": "cd server && npm run dev",
