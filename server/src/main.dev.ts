@@ -15,3 +15,5 @@ let server = initApp(express(), () => {
   console.log('server is listening');
 });
 initSocketServer(server);
+
+process.on('SIGTERM', () => process.exit());
