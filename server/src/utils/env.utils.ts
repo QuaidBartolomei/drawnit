@@ -34,6 +34,7 @@ const env = {
   HOST,
   PORT,
   MONGO_DB_URI,
+  NODE_ENV,
 };
 
 export default env;

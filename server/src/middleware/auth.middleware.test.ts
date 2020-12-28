@@ -1,8 +1,8 @@
-import { initApp } from 'loaders/express.loader';
-import { Server } from 'http';
-import request from 'supertest';
-import { getAuth0Token } from 'middleware/auth.middleware';
 import express from 'express';
+import { Server } from 'http';
+import { initApp } from 'loaders/express.loader';
+import request from 'supertest';
+import { getAuth0Token } from 'utils/test.utils';
 
 let token = '';
 let expressServer: Server;

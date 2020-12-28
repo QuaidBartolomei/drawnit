@@ -13,7 +13,7 @@ export function initSocket() {
   const url =
     process.env.NODE_ENV === 'production'
       ? window.location.hostname
-      : 'http://localhost:4000';
+      : `${ window.location.hostname }:4000`;
   const clientSocket = io(url, {
     reconnectionDelay: 0,
     forceNew: true,

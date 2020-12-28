@@ -1,6 +1,6 @@
-import React from 'react';
+import { render, screen } from '@testing-library/react';
 import HomePage from 'pages/Home.page';
-import { render, fireEvent, waitFor, screen } from '@testing-library/react';
+import React from 'react';
 test('invalid room returns undefined', () => {
   expect(false).toBeFalsy();
 });

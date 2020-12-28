@@ -5,6 +5,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { PageRoutes } from 'routes/page.routes';
 import { createRoom, setImage } from 'apis/room.api';
+import RoomsList from 'components/RoomsList';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -70,6 +71,7 @@ const Homepage = () => {
       >
         Create Room
       </Button>
+      <RoomsList />
     </div>
   );
 };

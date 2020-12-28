@@ -2,7 +2,11 @@ import { distance, Vector2 } from '@graph-ts/vector2';
 import { useRoomState } from 'contexts/room.context';
 import React, { useState } from 'react';
 import { drawBrushStroke, getImageString } from 'utils/canvas.utils';
-import { mousePositionCanvas, touchPositionScreen } from 'utils/mouse.utils';
+import {
+  mousePositionCanvas,
+  touchPositionCanvas,
+  touchPositionScreen,
+} from 'utils/mouse.utils';
 import { saveCanvasToDb } from 'apis/room.api';
 import { sendBrushStroke } from 'apis/socket.api';
 
@@ -39,13 +43,17 @@ export function useBrushTool(): React.HTMLProps<HTMLCanvasElement> {
   };
 
   return {
+    style: {
+      cursor: 'crosshair',
+      touchAction: 'none',
+    },
     onMouseDown: (e) => onDown(mousePositionCanvas(e)),
     onMouseMove: (e) => onMove(mousePositionCanvas(e)),
     onMouseUp: (e) => onEnd(),
     onMouseLeave: (e) => onEnd(),
 
-    onTouchStart: (e) => onDown(touchPositionScreen(e)),
-    onTouchMove: (e) => onMove(touchPositionScreen(e)),
+    onTouchStart: (e) => onDown(touchPositionCanvas(e, room.canvasRef.current)),
+    onTouchMove: (e) => onMove(touchPositionCanvas(e, room.canvasRef.current)),
     onTouchCancel: (e) => onEnd(),
     onTouchEnd: (e) => onEnd(),
     onClick: () => {},

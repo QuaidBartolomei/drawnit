@@ -28,6 +28,8 @@ const RoomPage = () => {
   const [socket, setSocket] = React.useState<undefined | Socket>(undefined);
   const canvasRef = React.useRef<HTMLCanvasElement>(null);
 
+  console.log('loaded room page');
+
   React.useEffect(() => {
     initSocket().then((socket) => {
       socket
@@ -42,9 +44,9 @@ const RoomPage = () => {
     getRoom(roomId).then((room) => setRoom(room));
   }, [roomId, setRoom]);
 
-  if ( !socket) console.log('not ready');
+  if (!socket) console.log('not ready');
   if (!room || !socket) return null;
-console.log('ready');
+  console.log('ready');
 
   return (
     <div className={classes.canvasContainer}>

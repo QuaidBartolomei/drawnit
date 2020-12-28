@@ -10,9 +10,11 @@ import {
 } from 'utils/canvas.utils';
 import { getBackgroundImage } from 'apis/room.api';
 import { SocketEvents } from 'apis/socket.api';
+import { usePanTool } from 'hooks/panTool';
 
 export enum CanvasTools {
   Brush,
+  Pan,
 }
 
 const useStyles = makeStyles((theme) => {
@@ -47,6 +49,7 @@ const Canvas = (props: Props, ref: Ref) => {
   const [imgUrl, setImgUrl] = React.useState('');
   const canvasTools = {
     [CanvasTools.Brush]: useBrushTool(),
+    [CanvasTools.Pan]: usePanTool(),
   };
 
   // Load background image

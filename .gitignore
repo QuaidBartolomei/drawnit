@@ -2,3 +2,6 @@
 .DS_Store
 /.pnp
 .pnp.js
+.todo
+*/build
+*/dist

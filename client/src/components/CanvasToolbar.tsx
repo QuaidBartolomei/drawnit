@@ -8,6 +8,7 @@ import { useRoomDispatch, useRoomState } from 'contexts/room.context';
 import React from 'react';
 import { clearCanvas } from 'utils/canvas.utils';
 import { CanvasTools } from './Canvas';
+import PanToolIcon from '@material-ui/icons/PanTool';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -33,6 +34,11 @@ const canvasTools: CanvasTool[] = [
     id: CanvasTools.Brush,
     icon: <BrushIcon />,
     label: 'brush',
+  },
+  {
+    id: CanvasTools.Pan,
+    icon: <PanToolIcon />,
+    label: 'pan',
   },
 ];
 
