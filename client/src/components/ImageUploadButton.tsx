@@ -4,7 +4,15 @@ import React from 'react';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
-    root: {},
+    root: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      '&>*': {
+        margin: '.5rem',
+      },
+    },
     fileButton: {
       backgroundColor: 'white',
       '&:hover': {
@@ -28,7 +36,6 @@ type Props = {
 
 const ImageUploadButton = ({ onFileSelect }: Props) => {
   const classes = useStyles();
-
   const handleImageUpload = async (
     e: React.ChangeEvent<HTMLInputElement>
   ): Promise<void> => {
@@ -53,8 +60,8 @@ const ImageUploadButton = ({ onFileSelect }: Props) => {
         onChange={handleImageUpload}
       />
       <label htmlFor='image-file-input'>
-        <Button variant='contained' color='primary' component='span'>
-          Upload
+        <Button variant='contained' color='default' component='span'>
+          Select Image
         </Button>
       </label>
     </div>
