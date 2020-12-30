@@ -11,6 +11,7 @@ import { CanvasTools } from './Canvas';
 import PanToolIcon from '@material-ui/icons/PanTool';
 import { SketchPicker } from 'react-color';
 import BrushColorInput from './BrushColorInput';
+import ClearCanvasButton from './ClearCanvasButton';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -71,24 +72,11 @@ const CanvasToolbar = () => {
       aria-label={label}
       onClick={() => setCanvasTool(id)}
       key={label}
+      color={room.selectedTool === id ? 'secondary' : 'default'}
     >
       {icon}
     </IconButton>
   );
-
-  const ClearCanvasButton = () => (
-    <Button
-      onClick={() => {
-        clearCanvas(room.canvasRef);
-        saveCanvasToDb(room._id, '');
-        sendClearCanvas(room._id, room.socket);
-      }}
-      variant='outlined'
-    >
-      Clear Canvas
-    </Button>
-  );
-
 
   return (
     <div className={classes.container}>
