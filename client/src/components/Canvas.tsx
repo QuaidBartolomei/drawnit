@@ -11,6 +11,7 @@ import {
 import { getBackgroundImage } from 'apis/room.api';
 import { SocketEvents } from 'apis/socket.api';
 import { usePanTool } from 'hooks/panTool';
+import { CSSProperties } from '@material-ui/core/styles/withStyles';
 
 export enum CanvasTools {
   Brush,
@@ -22,6 +23,12 @@ const useStyles = makeStyles((theme) => {
     width: '100%',
     height: '100%',
   };
+  const topLeft: CSSProperties = {
+    ...fullSize,
+    position: 'absolute',
+    top: 0,
+    left: 0,
+  };
   return createStyles({
     outsideWrapper: (props) => ({
       ...props,
@@ -30,11 +37,12 @@ const useStyles = makeStyles((theme) => {
       ...fullSize,
       position: 'relative',
     },
-    coveredImage: {
-      ...fullSize,
-      position: 'absolute',
-      top: 0,
-      left: 0,
+    bgImage: {
+      ...topLeft,
+    },
+    canvas: {
+      ...topLeft,
+      border: 'thin black solid',
     },
   });
 });
@@ -83,16 +91,23 @@ const Canvas = (props: Props, ref: Ref) => {
     };
   }, [room.socket, room.canvasRef]);
 
+  const canvasImage = imgUrl && (
+    <img className={classes.canvas} alt='background' src={imgUrl} />
+  );
+
   return (
     <div className={classes.outsideWrapper}>
       <div className={classes.insideWrapper}>
-        <img className={classes.coveredImage} alt='background' src={imgUrl} />
+        {canvasImage}
         <canvas
-          className={classes.coveredImage}
+          className={classes.canvas}
           {...props}
           {...size}
           {...canvasTools[room.selectedTool]}
           ref={ref}
+          style={{
+            backgroundColor: imgUrl ? 'transparent' : 'white',
+          }}
         ></canvas>
       </div>
     </div>

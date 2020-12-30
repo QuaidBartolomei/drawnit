@@ -7,7 +7,8 @@ import { Socket } from 'socket.io-client';
 export interface RoomState extends Room {
   selectedTool: CanvasTools;
   canvasRef: React.RefObject<HTMLCanvasElement>;
-  socket: Socket
+  socket: Socket;
+  color:string;
 }
 const StateContext = createContext<RoomState | undefined>(undefined);
 const DispatchContext = createContext<RoomDispatch | undefined>(undefined);
@@ -24,6 +25,7 @@ export const RoomContextProvider: FC<Props> = (props) => {
     selectedTool: CanvasTools.Brush,
     canvasRef,
     socket,
+    color: '#000000'
   });
 
   return (

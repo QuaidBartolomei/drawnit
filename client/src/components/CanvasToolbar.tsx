@@ -9,16 +9,28 @@ import React from 'react';
 import { clearCanvas } from 'utils/canvas.utils';
 import { CanvasTools } from './Canvas';
 import PanToolIcon from '@material-ui/icons/PanTool';
+import { SketchPicker } from 'react-color';
+import BrushColorInput from './BrushColorInput';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
     container: {
-      width: '100%',
-
       display: 'flex',
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'center',
+      backgroundColor: 'white',
+      '&>*': {
+        margin: '0.5rem',
+      },
+      borderRadius: 8,
+      border: 'thin black solid',
+    },
+    colorPicker: {
+      backgroundColor: 'red',
+      width: 32,
+      height: 32,
+      cursor: 'pointer',
     },
   })
 );
@@ -64,18 +76,26 @@ const CanvasToolbar = () => {
     </IconButton>
   );
 
+  const ClearCanvasButton = () => (
+    <Button
+      onClick={() => {
+        clearCanvas(room.canvasRef);
+        saveCanvasToDb(room._id, '');
+        sendClearCanvas(room._id, room.socket);
+      }}
+      variant='outlined'
+    >
+      Clear Canvas
+    </Button>
+  );
+
+
   return (
     <div className={classes.container}>
+      <BrushColorInput />
       {canvasTools.map(CanvasToolButton)}
-      <Button
-        onClick={() => {
-          clearCanvas(room.canvasRef);
-          saveCanvasToDb(room._id, '');
-          sendClearCanvas(room._id, room.socket);
-        }}
-      >
-        Clear Canvas
-      </Button>
+
+      <ClearCanvasButton />
     </div>
   );
 };

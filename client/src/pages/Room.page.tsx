@@ -15,8 +15,15 @@ const useStyles = makeStyles((theme) =>
       backgroundImage: `linear-gradient(rgba(0,0,0, .3) .1em, transparent .1em), linear-gradient(90deg, rgba(0, 0, 0, .3) .1em, transparent .1em)`,
       backgroundPosition: '-2px -2px, -2px -2px, -1px -1px, -1px -1px',
       backgroundSize: '3em 3em',
+      backgroundColor: '#e3e2e5',
       height: '100vh',
       width: '100%',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      '&>*': {
+        margin: '0.5rem',
+      },
     },
   })
 );
@@ -27,8 +34,6 @@ const RoomPage = () => {
   const [room, setRoom] = React.useState<Room | undefined>(undefined);
   const [socket, setSocket] = React.useState<undefined | Socket>(undefined);
   const canvasRef = React.useRef<HTMLCanvasElement>(null);
-
-  console.log('loaded room page');
 
   React.useEffect(() => {
     initSocket().then((socket) => {
@@ -52,7 +57,6 @@ const RoomPage = () => {
     <div className={classes.canvasContainer}>
       <RoomContextProvider room={room} canvasRef={canvasRef} socket={socket}>
         <CanvasToolbar />
-        <div>Page id: {roomId}</div>
         <Canvas ref={canvasRef} />
       </RoomContextProvider>
     </div>
