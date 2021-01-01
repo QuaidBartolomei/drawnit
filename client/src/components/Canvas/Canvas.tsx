@@ -1,6 +1,6 @@
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { useRoomState } from 'contexts/room.context';
-import { useBrushTool } from 'hooks/brushTool';
+import { useBrushTool } from 'components/Canvas/hooks/brushTool.hook';
 import { BrushStroke } from 'interfaces/brushStroke.interface';
 import React, { useEffect } from 'react';
 import {
@@ -10,7 +10,7 @@ import {
 } from 'utils/canvas.utils';
 import { getBackgroundImage } from 'apis/room.client.api';
 import { SocketEvents } from 'apis/socket.client.api';
-import { usePanTool } from 'hooks/panTool';
+import { usePanTool } from 'components/Canvas/hooks/panTool.hook';
 import { CSSProperties } from '@material-ui/core/styles/withStyles';
 
 export enum CanvasTools {

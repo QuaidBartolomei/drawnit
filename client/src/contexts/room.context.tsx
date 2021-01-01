@@ -1,4 +1,4 @@
-import { CanvasTools } from 'components/Canvas';
+import { CanvasTools } from 'components/Canvas/Canvas';
 import Room from 'interfaces/room.interface';
 import React, { createContext, FC, useReducer } from 'react';
 import {  RoomDispatch, roomReducer } from './room.reducer';

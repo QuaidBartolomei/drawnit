@@ -1,5 +1,5 @@
 import { makeStyles, createStyles } from '@material-ui/core';
-import Canvas from 'components/Canvas';
+import Canvas from 'components/Canvas/Canvas';
 import { RoomContextProvider } from 'contexts/room.context';
 import Room from 'interfaces/room.interface';
 import React from 'react';
@@ -7,7 +7,7 @@ import { useParams } from 'react-router-dom';
 import { Socket } from 'socket.io-client';
 import { getRoom } from 'apis/room.client.api';
 import { initSocket, SocketEvents } from 'apis/socket.client.api';
-import CanvasToolbar from 'components/CanvasToolbar';
+import CanvasToolbar from 'components/Canvas/CanvasToolbar';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
