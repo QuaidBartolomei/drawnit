@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import Room from 'interfaces/room.interface';
+import { authMiddleware } from 'middleware/auth.middleware';
 import {
   createAndSaveRoomDoc,
   deleteAllRooms,
@@ -53,7 +54,7 @@ export const roomController = Router()
       res.status(500).send();
     }
   })
-  .get(RoomRoutes.GET_All, async (req, res) => {
+  .get(RoomRoutes.GET_All, authMiddleware ,async (req, res) => {
     try {
       let roomDocs = await getAllRooms();
       if (!roomDocs) return res.status(400).send();

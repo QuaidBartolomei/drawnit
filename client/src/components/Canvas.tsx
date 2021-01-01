@@ -8,8 +8,8 @@ import {
   drawBrushStroke,
   loadCanvasImage,
 } from 'utils/canvas.utils';
-import { getBackgroundImage } from 'apis/room.api';
-import { SocketEvents } from 'apis/socket.api';
+import { getBackgroundImage } from 'apis/room.client.api';
+import { SocketEvents } from 'apis/socket.client.api';
 import { usePanTool } from 'hooks/panTool';
 import { CSSProperties } from '@material-ui/core/styles/withStyles';
 

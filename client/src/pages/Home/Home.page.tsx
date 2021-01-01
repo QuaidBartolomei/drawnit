@@ -1,6 +1,5 @@
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { createRoom, setImage } from 'apis/room.api';
-import RoomsList from 'components/RoomsList';
+import { createRoom, setImage } from 'apis/room.client.api';
 import Room from 'interfaces/room.interface';
 import React from 'react';
 import CreateRoomForm from './components/CreateRoomForm';
@@ -52,7 +51,6 @@ const Homepage = () => {
           <CreateRoomForm onSubmit={handleCreateRoomButton} />
         )}
       </div>
-      <RoomsList />
     </div>
   );
 };

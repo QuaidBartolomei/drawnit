@@ -4,6 +4,7 @@ import env from 'utils/env.utils';
 
 export const SocketEvents = {
   Connect: 'connection',
+  Disconnect: 'disconnecting',
   Ping: 'USERVENT_PING',
   JoinRoom: 'USERVENT_JOIN_ROOM',
   UpdateCanvas: 'USEREVENT_UPDATE_CANVAS',
@@ -11,18 +12,18 @@ export const SocketEvents = {
   BrushStroke: 'USEREVENT_BRUSH_STROKE',
 };
 
-const origin = `http://localhost:${env.PORT}`;
+const origin = `https://localhost:${env.PORT}`;
 
 export const initSocketServer = (server: HttpServer) => {
-  const sockerIOServer = new Server(server, {
+  const socketIOServer = new Server(server, {
     cors: {
       origin,
     },
   });
-  sockerIOServer.on(SocketEvents.Connect, (clientSocket: Socket) => {
+  socketIOServer.on(SocketEvents.Connect, (clientSocket: Socket) => {
     clientSocket
       .on(SocketEvents.Ping, () => {
-        sockerIOServer.emit(SocketEvents.Ping);
+        socketIOServer.emit(SocketEvents.Ping);
       })
       .on(SocketEvents.JoinRoom, (roomId: string) => {
         clientSocket.join(roomId);
@@ -33,7 +34,7 @@ export const initSocketServer = (server: HttpServer) => {
       })
       .on(SocketEvents.ClearCanvas, (roomId: string) => {
         clientSocket.to(roomId).emit(SocketEvents.ClearCanvas);
-      });
+      })
   });
-  return sockerIOServer;
+  return socketIOServer;
 };

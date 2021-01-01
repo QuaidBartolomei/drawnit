@@ -11,7 +11,7 @@ const mongod = new MongoMemoryServer({
 });
 
 initMemoryDB(mongod);
-let server = initApp(express(), () => {
+const server = initApp(express(), () => {
   console.log('server is listening');
 });
 initSocketServer(server);

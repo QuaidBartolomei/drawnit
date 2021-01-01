@@ -2,7 +2,7 @@ import React from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { PageRoutes } from 'routes/page.routes';
 import Room from 'interfaces/room.interface';
-import { getAllRooms } from 'apis/room.api';
+import { getAllRooms } from 'apis/room.client.api';
 import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles((theme) =>

@@ -5,8 +5,8 @@ import Room from 'interfaces/room.interface';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { Socket } from 'socket.io-client';
-import { getRoom } from 'apis/room.api';
-import { initSocket, SocketEvents } from 'apis/socket.api';
+import { getRoom } from 'apis/room.client.api';
+import { initSocket, SocketEvents } from 'apis/socket.client.api';
 import CanvasToolbar from 'components/CanvasToolbar';
 
 const useStyles = makeStyles((theme) =>

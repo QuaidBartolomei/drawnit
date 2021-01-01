@@ -1,6 +1,6 @@
 import { distance, Vector2 } from '@graph-ts/vector2';
-import { saveCanvasToDb } from 'apis/room.api';
-import { sendBrushStroke } from 'apis/socket.api';
+import { saveCanvasToDb } from 'apis/room.client.api';
+import { sendBrushStroke } from 'apis/socket.client.api';
 import { useRoomState } from 'contexts/room.context';
 import React, { useState } from 'react';
 import { drawBrushStroke, getImageString } from 'utils/canvas.utils';

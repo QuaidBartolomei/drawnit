@@ -35,6 +35,11 @@ const roomSchema = new Schema({
     type: String,
     default: '',
   },
+  createdAt: {
+    type: Date,
+    expires: 3600 * 4, // delete room after 4 hr
+    default: Date.now,
+  },
 });
 
 export type RoomDocument = Room & mongoose.Document;

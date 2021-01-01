@@ -1,16 +1,11 @@
-import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import BrushIcon from '@material-ui/icons/Brush';
-import { saveCanvasToDb } from 'apis/room.api';
-import { sendClearCanvas } from 'apis/socket.api';
+import PanToolIcon from '@material-ui/icons/PanTool';
 import { useRoomDispatch, useRoomState } from 'contexts/room.context';
 import React from 'react';
-import { clearCanvas } from 'utils/canvas.utils';
-import { CanvasTools } from './Canvas';
-import PanToolIcon from '@material-ui/icons/PanTool';
-import { SketchPicker } from 'react-color';
 import BrushColorInput from './BrushColorInput';
+import { CanvasTools } from './Canvas';
 import ClearCanvasButton from './ClearCanvasButton';
 
 const useStyles = makeStyles((theme) =>
