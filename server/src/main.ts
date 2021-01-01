@@ -7,16 +7,12 @@ import path from 'path';
 import favicon from 'serve-favicon';
 
 initDb(env.MONGO_DB_URI || '');
-const app = express();
-const server = initApp(app, () => {
-  console.log('server is listening');
-});
-initSocketServer(server);
 
 const client = path.join(__dirname, '../../client/build');
 const staticPath = path.join(client, 'static');
 const faviconPath = path.join(client, 'favicon.ico');
 
+const app = express();
 app
   .use('/static', express.static(staticPath))
   .use(favicon(faviconPath))
@@ -25,3 +21,8 @@ app
       root: client,
     });
   });
+
+const server = initApp(app, () => {
+  console.log('server is listening');
+});
+initSocketServer(server);
