@@ -36,7 +36,8 @@ export async function setImage(
   id: string,
   imageFile: File
 ): Promise<Room | undefined> {
-  await uploadFile(RoomClientRoutes(id).SET_IMAGE, imageFile);
+  const res = await uploadFile(RoomClientRoutes(id).SET_IMAGE, imageFile);
+  if (res.status !== StatusCodes.OK) return undefined;
   return getRoom(id);
 }
 

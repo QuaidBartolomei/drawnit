@@ -6,62 +6,78 @@ import {
   getAllRooms,
   getBackgroundImage,
   getRoom,
-
-  saveCanvasToDb, setImage
+  saveCanvasToDb,
+  setImage,
 } from 'apis/room.client.api';
-import { imageBlob, imageFile } from 'utils/test.utils';
+import { imageBlob, imageBuffer, imageFile } from 'utils/test.utils';
+import { rest } from 'msw';
+import { setupServer } from 'msw/node';
+import { RoomClientRoutes, RoomRoutes } from 'routes/room.api.routes';
+import { StatusCodes } from 'http-status-codes';
 
+beforeAll(() => server.listen());
+afterEach(() => server.resetHandlers());
+afterAll(() => server.close());
 
-beforeEach(async () => {
-  await deleteAllRooms();
-});
-afterAll(async () => {
-  await deleteAllRooms();
-});
+const badId = 'badid';
 
+const exampleRoom = { backgroundImageId: '1' };
 
-async function checkCount(expectedCount: number) {
-  const controlRoomCount = await countRooms();
-  expect(controlRoomCount).toBe(expectedCount);
-}
-async function createRoomAndGetId(): Promise<string> {
-  const controlRoom = await createRoom();
-  const id = controlRoom?._id || '';
-  expect(id).toBeTruthy();
-  return id;
-}
+const server = setupServer(
+  rest.get(RoomClientRoutes(badId).GET_ROOM, (req, res, ctx) => {
+    return res(ctx.json(undefined));
+  }),
+  rest.post(RoomRoutes.CREATE_ROOM, (req, res, ctx) => {
+    return res(ctx.json({ _id: '1' }));
+  }),
+  rest.post(RoomRoutes.SET_IMAGE, (req, res, ctx) => {
+    return res(ctx.json({ _id: req.params.id, backgroundImageId: '1' }));
+  }),
+  rest.post(RoomRoutes.UPDATE_CANVAS, (req, res, ctx) => {
+    return res(ctx.status(200));
+  }),
+  rest.get(RoomRoutes.GET_ROOM, (req, res, ctx) => {
+    return res(ctx.json({ ...exampleRoom, _id: req.params.id }));
+  }),
+  rest.get(RoomRoutes.DELETE_ALL, (req, res, ctx) => {
+    return res(ctx.status(200));
+  }),
+  rest.get(RoomRoutes.DELETE_ROOM, (req, res, ctx) => {
+    return res(ctx.status(200));
+  }),
+  rest.get(RoomRoutes.GET_BACKGROUND_IMAGE, (req, res, ctx) => {
+    return res(ctx.text(imageBuffer.toString('base64')));
+  })
+);
 
 // CREATE_ROOM: '/room/create',
 describe('createRoom', () => {
   test('createRoom and get', async () => {
-    let id = await createRoomAndGetId();
+    const controlRoom = await createRoom();
+    const id = controlRoom?._id || '';
     expect(id).toBeTruthy();
   });
-});
-
-// DELETE_ALL: `/room/delete-all/`,
-test('delete all rooms', async () => {
-  await createRoom();
-  await checkCount(1);
-  const success = await deleteAllRooms();
-  expect(success).toBeTruthy();
-  await checkCount(0);
 });
 
 // GET_ROOM: `/room/get/${roomId}`,
 describe('GET_ROOM', () => {
   test('invalid id returns undefined', async () => {
-    const id = 'badid';
-    const testRoom = await getRoom(id);
+    const testRoom = await getRoom(badId);
     expect(testRoom).toBeFalsy();
   });
   test('getRoomById', async () => {
-    const id = await createRoomAndGetId();
+    const id = '2';
     const testRoom = await getRoom(id);
     expect(testRoom).toBeTruthy();
     expect(testRoom?._id).toBeTruthy();
     expect(testRoom?._id).toBe(id);
   });
+});
+
+// DELETE_ALL: `/room/delete-all/`,
+test('delete all rooms', async () => {
+  const success = await deleteAllRooms();
+  expect(success).toBeTruthy();
 });
 
 // GET_All: '/room/all',
@@ -77,11 +93,16 @@ describe('GET_ROOM', () => {
 // SET_IMAGE: `/room/setImage/${roomId}`,
 describe('SET_IMAGE', () => {
   test('invalid room returns undefined', async () => {
-    const testRoom = await setImage('badid', imageFile);
+    server.use(
+      rest.post(RoomClientRoutes(badId).SET_IMAGE, (req, res, ctx) => {
+        return res(ctx.status(500));
+      })
+    );
+    const testRoom = await setImage(badId, imageFile);
     expect(testRoom).toBeFalsy();
   });
   test('valid room', async () => {
-    const id = await createRoomAndGetId();
+    const id = '2';
     const testRoom = await setImage(id, imageFile);
     expect(testRoom).toBeTruthy();
     expect(testRoom?._id).toBe(id);
@@ -92,15 +113,19 @@ describe('SET_IMAGE', () => {
 // GET_BACKGROUND_IMAGE: `/room/getImage/${roomId}`,
 describe('GET_BACKGROUND_IMAGE', () => {
   test('invalid room returns undefined', async () => {
-    const testRoom = await getBackgroundImage('badid');
-    expect(testRoom).toBeFalsy();
-  });
-  test('empty room id returns undefined', async () => {
-    const testRoom = await getBackgroundImage('');
+    server.use(
+      rest.get(
+        RoomClientRoutes(badId).GET_BACKGROUND_IMAGE,
+        (req, res, ctx) => {
+          return res(ctx.status(500));
+        }
+      )
+    );
+    const testRoom = await getBackgroundImage(badId);
     expect(testRoom).toBeFalsy();
   });
   test('valid room', async () => {
-    const id = await createRoomAndGetId();
+    const id = '2';
     const testRoom = await setImage(id, imageFile);
     expect(testRoom).toBeTruthy();
     expect(testRoom?._id).toBe(id);
@@ -114,35 +139,28 @@ describe('GET_BACKGROUND_IMAGE', () => {
 // UPDATE_CANVAS: `/room/update/${roomId}`,
 describe('UPDATE_CANVAS', () => {
   test('invalid room returns undefined', async () => {
-    const testRoom = await saveCanvasToDb('badid', '');
+    server.use(
+      rest.post(RoomClientRoutes(badId).UPDATE_CANVAS, (req, res, ctx) => {
+        return res(ctx.status(500));
+      })
+    );
+    const testRoom = await saveCanvasToDb(badId, '');
     expect(testRoom).toBeFalsy();
   });
-  test('empty room id returns undefined', async () => {
-    const testRoom = await saveCanvasToDb('', '');
-    expect(testRoom).toBeFalsy();
-  });
+
   test('valid room', async () => {
-    const id = await createRoomAndGetId();
+    const id = '2';
     const canvasString = 'newCanvas';
     const res = await saveCanvasToDb(id, canvasString);
-    expect(res).toBeTruthy(); 
+    expect(res).toBeTruthy();
   });
 });
 
 // DELETE_ROOM: `/room/delete/${roomId}`,
 describe('DELETE_ROOM', () => {
   test('valid room', async () => {
-    const id = await createRoomAndGetId();
-    await deleteRoom(id);
-    const testRoom = await getRoom(id);
-    expect(testRoom).toBeFalsy();
+    const id = '2';
+    const result = await deleteRoom(id);
+    expect(result).toBeTruthy();
   });
-});
-
-test('countRooms', async () => {
-  await checkCount(0);
-  await createRoom();
-  await checkCount(1);
-  await createRoom();
-  await checkCount(2);
 });

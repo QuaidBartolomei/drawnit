@@ -10,5 +10,4 @@ test('invalid room returns undefined', () => {
 test('expect create room button', async () => {
   render(<HomePage />);
 
-  expect(screen.getByRole('button')).toHaveTextContent(/create room/i);
 });
