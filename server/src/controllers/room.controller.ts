@@ -17,7 +17,7 @@ import { RoomRoutes } from 'routes/room.routes';
 
 export const roomController = Router()
   .post(RoomRoutes.CREATE_ROOM, async (req, res) => {
-    let room = req.body as Room;
+    const room:Room = req.body;
     if (!room.height || !room.width) return res.status(400).send();
     try {
       let savedRoom = await createAndSaveRoomDoc(room);
@@ -28,7 +28,7 @@ export const roomController = Router()
     }
   })
   .get(RoomRoutes.GET_ROOM, async (req, res) => {
-    let id = req.params.id as string;
+    const id:string = req.params.id;
     try {
       let roomDoc = await getRoomById(id);
       if (!roomDoc) return res.status(400).send();
@@ -38,7 +38,7 @@ export const roomController = Router()
     }
   })
   .get(RoomRoutes.DELETE_ROOM, async (req, res) => {
-    let id = req.params.id as string;
+    const id: string = req.params.id;
     try {
       await RoomModel.findByIdAndDelete(id);
       res.status(200).send();
@@ -64,7 +64,7 @@ export const roomController = Router()
     }
   })
   .get(RoomRoutes.GET_BACKGROUND_IMAGE, async (req, res) => {
-    let id = req.params.id as string;
+    const id: string = req.params.id;
     try {
       let image = await getBackgroundImage(id);
       if (!image) return res.status(400).send();
@@ -74,19 +74,19 @@ export const roomController = Router()
     }
   })
   .post(RoomRoutes.SET_IMAGE, multer().single('image'), async (req, res) => {
-    let roomId = req.params.id as string;
+    const id: string = req.params.id;
     try {
-      await setBackgroundImage(roomId, { file: req.file });
+      await setBackgroundImage(id, { file: req.file });
       res.status(200).send();
     } catch {
       res.status(500).send();
     }
   })
   .post(RoomRoutes.UPDATE_CANVAS, async (req, res) => {
-    let roomId = req.params.id as string;
-    let data = req.body as Partial<Room>;
+    const id: string = req.params.id;
+    let data: Partial<Room> = req.body;
     try {
-      let updatedRoom = await updateRoomValue(roomId, data);
+      let updatedRoom = await updateRoomValue(id, data);
       if (!updatedRoom) return res.status(400).send();
       res.status(200).send();
     } catch {

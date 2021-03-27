@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import HomePage from 'pages/Home.page';
+import HomePage from 'pages/Home/Home.page';
 import React from 'react';
 test('invalid room returns undefined', () => {
   expect(false).toBeFalsy();

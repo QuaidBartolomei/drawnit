@@ -1,4 +1,4 @@
-import { useRoomState } from 'contexts/room.context';
+import { useRoomState } from 'components/ImageEditor/imageEditor.context';
 import { BrushStroke } from 'interfaces/brushStroke.interface';
 
 export function useCanvas() {

@@ -1,13 +1,11 @@
-import { makeStyles, createStyles } from '@material-ui/core';
-import Canvas from 'components/Canvas/Canvas';
-import { RoomContextProvider } from 'contexts/room.context';
+import { createStyles, makeStyles } from '@material-ui/core';
+import { getRoom } from 'apis/room.client.api';
+import { initSocket, SocketEvents } from 'apis/socket.client.api';
+import ImageEditor from 'components/ImageEditor/ImageEditor';
 import Room from 'interfaces/room.interface';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { Socket } from 'socket.io-client';
-import { getRoom } from 'apis/room.client.api';
-import { initSocket, SocketEvents } from 'apis/socket.client.api';
-import CanvasToolbar from 'components/Canvas/CanvasToolbar';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -33,7 +31,6 @@ const RoomPage = () => {
   const { id: roomId } = useParams<{ id: string }>();
   const [room, setRoom] = React.useState<Room | undefined>(undefined);
   const [socket, setSocket] = React.useState<undefined | Socket>(undefined);
-  const canvasRef = React.useRef<HTMLCanvasElement>(null);
 
   React.useEffect(() => {
     initSocket().then((socket) => {
@@ -55,10 +52,7 @@ const RoomPage = () => {
 
   return (
     <div className={classes.canvasContainer}>
-      <RoomContextProvider room={room} canvasRef={canvasRef} socket={socket}>
-        <CanvasToolbar />
-        <Canvas ref={canvasRef} />
-      </RoomContextProvider>
+      <ImageEditor room={room} socket={socket} />
     </div>
   );
 };

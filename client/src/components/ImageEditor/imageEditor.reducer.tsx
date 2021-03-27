@@ -1,5 +1,5 @@
 import { CanvasTools } from 'components/Canvas/Canvas';
-import { RoomState } from './room.context';
+import { RoomState } from './imageEditor.context';
 
 type Action =
   | { type: 'set_canvasTool'; payload: CanvasTools }

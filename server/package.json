@@ -1,5 +1,5 @@
 {
-  "name": "express-example",
+  "name": "drawnit-server",
   "version": "1.0.0",
   "description": "",
   "main": "./src/main.js",
@@ -11,7 +11,6 @@
     "build": "tsc --project tsconfig.prod.json"
   },
   "keywords": [],
-  "author": "",
   "license": "ISC",
   "devDependencies": {
     "@shelf/jest-mongodb": "^1.2.3",

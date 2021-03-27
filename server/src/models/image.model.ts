@@ -40,7 +40,8 @@ export async function createAndSaveImageDocument({
   let encodedImg = encodedFile || file?.buffer.toString(ENCODING) || undefined;
   if (!encodedImg) return undefined;
   let imageBuffer = Buffer.from(encodedImg, ENCODING);
-  let contentType = file?.mimetype || mimeType;
-  let image = new ImageModel({ contentType, imageBuffer } as ImageData);
+  let contentType = file?.mimetype || mimeType || '';
+  const imageData: Partial<ImageData> = { contentType, imageBuffer };
+  let image = new ImageModel(imageData);
   return image.save();
 }

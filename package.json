@@ -3,7 +3,7 @@
     "node": "14.15.x",
     "yarn": "1.22.x"
   },
-  "name": "draw-together",
+  "name": "drawnit",
   "version": "1.0.0",
   "description": "",
   "main": "server/src/main.js",

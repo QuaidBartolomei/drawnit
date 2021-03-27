@@ -4,8 +4,8 @@ export async function getResponseData<T>(
   res: Response
 ): Promise<T | undefined> {
   try {
-    const data = await res.json();
-    return data as T;
+    const data:T = await res.json();
+    return data;
   } catch (err) {
     return undefined;
   }

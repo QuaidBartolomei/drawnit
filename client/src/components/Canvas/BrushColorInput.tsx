@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { SketchPicker } from 'react-color';
-import { useRoomDispatch, useRoomState } from 'contexts/room.context';
+import { useRoomDispatch, useRoomState } from 'components/ImageEditor/imageEditor.context';
 
 const useStyles = makeStyles((theme) =>
   createStyles({

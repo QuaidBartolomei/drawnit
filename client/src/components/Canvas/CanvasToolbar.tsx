@@ -2,7 +2,7 @@ import IconButton from '@material-ui/core/IconButton';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import BrushIcon from '@material-ui/icons/Brush';
 import PanToolIcon from '@material-ui/icons/PanTool';
-import { useRoomDispatch, useRoomState } from 'contexts/room.context';
+import { useRoomDispatch, useRoomState } from 'components/ImageEditor/imageEditor.context';
 import React from 'react';
 import BrushColorInput from './BrushColorInput';
 import { CanvasTools } from './Canvas';

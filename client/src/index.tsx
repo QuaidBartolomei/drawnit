@@ -1,7 +1,7 @@
 // import * as serviceWorker from './serviceWorker';
 import 'fontsource-roboto';
 import Homepage from 'pages/Home/Home.page';
-import RoomPage from 'pages/Room.page';
+import RoomPage from 'pages/Room/Room.page';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';

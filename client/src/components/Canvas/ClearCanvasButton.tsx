@@ -3,7 +3,7 @@ import { makeStyles, createStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import { saveCanvasToDb } from 'apis/room.client.api';
 import { sendClearCanvas } from 'apis/socket.client.api';
-import { useRoomState } from 'contexts/room.context';
+import { useRoomState } from 'components/ImageEditor/imageEditor.context';
 import { clearCanvas } from 'utils/canvas.utils';
 
 const useStyles = makeStyles((theme) =>

@@ -1,6 +1,4 @@
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { createRoom, setImage } from 'apis/room.client.api';
-import Room from 'interfaces/room.interface';
 import React from 'react';
 import CreateRoomForm from './components/CreateRoomForm';
 import RoomPreview from './components/RoomPreview';
@@ -19,7 +17,7 @@ const useStyles = makeStyles((theme) =>
     },
     bordered: {
       border: 'medium solid black',
-      padding:'1rem'
+      padding: '1rem',
     },
   })
 );
@@ -28,19 +26,6 @@ const Homepage = () => {
   const classes = useStyles();
   const [roomId, setRoomId] = React.useState('');
 
-  async function handleCreateRoomButton(
-    roomSettings: Partial<Room>,
-    backgroundImageFile?: File
-  ) {
-    const room = await createRoom(roomSettings);
-    const roomId = room?._id || 'error';
-    if (!room) return;
-    if (backgroundImageFile) {
-      await setImage(roomId, backgroundImageFile);
-    }
-    setRoomId(roomId);
-  }
-
   return (
     <div className={classes.container}>
       <Title />
@@ -48,7 +33,7 @@ const Homepage = () => {
         {roomId ? (
           <RoomPreview roomId={roomId} />
         ) : (
-          <CreateRoomForm onSubmit={handleCreateRoomButton} />
+          <CreateRoomForm onSubmit={setRoomId} />
         )}
       </div>
     </div>

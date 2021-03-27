@@ -1,17 +1,16 @@
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { useRoomState } from 'contexts/room.context';
+import { CSSProperties } from '@material-ui/core/styles/withStyles';
+import { SocketEvents } from 'apis/socket.client.api';
 import { useBrushTool } from 'components/Canvas/hooks/brushTool.hook';
+import { usePanTool } from 'components/Canvas/hooks/panTool.hook';
+import { useRoomState } from 'components/ImageEditor/imageEditor.context';
 import { BrushStroke } from 'interfaces/brushStroke.interface';
 import React, { useEffect } from 'react';
 import {
   clearCanvas,
-  drawBrushStroke,
-  loadCanvasImage,
+  drawBrushStroke
 } from 'utils/canvas.utils';
-import { getBackgroundImage } from 'apis/room.client.api';
-import { SocketEvents } from 'apis/socket.client.api';
-import { usePanTool } from 'components/Canvas/hooks/panTool.hook';
-import { CSSProperties } from '@material-ui/core/styles/withStyles';
+import CanvasBackgroundImage from './CanvasBackgroundImage';
 
 export enum CanvasTools {
   Brush,
@@ -37,9 +36,6 @@ const useStyles = makeStyles((theme) => {
       ...fullSize,
       position: 'relative',
     },
-    bgImage: {
-      ...topLeft,
-    },
     canvas: {
       ...topLeft,
       border: 'thin black solid',
@@ -51,62 +47,48 @@ type Props = React.HTMLProps<HTMLCanvasElement>;
 type Ref = React.ForwardedRef<HTMLCanvasElement>;
 
 const Canvas = (props: Props, ref: Ref) => {
-  const room = useRoomState();
-  const size = { width: room.width, height: room.height };
+  const {
+    socket,
+    canvasRef,
+    backgroundImageId,
+    selectedTool,
+    width,
+    height,
+  } = useRoomState();
+  const size = { width, height };
   const classes = useStyles(size);
-  const [imgUrl, setImgUrl] = React.useState('');
   const canvasTools = {
     [CanvasTools.Brush]: useBrushTool(),
     [CanvasTools.Pan]: usePanTool(),
   };
 
-  // Load background image
   useEffect(() => {
-    getBackgroundImage(room._id).then(
-      (blob) => blob && setImgUrl(URL.createObjectURL(blob))
-    );
-  }, [room._id]);
-
-  useEffect(() => {
-    if (!room.canvasImage) return;
-    let img = new Image();
-    img.src = JSON.parse(room.canvasImage);
-    img.onload = (e) => {
-      loadCanvasImage(room.canvasRef, img);
-    };
-  }, [room.canvasImage, room.canvasRef]);
-
-  useEffect(() => {
-    room.socket
+    socket
       .on(SocketEvents.BrushStroke, (brushStrokeString: string) => {
         const brushStroke: BrushStroke = JSON.parse(brushStrokeString);
-        drawBrushStroke(room.canvasRef, brushStroke);
+        drawBrushStroke(canvasRef, brushStroke);
       })
       .on(SocketEvents.ClearCanvas, () => {
-        clearCanvas(room.canvasRef);
+        clearCanvas(canvasRef);
       });
     return () => {
-      room.socket.off(SocketEvents.BrushStroke);
-      room.socket.off(SocketEvents.ClearCanvas);
+      socket.off(SocketEvents.BrushStroke);
+      socket.off(SocketEvents.ClearCanvas);
     };
-  }, [room.socket, room.canvasRef]);
-
-  const canvasImage = imgUrl && (
-    <img className={classes.canvas} alt='background' src={imgUrl} />
-  );
+  }, [socket, canvasRef]);
 
   return (
     <div className={classes.outsideWrapper}>
       <div className={classes.insideWrapper}>
-        {canvasImage}
+        <CanvasBackgroundImage />
         <canvas
           className={classes.canvas}
           {...props}
           {...size}
-          {...canvasTools[room.selectedTool]}
+          {...canvasTools[selectedTool]}
           ref={ref}
           style={{
-            backgroundColor: imgUrl ? 'transparent' : 'white',
+            backgroundColor: backgroundImageId ? 'transparent' : 'white',
           }}
         ></canvas>
       </div>

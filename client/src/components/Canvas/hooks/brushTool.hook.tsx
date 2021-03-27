@@ -1,7 +1,7 @@
 import { distance, Vector2 } from '@graph-ts/vector2';
 import { saveCanvasToDb } from 'apis/room.client.api';
 import { sendBrushStroke } from 'apis/socket.client.api';
-import { useRoomState } from 'contexts/room.context';
+import { useRoomState } from 'components/ImageEditor/imageEditor.context';
 import React, { useState } from 'react';
 import { drawBrushStroke, getImageString } from 'utils/canvas.utils';
 import { mousePositionCanvas, touchPositionCanvas } from 'utils/mouse.utils';
