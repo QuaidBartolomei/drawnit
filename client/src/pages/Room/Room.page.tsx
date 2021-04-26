@@ -7,15 +7,15 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { Socket } from 'socket.io-client';
 
-const useStyles = makeStyles((theme) =>
+const useStyles = makeStyles(theme =>
   createStyles({
     canvasContainer: {
       backgroundImage: `linear-gradient(rgba(0,0,0, .3) .1em, transparent .1em), linear-gradient(90deg, rgba(0, 0, 0, .3) .1em, transparent .1em)`,
       backgroundPosition: '-2px -2px, -2px -2px, -1px -1px, -1px -1px',
       backgroundSize: '3em 3em',
       backgroundColor: '#e3e2e5',
-      height: '100vh',
-      width: '100%',
+      minHeight: '100vh',
+      minWidth: '100%',
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
@@ -33,17 +33,20 @@ const RoomPage = () => {
   const [socket, setSocket] = React.useState<undefined | Socket>(undefined);
 
   React.useEffect(() => {
-    initSocket().then((socket) => {
+    initSocket().then(socket => {
       socket
         .on(SocketEvents.JoinRoom, () => {
           setSocket(socket);
+        })
+        .on(SocketEvents.ReloadRoom, () => {
+          getRoom(roomId).then(room => setRoom(room));
         })
         .emit(SocketEvents.JoinRoom, roomId);
     });
   }, [roomId]);
 
   React.useEffect(() => {
-    getRoom(roomId).then((room) => setRoom(room));
+    getRoom(roomId).then(room => setRoom(room));
   }, [roomId, setRoom]);
 
   if (!socket) console.log('not ready');

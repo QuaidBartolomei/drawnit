@@ -2,13 +2,18 @@ import IconButton from '@material-ui/core/IconButton';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import BrushIcon from '@material-ui/icons/Brush';
 import PanToolIcon from '@material-ui/icons/PanTool';
-import { useRoomDispatch, useRoomState } from 'components/ImageEditor/imageEditor.context';
+import ShareIcon from '@material-ui/icons/Share';
+import {
+  useRoomDispatch,
+  useRoomState,
+} from 'components/ImageEditor/imageEditor.context';
 import React from 'react';
 import BrushColorInput from './BrushColorInput';
 import { CanvasTools } from './Canvas';
+import ChangeCanvasBackgroundButton from './ChangeCanvasBackgroundButton';
 import ClearCanvasButton from './ClearCanvasButton';
 
-const useStyles = makeStyles((theme) =>
+const useStyles = makeStyles(theme =>
   createStyles({
     container: {
       display: 'flex',
@@ -62,6 +67,12 @@ const CanvasToolbar = () => {
     });
   }
 
+  const ShareButton = () => (
+    <IconButton aria-label={'Share'} onClick={() => {}}>
+      <ShareIcon />
+    </IconButton>
+  );
+
   const CanvasToolButton = ({ icon, label, id }: CanvasTool) => (
     <IconButton
       aria-label={label}
@@ -77,8 +88,9 @@ const CanvasToolbar = () => {
     <div className={classes.container}>
       <BrushColorInput />
       {canvasTools.map(CanvasToolButton)}
-
+      <ShareButton />
       <ClearCanvasButton />
+      <ChangeCanvasBackgroundButton />
     </div>
   );
 };

@@ -10,8 +10,10 @@ export interface RoomState extends Room {
   socket: Socket;
   color: string;
 }
+
 const StateContext = createContext<RoomState | undefined>(undefined);
 const DispatchContext = createContext<RoomDispatch | undefined>(undefined);
+
 type Props = {
   canvasRef: React.RefObject<HTMLCanvasElement>;
   room: Room;

@@ -3,8 +3,9 @@ import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { useRoomState } from 'components/ImageEditor/imageEditor.context';
 import { loadCanvasImage } from 'utils/canvas.utils';
 import { getBackgroundImage } from 'apis/room.client.api';
+import { SocketEvents } from 'apis/socket.client.api';
 
-const useStyles = makeStyles((theme) =>
+const useStyles = makeStyles(theme =>
   createStyles({
     canvas: {
       border: 'thin black solid',
@@ -19,20 +20,22 @@ const useStyles = makeStyles((theme) =>
 
 const CanvasBackgroundImage = () => {
   const classes = useStyles();
-  const { canvasImage, _id, canvasRef } = useRoomState();
+  const { canvasImage, _id, canvasRef, socket } = useRoomState();
   const [bgImgUrl, setBgImgUrl] = React.useState('');
 
   useEffect(() => {
-    getBackgroundImage(_id).then(
-      (blob) => blob && setBgImgUrl(URL.createObjectURL(blob))
-    );
+    socket.on(SocketEvents.BackgroundImage, ()=>{})
+  }, [socket]);
+
+  useEffect(() => {
+    getBackgroundImage(_id).then(imgUrl => imgUrl && setBgImgUrl(imgUrl));
   }, [_id]);
 
   useEffect(() => {
     if (!canvasImage) return;
     const img = new Image();
     img.src = JSON.parse(canvasImage);
-    img.onload = (e) => {
+    img.onload = e => {
       loadCanvasImage(canvasRef, img);
     };
   }, [canvasImage, canvasRef]);

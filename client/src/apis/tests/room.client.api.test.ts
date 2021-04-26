@@ -1,54 +1,23 @@
 import {
-  countRooms,
   createRoom,
   deleteAllRooms,
   deleteRoom,
-  getAllRooms,
   getBackgroundImage,
   getRoom,
   saveCanvasToDb,
   setImage,
 } from 'apis/room.client.api';
-import { imageBlob, imageBuffer, imageFile } from 'utils/test.utils';
 import { rest } from 'msw';
-import { setupServer } from 'msw/node';
-import { RoomClientRoutes, RoomRoutes } from 'routes/room.api.routes';
-import { StatusCodes } from 'http-status-codes';
+import { RoomClientRoutes } from 'routes/room.api.routes';
+import { imageBlob, imageFile, initServer } from 'utils/test.utils';
+
+
+const server = initServer();
 
 beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
 
-const badId = 'badid';
-
-const exampleRoom = { backgroundImageId: '1' };
-
-const server = setupServer(
-  rest.get(RoomClientRoutes(badId).GET_ROOM, (req, res, ctx) => {
-    return res(ctx.json(undefined));
-  }),
-  rest.post(RoomRoutes.CREATE_ROOM, (req, res, ctx) => {
-    return res(ctx.json({ _id: '1' }));
-  }),
-  rest.post(RoomRoutes.SET_IMAGE, (req, res, ctx) => {
-    return res(ctx.json({ _id: req.params.id, backgroundImageId: '1' }));
-  }),
-  rest.post(RoomRoutes.UPDATE_CANVAS, (req, res, ctx) => {
-    return res(ctx.status(200));
-  }),
-  rest.get(RoomRoutes.GET_ROOM, (req, res, ctx) => {
-    return res(ctx.json({ ...exampleRoom, _id: req.params.id }));
-  }),
-  rest.get(RoomRoutes.DELETE_ALL, (req, res, ctx) => {
-    return res(ctx.status(200));
-  }),
-  rest.get(RoomRoutes.DELETE_ROOM, (req, res, ctx) => {
-    return res(ctx.status(200));
-  }),
-  rest.get(RoomRoutes.GET_BACKGROUND_IMAGE, (req, res, ctx) => {
-    return res(ctx.text(imageBuffer.toString('base64')));
-  })
-);
 
 // CREATE_ROOM: '/room/create',
 describe('createRoom', () => {
@@ -62,7 +31,7 @@ describe('createRoom', () => {
 // GET_ROOM: `/room/get/${roomId}`,
 describe('GET_ROOM', () => {
   test('invalid id returns undefined', async () => {
-    const testRoom = await getRoom(badId);
+    const testRoom = await getRoom('');
     expect(testRoom).toBeFalsy();
   });
   test('getRoomById', async () => {
@@ -94,11 +63,11 @@ test('delete all rooms', async () => {
 describe('SET_IMAGE', () => {
   test('invalid room returns undefined', async () => {
     server.use(
-      rest.post(RoomClientRoutes(badId).SET_IMAGE, (req, res, ctx) => {
+      rest.post(RoomClientRoutes('').SET_IMAGE, (req, res, ctx) => {
         return res(ctx.status(500));
       })
     );
-    const testRoom = await setImage(badId, imageFile);
+    const testRoom = await setImage('', imageFile);
     expect(testRoom).toBeFalsy();
   });
   test('valid room', async () => {
@@ -114,14 +83,11 @@ describe('SET_IMAGE', () => {
 describe('GET_BACKGROUND_IMAGE', () => {
   test('invalid room returns undefined', async () => {
     server.use(
-      rest.get(
-        RoomClientRoutes(badId).GET_BACKGROUND_IMAGE,
-        (req, res, ctx) => {
-          return res(ctx.status(500));
-        }
-      )
+      rest.get(RoomClientRoutes('').GET_BACKGROUND_IMAGE, (req, res, ctx) => {
+        return res(ctx.status(500));
+      })
     );
-    const testRoom = await getBackgroundImage(badId);
+    const testRoom = await getBackgroundImage('');
     expect(testRoom).toBeFalsy();
   });
   test('valid room', async () => {
@@ -140,11 +106,11 @@ describe('GET_BACKGROUND_IMAGE', () => {
 describe('UPDATE_CANVAS', () => {
   test('invalid room returns undefined', async () => {
     server.use(
-      rest.post(RoomClientRoutes(badId).UPDATE_CANVAS, (req, res, ctx) => {
+      rest.post(RoomClientRoutes('').UPDATE_CANVAS, (req, res, ctx) => {
         return res(ctx.status(500));
       })
     );
-    const testRoom = await saveCanvasToDb(badId, '');
+    const testRoom = await saveCanvasToDb('', '');
     expect(testRoom).toBeFalsy();
   });
 

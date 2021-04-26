@@ -10,6 +10,8 @@ export const SocketEvents = {
   UpdateCanvas: 'USEREVENT_UPDATE_CANVAS',
   ClearCanvas: 'USEREVENT_CLEAR_CANVAS',
   BrushStroke: 'USEREVENT_BRUSH_STROKE',
+  BackgroundImage: 'USEREVENT_background_image',
+  ReloadRoom: 'USEREVENT_reload_room',
 };
 
 const origin = `https://localhost:${env.PORT}`;
@@ -34,6 +36,9 @@ export const initSocketServer = (server: HttpServer) => {
       })
       .on(SocketEvents.ClearCanvas, (roomId: string) => {
         clientSocket.to(roomId).emit(SocketEvents.ClearCanvas);
+      })
+      .on(SocketEvents.BackgroundImage, (roomId: string) => {
+        clientSocket.to(roomId).emit(SocketEvents.ReloadRoom);
       })
   });
   return socketIOServer;

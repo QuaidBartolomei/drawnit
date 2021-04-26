@@ -1,6 +1,6 @@
-import Button from '@material-ui/core/Button';
+import Button, { ButtonProps } from '@material-ui/core/Button';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -10,7 +10,6 @@ const useStyles = makeStyles((theme) =>
       alignItems: 'center',
       justifyContent: 'center',
       '&>*': {
-        margin: '.5rem',
       },
     },
     fileButton: {
@@ -34,7 +33,7 @@ type Props = {
   onFileSelect: (file: File) => void;
 };
 
-const ImageUploadButton = ({ onFileSelect }: Props) => {
+const ImageUploadButton = ({ onFileSelect, children , ...props}: ButtonProps & Props) => {
   const classes = useStyles();
   const handleImageUpload = async (
     e: React.ChangeEvent<HTMLInputElement>
@@ -60,8 +59,8 @@ const ImageUploadButton = ({ onFileSelect }: Props) => {
         onChange={handleImageUpload}
       />
       <label htmlFor='image-file-input'>
-        <Button variant='contained' color='default' component='span'>
-          Select Image
+        <Button variant='contained' color='default' component='span' {...props}>
+          {children || 'Select Image' }
         </Button>
       </label>
     </div>

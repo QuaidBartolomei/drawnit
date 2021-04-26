@@ -4,17 +4,16 @@ import { RoomClientRoutes, RoomRoutes } from 'routes/room.api.routes';
 import { base64toBlob } from 'utils/blob.utils';
 import { fetchData, postAndGet, postData, uploadFile } from 'utils/fetch.utils';
 
-export const goodRoomData: Room = {
-  _id: '',
-  backgroundImageId: '',
-  canvasImage: '',
-  height: 1,
-  width: 1,
-};
-
 // CREATE_ROOM: '/room/create',
 export async function createRoom(roomData: Partial<Room> = {}) {
-  const room = { ...goodRoomData, ...roomData };
+  const room = {
+    _id: '',
+    backgroundImageId: '',
+    canvasImage: '',
+    height: 1,
+    width: 1,
+    ...roomData,
+  };
   return postAndGet<Room, Room>(RoomRoutes.CREATE_ROOM, room);
 }
 
@@ -69,7 +68,8 @@ export async function getBackgroundImage(id: string) {
   let res = await fetch(RoomClientRoutes(id).GET_BACKGROUND_IMAGE);
   if (res.status !== StatusCodes.OK) return undefined;
   const encodedImage = await res.text();
-  return base64toBlob(encodedImage, 'image/jpeg');
+  const blob = base64toBlob(encodedImage, 'image/jpeg');
+  return URL.createObjectURL(blob)
 }
 
 //  COUNT

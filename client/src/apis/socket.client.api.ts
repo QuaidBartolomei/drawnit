@@ -8,6 +8,8 @@ export const SocketEvents = {
   UpdateCanvas: 'USEREVENT_UPDATE_CANVAS',
   ClearCanvas: 'USEREVENT_CLEAR_CANVAS',
   BrushStroke: 'USEREVENT_BRUSH_STROKE',
+  BackgroundImage: 'USEREVENT_background_image',
+  ReloadRoom: 'USEREVENT_reload_room',
 };
 export function initSocket() {
   const url =
@@ -27,6 +29,13 @@ export function initSocket() {
   });
 }
 
+export function sendBackgroundImage(
+  roomId: string,
+  socket: Socket,
+  brushStroke: BrushStroke
+) {
+  socket.emit(SocketEvents.BrushStroke, roomId, JSON.stringify(brushStroke));
+}
 export function sendBrushStroke(
   roomId: string,
   socket: Socket,
