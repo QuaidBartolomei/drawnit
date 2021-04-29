@@ -38,7 +38,7 @@ export const initSocketServer = (server: HttpServer) => {
         clientSocket.to(roomId).emit(SocketEvents.ClearCanvas);
       })
       .on(SocketEvents.BackgroundImage, (roomId: string) => {
-        clientSocket.to(roomId).emit(SocketEvents.ReloadRoom);
+        socketIOServer.in(roomId).emit(SocketEvents.ReloadRoom);
       })
   });
   return socketIOServer;

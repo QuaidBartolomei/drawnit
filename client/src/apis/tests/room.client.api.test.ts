@@ -2,7 +2,7 @@ import {
   createRoom,
   deleteAllRooms,
   deleteRoom,
-  getBackgroundImage,
+  getBackgroundImageUrl,
   getRoom,
   saveCanvasToDb,
   setImage,
@@ -87,7 +87,7 @@ describe('GET_BACKGROUND_IMAGE', () => {
         return res(ctx.status(500));
       })
     );
-    const testRoom = await getBackgroundImage('');
+    const testRoom = await getBackgroundImageUrl('');
     expect(testRoom).toBeFalsy();
   });
   test('valid room', async () => {
@@ -96,7 +96,7 @@ describe('GET_BACKGROUND_IMAGE', () => {
     expect(testRoom).toBeTruthy();
     expect(testRoom?._id).toBe(id);
     expect(testRoom?.backgroundImageId).toBeTruthy();
-    const encodedImage = await getBackgroundImage(id);
+    const encodedImage = await getBackgroundImageUrl(id);
     expect(encodedImage).toBeTruthy();
     expect(encodedImage?.size).toBe(imageBlob.size);
   });

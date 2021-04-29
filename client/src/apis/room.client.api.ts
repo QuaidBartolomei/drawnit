@@ -19,10 +19,10 @@ export async function createRoom(roomData: Partial<Room> = {}) {
 
 // GET_ROOM: `/room/get/${roomId}`,
 export async function getRoom(id: string): Promise<Room | undefined> {
-  console.log('getting room data');
   const room = await fetchData<Room>(RoomClientRoutes(id).GET_ROOM);
-  console.log('room', room);
-  return room;
+  if (!room) return room;
+  const backgroundImageUrl = await getBackgroundImageUrl(room);
+  return { ...room, backgroundImageUrl };
 }
 
 // GET_All: '/room/all',
@@ -64,12 +64,16 @@ export async function saveCanvasToDb(
 }
 
 // GET_BACKGROUND_IMAGE: `/room/getImage/${roomId}`,
-export async function getBackgroundImage(id: string) {
-  let res = await fetch(RoomClientRoutes(id).GET_BACKGROUND_IMAGE);
+export async function getBackgroundImageUrl({
+  _id,
+  backgroundImageId,
+}: Partial<Room>): Promise<string | undefined> {
+  if (!backgroundImageId) return undefined;
+  const res = await fetch(RoomClientRoutes(_id).GET_BACKGROUND_IMAGE);
   if (res.status !== StatusCodes.OK) return undefined;
   const encodedImage = await res.text();
   const blob = base64toBlob(encodedImage, 'image/jpeg');
-  return URL.createObjectURL(blob)
+  return URL.createObjectURL(blob);
 }
 
 //  COUNT

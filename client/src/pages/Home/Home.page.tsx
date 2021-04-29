@@ -1,13 +1,11 @@
 import Button from '@material-ui/core/Button';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import { createRoom, setImage } from 'apis/room.client.api';
+import { createRoom } from 'apis/room.client.api';
 import { Settings } from 'config';
 import React from 'react';
 import { useHistory } from 'react-router';
 import { PageRoutes } from 'routes/page.routes';
-import CreateRoomForm from './components/CreateRoomForm';
-import RoomPreview from './components/RoomPreview';
 
 const useStyles = makeStyles(theme =>
   createStyles({
@@ -38,7 +36,7 @@ const Homepage = () => {
     });
     const roomId = room?._id || 'error';
     if (!room) return;
-    history.push(PageRoutes(roomId).ROOM)
+    history.push(PageRoutes(roomId).ROOM);
   }
 
   function CreateRoomButton() {

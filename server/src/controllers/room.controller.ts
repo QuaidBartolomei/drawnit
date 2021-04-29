@@ -14,10 +14,11 @@ import {
 } from 'models/room.model';
 import multer from 'multer';
 import { RoomRoutes } from 'routes/room.routes';
+import imageSize from 'image-size';
 
 export const roomController = Router()
   .post(RoomRoutes.CREATE_ROOM, async (req, res) => {
-    const room:Room = req.body;
+    const room: Room = req.body;
     if (!room.height || !room.width) return res.status(400).send();
     try {
       let savedRoom = await createAndSaveRoomDoc(room);
@@ -28,7 +29,7 @@ export const roomController = Router()
     }
   })
   .get(RoomRoutes.GET_ROOM, async (req, res) => {
-    const id:string = req.params.id;
+    const id: string = req.params.id;
     try {
       let roomDoc = await getRoomById(id);
       if (!roomDoc) return res.status(400).send();
@@ -54,7 +55,7 @@ export const roomController = Router()
       res.status(500).send();
     }
   })
-  .get(RoomRoutes.GET_All, authMiddleware ,async (req, res) => {
+  .get(RoomRoutes.GET_All, authMiddleware, async (req, res) => {
     try {
       let roomDocs = await getAllRooms();
       if (!roomDocs) return res.status(400).send();
@@ -77,6 +78,9 @@ export const roomController = Router()
     const id: string = req.params.id;
     try {
       await setBackgroundImage(id, { file: req.file });
+      const file = req.file;
+      const { height, width } = imageSize(file.buffer);
+      updateRoomValue(id, { height, width });
       res.status(200).send();
     } catch {
       res.status(500).send();

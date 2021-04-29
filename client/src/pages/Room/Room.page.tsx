@@ -1,7 +1,9 @@
 import { createStyles, makeStyles } from '@material-ui/core';
 import { getRoom } from 'apis/room.client.api';
 import { initSocket, SocketEvents } from 'apis/socket.client.api';
-import ImageEditor from 'components/ImageEditor/ImageEditor';
+import Canvas from 'components/Canvas/Canvas';
+import CanvasToolbar from 'components/Canvas/CanvasToolbar';
+import { ImageEditorProvider } from 'components/ImageEditor/imageEditor.context';
 import Room from 'interfaces/room.interface';
 import React from 'react';
 import { useParams } from 'react-router-dom';
@@ -31,6 +33,7 @@ const RoomPage = () => {
   const { id: roomId } = useParams<{ id: string }>();
   const [room, setRoom] = React.useState<Room | undefined>(undefined);
   const [socket, setSocket] = React.useState<undefined | Socket>(undefined);
+  const canvasRef = React.useRef<HTMLCanvasElement>(null);
 
   React.useEffect(() => {
     initSocket().then(socket => {
@@ -39,14 +42,14 @@ const RoomPage = () => {
           setSocket(socket);
         })
         .on(SocketEvents.ReloadRoom, () => {
-          getRoom(roomId).then(room => setRoom(room));
+          window.location.reload(false);
         })
         .emit(SocketEvents.JoinRoom, roomId);
     });
   }, [roomId]);
 
   React.useEffect(() => {
-    getRoom(roomId).then(room => setRoom(room));
+    getRoom(roomId).then(setRoom);
   }, [roomId, setRoom]);
 
   if (!socket) console.log('not ready');
@@ -55,7 +58,14 @@ const RoomPage = () => {
 
   return (
     <div className={classes.canvasContainer}>
-      <ImageEditor room={room} socket={socket} />
+      <ImageEditorProvider
+        room={{ ...room }}
+        canvasRef={canvasRef}
+        socket={socket}
+      >
+        <CanvasToolbar />
+        <Canvas ref={canvasRef} />
+      </ImageEditorProvider>
     </div>
   );
 };

@@ -4,4 +4,5 @@ export default interface Room {
   height: number;
   width: number;
   backgroundImageId: string;
+  backgroundImageUrl?: string;
 }

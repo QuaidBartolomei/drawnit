@@ -20,7 +20,7 @@ type Props = {
   socket: Socket;
 };
 
-export const ImageEditorProvider: FC<Props> = (props) => {
+export const ImageEditorProvider: FC<Props> = props => {
   const { children, canvasRef, room, socket } = props;
   const [state, dispatch] = useReducer(roomReducer, {
     ...room,

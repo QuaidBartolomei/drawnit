@@ -1,9 +1,7 @@
-import React, { useEffect } from 'react';
-import { makeStyles, createStyles } from '@material-ui/core/styles';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { useRoomState } from 'components/ImageEditor/imageEditor.context';
+import React, { useEffect } from 'react';
 import { loadCanvasImage } from 'utils/canvas.utils';
-import { getBackgroundImage } from 'apis/room.client.api';
-import { SocketEvents } from 'apis/socket.client.api';
 
 const useStyles = makeStyles(theme =>
   createStyles({
@@ -20,16 +18,11 @@ const useStyles = makeStyles(theme =>
 
 const CanvasBackgroundImage = () => {
   const classes = useStyles();
-  const { canvasImage, _id, canvasRef, socket } = useRoomState();
-  const [bgImgUrl, setBgImgUrl] = React.useState('');
-
-  useEffect(() => {
-    socket.on(SocketEvents.BackgroundImage, ()=>{})
-  }, [socket]);
-
-  useEffect(() => {
-    getBackgroundImage(_id).then(imgUrl => imgUrl && setBgImgUrl(imgUrl));
-  }, [_id]);
+  const {
+    canvasImage,
+    canvasRef,
+    backgroundImageUrl = '',
+  } = useRoomState();
 
   useEffect(() => {
     if (!canvasImage) return;
@@ -40,8 +33,8 @@ const CanvasBackgroundImage = () => {
     };
   }, [canvasImage, canvasRef]);
 
-  if (!bgImgUrl) return null;
-  return <img className={classes.canvas} alt='background' src={bgImgUrl} />;
+  if (!backgroundImageUrl) return null;
+  return <img className={classes.canvas} alt='background' src={backgroundImageUrl} />;
 };
 
 export default CanvasBackgroundImage;
