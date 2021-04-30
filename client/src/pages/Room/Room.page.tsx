@@ -52,9 +52,7 @@ const RoomPage = () => {
     getRoom(roomId).then(setRoom);
   }, [roomId, setRoom]);
 
-  if (!socket) console.log('not ready');
   if (!room || !socket) return null;
-  console.log('ready');
 
   return (
     <div className={classes.canvasContainer}>

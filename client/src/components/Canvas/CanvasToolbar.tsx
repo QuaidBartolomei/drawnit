@@ -2,7 +2,6 @@ import IconButton from '@material-ui/core/IconButton';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import BrushIcon from '@material-ui/icons/Brush';
 import PanToolIcon from '@material-ui/icons/PanTool';
-import ShareIcon from '@material-ui/icons/Share';
 import {
   useRoomDispatch,
   useRoomState,
@@ -12,6 +11,7 @@ import BrushColorInput from './BrushColorInput';
 import { CanvasTools } from './Canvas';
 import ChangeCanvasBackgroundButton from './ChangeCanvasBackgroundButton';
 import ClearCanvasButton from './ClearCanvasButton';
+import ShareButton from './ShareButton';
 
 const useStyles = makeStyles(theme =>
   createStyles({
@@ -66,12 +66,6 @@ const CanvasToolbar = () => {
       payload: tool,
     });
   }
-
-  const ShareButton = () => (
-    <IconButton aria-label={'Share'} onClick={() => {}}>
-      <ShareIcon />
-    </IconButton>
-  );
 
   const CanvasToolButton = ({ icon, label, id }: CanvasTool) => (
     <IconButton
