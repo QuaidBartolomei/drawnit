@@ -6,11 +6,11 @@ import { initApp } from 'loaders/express.loader';
 import { ImageModel } from 'models/image.model';
 import {
   createAndSaveRoomDoc,
-  getAllRooms,
+
   getRoomById,
   roomCount,
   RoomModel,
-  setBackgroundImage,
+  setBackgroundImage
 } from 'models/room.model';
 import mongoose from 'mongoose';
 import { RoomClientRoutes } from 'routes/room.routes';
@@ -68,18 +68,6 @@ describe('CREATE_ROOM', () => {
       })
       .expect(200, done);
   });
-});
-
-test('get all rooms route', async (done) => {
-  await createAndSaveRoomDoc(goodRoomData);
-  await createAndSaveRoomDoc(goodRoomData);
-  request(app)
-    .get(RoomClientRoutes().GET_All)
-    .expect((res) => {
-      let rooms = JSON.parse(res.text) as Room[];
-      expect(rooms.length).toBe(2);
-    })
-    .expect(200, done);
 });
 
 describe('get room by id route', () => {

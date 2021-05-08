@@ -1,6 +1,6 @@
 import { readFileSync } from 'fs';
-import { rest } from 'msw/lib/types';
-import { setupServer } from 'msw/lib/types/node';
+import { rest } from 'msw';
+import { setupServer } from 'msw/node';
 import { RoomClientRoutes, RoomRoutes } from 'routes/room.api.routes';
 
 export const imageBuffer = readFileSync(__dirname + '/image.jpg');
@@ -9,7 +9,7 @@ export const imageBlob = new Blob([imageBuffer as BlobPart], {
 });
 export const imageFile = imageBlob as File;
 
-const exampleRoom = { backgroundImageId: '1' };
+const exampleRoom = { backgroundImageId: '' };
 
 export function initServer() {
   return setupServer(

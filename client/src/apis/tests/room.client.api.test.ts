@@ -9,15 +9,13 @@ import {
 } from 'apis/room.client.api';
 import { rest } from 'msw';
 import { RoomClientRoutes } from 'routes/room.api.routes';
-import { imageBlob, imageFile, initServer } from 'utils/test.utils';
-
+import { imageFile, initServer } from 'utils/test.utils';
 
 const server = initServer();
 
 beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
-
 
 // CREATE_ROOM: '/room/create',
 describe('createRoom', () => {
@@ -49,16 +47,6 @@ test('delete all rooms', async () => {
   expect(success).toBeTruthy();
 });
 
-// GET_All: '/room/all',
-// test('GET_ALL', async () => {
-//   let noRooms = await getAllRooms();
-//   expect(noRooms?.length).toBe(0);
-//   await createRoom();
-//   await createRoom();
-//   const rooms = await getAllRooms();
-//   expect(rooms?.length).toBe(2);
-// });
-
 // SET_IMAGE: `/room/setImage/${roomId}`,
 describe('SET_IMAGE', () => {
   test('invalid room returns undefined', async () => {
@@ -74,31 +62,20 @@ describe('SET_IMAGE', () => {
     const id = '2';
     const testRoom = await setImage(id, imageFile);
     expect(testRoom).toBeTruthy();
-    expect(testRoom?._id).toBe(id);
-    expect(testRoom?.backgroundImageId).toBeTruthy();
   });
 });
 
 // GET_BACKGROUND_IMAGE: `/room/getImage/${roomId}`,
 describe('GET_BACKGROUND_IMAGE', () => {
-  test('invalid room returns undefined', async () => {
-    server.use(
-      rest.get(RoomClientRoutes('').GET_BACKGROUND_IMAGE, (req, res, ctx) => {
-        return res(ctx.status(500));
-      })
-    );
-    const testRoom = await getBackgroundImageUrl('');
-    expect(testRoom).toBeFalsy();
-  });
   test('valid room', async () => {
     const id = '2';
     const testRoom = await setImage(id, imageFile);
     expect(testRoom).toBeTruthy();
-    expect(testRoom?._id).toBe(id);
-    expect(testRoom?.backgroundImageId).toBeTruthy();
-    const encodedImage = await getBackgroundImageUrl(id);
+    const encodedImage = await getBackgroundImageUrl({
+      _id: testRoom?._id,
+      backgroundImageId: '2',
+    });
     expect(encodedImage).toBeTruthy();
-    expect(encodedImage?.size).toBe(imageBlob.size);
   });
 });
 

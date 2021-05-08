@@ -70,7 +70,7 @@ export default function ShareButton() {
   );
 
   return (
-    <React.Fragment>
+    <>
       <IconButton aria-label={'Share'} onClick={handleToggle}>
         <ShareIcon />
       </IconButton>
@@ -82,6 +82,6 @@ export default function ShareButton() {
           <UrlPreview />
         </div>
       </Backdrop>
-    </React.Fragment>
+    </>
   );
 }

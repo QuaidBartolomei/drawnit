@@ -68,9 +68,9 @@ export async function getBackgroundImageUrl({
   _id,
   backgroundImageId,
 }: Partial<Room>): Promise<string | undefined> {
-  if (!backgroundImageId) return undefined;
+  if (!backgroundImageId) return '';
   const res = await fetch(RoomClientRoutes(_id).GET_BACKGROUND_IMAGE);
-  if (res.status !== StatusCodes.OK) return undefined;
+  if (res.status !== StatusCodes.OK) return '';
   const encodedImage = await res.text();
   const blob = base64toBlob(encodedImage, 'image/jpeg');
   return URL.createObjectURL(blob);

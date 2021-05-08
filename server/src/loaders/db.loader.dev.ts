@@ -4,7 +4,6 @@ import { MongoMemoryServer } from 'mongodb-memory-server';
 import mongoose from 'mongoose';
 
 export async function initMemoryDB(mongod: MongoMemoryServer) {
-
   mongoose.Promise = Promise;
   const mongoUri = await mongod.getUri();
   const port = await mongod.getPort();
@@ -17,7 +16,7 @@ export async function initMemoryDB(mongod: MongoMemoryServer) {
 
   mongoose.connect(mongoUri, mongooseOpts);
 
-  mongoose.connection.on('error', (e) => {
+  mongoose.connection.on('error', e => {
     if (e.message.code === 'ETIMEDOUT') {
       console.log(e);
       mongoose.connect(mongoUri, mongooseOpts);

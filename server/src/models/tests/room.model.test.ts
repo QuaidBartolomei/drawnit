@@ -4,7 +4,6 @@ import { ImageModel } from 'models/image.model';
 import {
   createAndSaveRoomDoc,
   deleteAllRooms,
-  getAllRooms,
   getBackgroundImage,
   getRoomById,
   roomCount,
