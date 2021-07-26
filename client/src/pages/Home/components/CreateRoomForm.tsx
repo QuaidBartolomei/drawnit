@@ -2,7 +2,7 @@ import Button from '@material-ui/core/Button';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import { createRoom, setImage } from 'apis/room.client.api';
-import ImageInput from 'components/form-inputs/ImageInput';
+import ImageInput from 'components/ImageInput';
 import { useFormik } from 'formik';
 import React, { useState } from 'react';
 import * as yup from 'yup';
