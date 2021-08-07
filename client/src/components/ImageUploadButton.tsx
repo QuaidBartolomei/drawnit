@@ -1,6 +1,7 @@
 import Button, { ButtonProps } from '@material-ui/core/Button';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import React from 'react';
+import ImageIcon from '@material-ui/icons/Image';
 
 const useStyles = makeStyles(theme =>
   createStyles({
@@ -62,8 +63,11 @@ const ImageUploadButton = ({
         onChange={handleImageUpload}
       />
       <label htmlFor='image-file-input'>
-        <Button variant='contained' color='default' component='span' {...props}>
-          {children || 'Select Image'}
+        <Button
+        style={{
+          width:16
+        }}  color='default' component='span' {...props}>
+          <ImageIcon />
         </Button>
       </label>
     </div>

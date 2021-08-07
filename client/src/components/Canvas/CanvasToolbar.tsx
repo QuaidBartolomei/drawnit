@@ -9,6 +9,7 @@ import {
 import React from 'react';
 import BrushColorInput from './BrushColorInput';
 import { CanvasTools } from './Canvas';
+import CanvasToolButton from './CanvasToolButton';
 import ChangeCanvasBackgroundButton from './ChangeCanvasBackgroundButton';
 import ClearCanvasButton from './ClearCanvasButton';
 import ShareButton from './ShareButton';
@@ -16,14 +17,12 @@ import ShareButton from './ShareButton';
 const useStyles = makeStyles(theme =>
   createStyles({
     container: {
+      maxWidth: '100%',
       display: 'flex',
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'center',
       backgroundColor: 'white',
-      '&>*': {
-        margin: '0.5rem',
-      },
       borderRadius: 8,
       border: 'thin black solid',
     },
@@ -36,11 +35,11 @@ const useStyles = makeStyles(theme =>
   })
 );
 
-interface CanvasTool {
+export type CanvasTool = {
   id: CanvasTools;
   label: string;
   icon: JSX.Element;
-}
+};
 
 const canvasTools: CanvasTool[] = [
   {
@@ -55,38 +54,18 @@ const canvasTools: CanvasTool[] = [
   },
 ];
 
-const CanvasToolbar = () => {
+export default function CanvasToolbar() {
   const classes = useStyles();
-  const roomDispatch = useRoomDispatch();
-  const room = useRoomState();
-
-  function setCanvasTool(tool: CanvasTools) {
-    roomDispatch({
-      type: 'set_canvasTool',
-      payload: tool,
-    });
-  }
-
-  const CanvasToolButton = ({ icon, label, id }: CanvasTool) => (
-    <IconButton
-      aria-label={label}
-      onClick={() => setCanvasTool(id)}
-      key={label}
-      color={room.selectedTool === id ? 'secondary' : 'default'}
-    >
-      {icon}
-    </IconButton>
-  );
 
   return (
     <div className={classes.container}>
-      <BrushColorInput />
+      <BrushColorInput
+      
+      />
       {canvasTools.map(CanvasToolButton)}
       <ShareButton />
       <ClearCanvasButton />
       <ChangeCanvasBackgroundButton />
     </div>
   );
-};
-
-export default CanvasToolbar;
+}

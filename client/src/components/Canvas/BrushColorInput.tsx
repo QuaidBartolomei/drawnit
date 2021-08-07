@@ -1,16 +1,20 @@
 import React from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { SketchPicker } from 'react-color';
-import { useRoomDispatch, useRoomState } from 'components/ImageEditor/imageEditor.context';
+import {
+  useRoomDispatch,
+  useRoomState,
+} from 'components/ImageEditor/imageEditor.context';
 
-const useStyles = makeStyles((theme) =>
+const useStyles = makeStyles(theme =>
   createStyles({
     container: {},
-    color: {
+    color: ({ color }: { color: string }) => ({
       width: '36px',
       height: '14px',
       borderRadius: '2px',
-    },
+      background: color,
+    }),
     swatch: {
       padding: '5px',
       background: '#fff',
@@ -18,6 +22,7 @@ const useStyles = makeStyles((theme) =>
       boxShadow: '0 0 0 1px rgba(0,0,0,.1)',
       display: 'inline-block',
       cursor: 'pointer',
+      margin: 16,
     },
     popover: {
       position: 'absolute',
@@ -33,48 +38,33 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
-const BrushColorInput = () => {
-  const classes = useStyles();
+export default function BrushColorInput(
+  props: React.HTMLProps<HTMLDivElement>
+) {
   const { color } = useRoomState();
+  const classes = useStyles({ color });
   const dispatch = useRoomDispatch();
   const setColor = (c: string) => dispatch({ type: 'set_color', payload: c });
   const [showColorPicker, setShowColorPicker] = React.useState(false);
+  const toggleColorPicker = () => setShowColorPicker(!showColorPicker);
 
-  const swatch = (
-    <div
-      className={classes.swatch}
-      onClick={() => setShowColorPicker(!showColorPicker)}
-    >
-      <div
-        className={classes.color}
-        style={{
-          background: color,
-        }}
-      />
+  const Swatch = () => (
+    <div className={classes.swatch} onClick={toggleColorPicker}>
+      <div className={classes.color} />
     </div>
   );
 
-  const colorPicker = showColorPicker && (
+  const ColorPicker = () => (
     <div className={classes.popover}>
-      <div
-        className={classes.cover}
-        onClick={() => setShowColorPicker(false)}
-      />
-      <SketchPicker
-        color={color}
-        onChange={(c) => {
-          setColor(c.hex);
-        }}
-      />
+      <div className={classes.cover} onClick={toggleColorPicker} />
+      <SketchPicker color={color} onChange={c => setColor(c.hex)} />
     </div>
   );
 
   return (
     <div>
-      {swatch}
-      {colorPicker}
+      <Swatch />
+      {showColorPicker && <ColorPicker />}
     </div>
   );
-};
-
-export default BrushColorInput;
+}

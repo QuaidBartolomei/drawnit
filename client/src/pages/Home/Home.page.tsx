@@ -39,6 +39,17 @@ const Homepage = () => {
     history.push(PageRoutes(roomId).ROOM);
   }
 
+  React.useEffect(() => {
+    createRoom({
+      width: 800,
+      height: 800,
+    }).then(room => {
+      const roomId = room?._id || 'error';
+      if (!room) return;
+      history.push(PageRoutes(roomId).ROOM);
+    });
+  }, []);
+
   function CreateRoomButton() {
     return (
       <Button onClick={goToNewRoom} variant='contained' color='primary'>
