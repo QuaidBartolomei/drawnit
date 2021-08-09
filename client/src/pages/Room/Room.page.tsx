@@ -39,8 +39,6 @@ export default function RoomPage() {
   const [socket, setSocket] = React.useState<undefined | Socket>(undefined);
 
   const {
-    isLoading,
-    isError,
     data: room,
   } = useQuery('getRoom', () => {
     return getRoom(roomId);

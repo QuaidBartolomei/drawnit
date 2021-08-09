@@ -44,7 +44,7 @@ type Props = React.HTMLProps<HTMLCanvasElement>;
 type Ref = React.ForwardedRef<HTMLCanvasElement>;
 
 const Canvas = (props: Props, ref: Ref) => {
-  const { socket, canvasRef, backgroundImageId, selectedTool, width, height } =
+  const { socket, canvasRef, backgroundImageId, selectedTool, } =
     useRoomState();
   const size = { width: 1000, height: 1000 };
   const classes = useStyles({
