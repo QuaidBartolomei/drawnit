@@ -16,7 +16,10 @@ const useStyles = makeStyles(theme =>
     canvasContainer: {
       ...gridBackground,
       width: 'max-content',
-      position:'relative',
+      [theme.breakpoints.up('lg')]: {
+        width: '100%',
+      },
+      position: 'relative',
       display: 'flex',
       flexDirection: 'row',
       alignItems: 'center',
@@ -63,6 +66,13 @@ export default function RoomPage() {
 function Ready({ room, socket }: { room: Room; socket: Socket }) {
   const classes = useStyles();
   const canvasRef = React.useRef<HTMLCanvasElement>(null);
+  React.useEffect(() => {
+    const rootElement = document.getElementById('root');
+    if (!rootElement) return console.error('element with id "root" not found');
+    const width = rootElement.offsetWidth;
+    const midpoint = width;
+    rootElement.scrollTo(midpoint, 0);
+  }, []);
   return (
     <ImageEditorProvider
       room={{ ...room }}

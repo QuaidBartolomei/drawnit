@@ -24,7 +24,7 @@ export const ImageEditorProvider: FC<Props> = props => {
   const { children, canvasRef, room, socket } = props;
   const [state, dispatch] = useReducer(roomReducer, {
     ...room,
-    selectedTool: CanvasTools.Brush,
+    selectedTool: CanvasTools.Pan,
     canvasRef,
     socket,
     color: '#000000',
