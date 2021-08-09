@@ -18,6 +18,7 @@ const useStyles = makeStyles(theme =>
   createStyles({
     container: {
       maxWidth: '100%',
+      width: 'fit-content',
       display: 'flex',
       flexDirection: 'row',
       alignItems: 'center',
@@ -25,6 +26,11 @@ const useStyles = makeStyles(theme =>
       backgroundColor: 'white',
       borderRadius: 8,
       border: 'thin black solid',
+      position: 'fixed',
+      top: theme.spacing(4),
+      left: '50vw',
+      transform: 'translate(-50%)',
+      zIndex: 10,
     },
     colorPicker: {
       backgroundColor: 'red',
@@ -59,11 +65,8 @@ export default function CanvasToolbar() {
 
   return (
     <div className={classes.container}>
-      <BrushColorInput
-      
-      />
+      <BrushColorInput />
       {canvasTools.map(CanvasToolButton)}
-      <ShareButton />
       <ClearCanvasButton />
       <ChangeCanvasBackgroundButton />
     </div>

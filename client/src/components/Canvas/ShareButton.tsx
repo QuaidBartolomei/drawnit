@@ -16,6 +16,10 @@ const useStyles = makeStyles(theme =>
     backdrop: {
       zIndex: theme.zIndex.drawer + 1,
       color: '#fff',
+      right: 'auto',
+      bottom: 'auto',
+      height: '100vh',
+      width: '100vw',
     },
 
     container: {

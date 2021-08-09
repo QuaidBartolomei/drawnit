@@ -6,34 +6,42 @@ import CanvasToolbar from 'components/Canvas/CanvasToolbar';
 import { ImageEditorProvider } from 'components/ImageEditor/imageEditor.context';
 import Room from 'interfaces/room.interface';
 import React from 'react';
+import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 import { Socket } from 'socket.io-client';
+import gridBackground from './grid-background';
 
 const useStyles = makeStyles(theme =>
   createStyles({
     canvasContainer: {
-      backgroundImage: `linear-gradient(rgba(0,0,0, .3) .1em, transparent .1em), linear-gradient(90deg, rgba(0, 0, 0, .3) .1em, transparent .1em)`,
-      backgroundPosition: '-2px -2px, -2px -2px, -1px -1px, -1px -1px',
-      backgroundSize: '3em 3em',
-      backgroundColor: '#e3e2e5',
-      minHeight: '100vh',
-      minWidth: '100%',
+      ...gridBackground,
+      width: 'max-content',
+      position:'relative',
       display: 'flex',
-      flexDirection: 'column',
+      flexDirection: 'row',
       alignItems: 'center',
-      '&>*': {
-        margin: '0.5rem',
-      },
+      justifyContent: 'center',
+    },
+    spacer: {
+      width: 100,
+      minHeight: 100,
+      display: 'block',
+      backgroundColor: 'red',
     },
   })
 );
 
-const RoomPage = () => {
-  const classes = useStyles();
+export default function RoomPage() {
   const { id: roomId } = useParams<{ id: string }>();
-  const [room, setRoom] = React.useState<Room | undefined>(undefined);
   const [socket, setSocket] = React.useState<undefined | Socket>(undefined);
-  const canvasRef = React.useRef<HTMLCanvasElement>(null);
+
+  const {
+    isLoading,
+    isError,
+    data: room,
+  } = useQuery('getRoom', () => {
+    return getRoom(roomId);
+  });
 
   React.useEffect(() => {
     initSocket().then(socket => {
@@ -48,24 +56,23 @@ const RoomPage = () => {
     });
   }, [roomId]);
 
-  React.useEffect(() => {
-    getRoom(roomId).then(setRoom);
-  }, [roomId, setRoom]);
-
   if (!room || !socket) return null;
+  return <Ready room={room} socket={socket} />;
+}
 
+function Ready({ room, socket }: { room: Room; socket: Socket }) {
+  const classes = useStyles();
+  const canvasRef = React.useRef<HTMLCanvasElement>(null);
   return (
-    <div className={classes.canvasContainer}>
-      <ImageEditorProvider
-        room={{ ...room }}
-        canvasRef={canvasRef}
-        socket={socket}
-      >
-        <CanvasToolbar />
+    <ImageEditorProvider
+      room={{ ...room }}
+      canvasRef={canvasRef}
+      socket={socket}
+    >
+      <CanvasToolbar />
+      <div className={classes.canvasContainer}>
         <Canvas ref={canvasRef} />
-      </ImageEditorProvider>
-    </div>
+      </div>
+    </ImageEditorProvider>
   );
-};
-
-export default RoomPage;
+}

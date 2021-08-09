@@ -1,15 +1,11 @@
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { CSSProperties } from '@material-ui/core/styles/withStyles';
 import { SocketEvents } from 'apis/socket.client.api';
 import { useBrushTool } from 'components/Canvas/hooks/brushTool.hook';
 import { usePanTool } from 'components/Canvas/hooks/panTool.hook';
 import { useRoomState } from 'components/ImageEditor/imageEditor.context';
 import { BrushStroke } from 'interfaces/brushStroke.interface';
 import React, { useEffect } from 'react';
-import {
-  clearCanvas,
-  drawBrushStroke
-} from 'utils/canvas.utils';
+import { clearCanvas, drawBrushStroke } from 'utils/canvas.utils';
 import CanvasBackgroundImage from './CanvasBackgroundImage';
 
 export enum CanvasTools {
@@ -17,29 +13,30 @@ export enum CanvasTools {
   Pan,
 }
 
-const useStyles = makeStyles((theme) => {
-  const fullSize = {
-    width: '100%',
-    height: '100%',
-  };
-  const topLeft: CSSProperties = {
-    ...fullSize,
-    position: 'absolute',
-    top: 0,
-    left: 0,
-  };
+const useStyles = makeStyles(theme => {
   return createStyles({
-    outsideWrapper: (props) => ({
-      ...props,
+    outsideWrapper: props => ({
+      display: 'inline-block',
+      height: 1000,
+      width: 1000,
+      margin: theme.spacing(16),
     }),
     insideWrapper: {
-      ...fullSize,
+      width: '100%',
+      height: '100%',
       position: 'relative',
     },
-    canvas: {
-      ...topLeft,
+    canvas: (size: {
+      width: number;
+      height: number;
+      backgroundColor: string;
+    }) => ({
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      ...size,
       border: 'thin black solid',
-    },
+    }),
   });
 });
 
@@ -47,16 +44,13 @@ type Props = React.HTMLProps<HTMLCanvasElement>;
 type Ref = React.ForwardedRef<HTMLCanvasElement>;
 
 const Canvas = (props: Props, ref: Ref) => {
-  const {
-    socket,
-    canvasRef,
-    backgroundImageId,
-    selectedTool,
-    width,
-    height,
-  } = useRoomState();
-  const size = { width, height };
-  const classes = useStyles(size);
+  const { socket, canvasRef, backgroundImageId, selectedTool, width, height } =
+    useRoomState();
+  const size = { width: 1000, height: 1000 };
+  const classes = useStyles({
+    ...size,
+    backgroundColor: backgroundImageId ? 'transparent' : 'white',
+  });
   const canvasTools = {
     [CanvasTools.Brush]: useBrushTool(),
     [CanvasTools.Pan]: usePanTool(),
@@ -84,12 +78,8 @@ const Canvas = (props: Props, ref: Ref) => {
         <canvas
           className={classes.canvas}
           {...props}
-          {...size}
           {...canvasTools[selectedTool]}
           ref={ref}
-          style={{
-            backgroundColor: backgroundImageId ? 'transparent' : 'white',
-          }}
         ></canvas>
       </div>
     </div>
