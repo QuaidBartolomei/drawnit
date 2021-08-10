@@ -6,7 +6,8 @@ type Action =
   | { type: 'set_color'; payload: string }
   | { type: 'reload' }
   | { type: 'set_background_image_url'; payload: string }
-  | { type: 'show_backdrop'; payload: boolean };
+  | { type: 'show_backdrop'; payload: boolean }
+  | { type: 'set_backdrop_content'; payload: React.ReactNode };
 
 export const roomReducer = (state: RoomState, action: Action): RoomState => {
   switch (action.type) {
@@ -24,6 +25,9 @@ export const roomReducer = (state: RoomState, action: Action): RoomState => {
     }
     case 'show_backdrop': {
       return { ...state, showBackdrop: action.payload };
+    }
+    case 'set_backdrop_content': {
+      return { ...state, backdropContent: action.payload };
     }
   }
 };

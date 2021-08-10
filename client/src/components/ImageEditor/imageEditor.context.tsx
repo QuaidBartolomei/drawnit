@@ -10,6 +10,7 @@ export type RoomState = Room & {
   socket: Socket;
   color: string;
   showBackdrop: boolean;
+  backdropContent?:React.ReactNode
 };
 
 const StateContext = createContext<RoomState | undefined>(undefined);

@@ -77,8 +77,8 @@ function Ready({ room, socket }: { room: Room; socket: Socket }) {
 }
 
 function scrollToMiddle(scrollingElement: HTMLElement) {
-  const vpWidth = window.innerWidth;
-  const width = scrollingElement.scrollWidth;
-  const midpoint = width / 2 - vpWidth / 2;
+  const viewportWidth = window.innerWidth;
+  const fullWidth = scrollingElement.scrollWidth;
+  const midpoint = (fullWidth - viewportWidth) / 2;
   scrollingElement.scrollTo(midpoint, 0);
 }
