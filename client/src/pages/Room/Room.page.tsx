@@ -17,20 +17,13 @@ const useStyles = makeStyles(theme =>
     canvasContainer: {
       ...gridBackground,
       width: 'max-content',
-      [theme.breakpoints.up('lg')]: {
-        width: '100%',
-      },
+      minHeight: '100vh',
+      minWidth: '100vw',
       position: 'relative',
       display: 'flex',
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'center',
-    },
-    spacer: {
-      width: 100,
-      minHeight: 100,
-      display: 'block',
-      backgroundColor: 'red',
     },
   })
 );
@@ -66,10 +59,7 @@ function Ready({ room, socket }: { room: Room; socket: Socket }) {
   React.useEffect(() => {
     const rootElement = document.getElementById('root');
     if (!rootElement) return console.error('element with id "root" not found');
-    const vpWidth = window.innerWidth;
-    const width = rootElement.scrollWidth;
-    const midpoint = width / 2 - vpWidth / 2;
-    rootElement.scrollTo(midpoint, 0);
+    scrollToMiddle(rootElement);
   }, []);
   return (
     <ImageEditorProvider
@@ -84,4 +74,11 @@ function Ready({ room, socket }: { room: Room; socket: Socket }) {
       </div>
     </ImageEditorProvider>
   );
+}
+
+function scrollToMiddle(scrollingElement: HTMLElement) {
+  const vpWidth = window.innerWidth;
+  const width = scrollingElement.scrollWidth;
+  const midpoint = width / 2 - vpWidth / 2;
+  scrollingElement.scrollTo(midpoint, 0);
 }

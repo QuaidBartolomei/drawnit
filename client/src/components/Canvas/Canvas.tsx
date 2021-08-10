@@ -15,10 +15,10 @@ export enum CanvasTools {
 
 const useStyles = makeStyles(theme => {
   return createStyles({
-    outsideWrapper: props => ({
+    outsideWrapper: ({ width, height }) => ({
       display: 'inline-block',
-      height: 1000,
-      width: 1000,
+      height,
+      width,
       margin: theme.spacing(16),
     }),
     insideWrapper: {
@@ -44,9 +44,9 @@ type Props = React.HTMLProps<HTMLCanvasElement>;
 type Ref = React.ForwardedRef<HTMLCanvasElement>;
 
 const Canvas = (props: Props, ref: Ref) => {
-  const { socket, canvasRef, backgroundImageId, selectedTool, } =
+  const { socket, canvasRef, backgroundImageId, selectedTool, width, height } =
     useRoomState();
-  const size = { width: 1000, height: 1000 };
+  const size = { width, height };
   const classes = useStyles({
     ...size,
     backgroundColor: backgroundImageId ? 'transparent' : 'white',
