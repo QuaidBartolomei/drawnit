@@ -66,8 +66,9 @@ function Ready({ room, socket }: { room: Room; socket: Socket }) {
   React.useEffect(() => {
     const rootElement = document.getElementById('root');
     if (!rootElement) return console.error('element with id "root" not found');
-    const width = rootElement.offsetWidth;
-    const midpoint = width;
+    const vpWidth = window.innerWidth;
+    const width = rootElement.scrollWidth;
+    const midpoint = width / 2 - vpWidth / 2;
     rootElement.scrollTo(midpoint, 0);
   }, []);
   return (
