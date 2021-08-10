@@ -69,6 +69,7 @@ export default function CanvasToolbar() {
       {canvasTools.map(CanvasToolButton)}
       <ClearCanvasButton />
       <ChangeCanvasBackgroundButton />
+      <ShareButton />
     </div>
   );
 }

@@ -4,6 +4,7 @@ import { initSocket, SocketEvents } from 'apis/socket.client.api';
 import Canvas from 'components/Canvas/Canvas';
 import CanvasToolbar from 'components/Canvas/CanvasToolbar';
 import { ImageEditorProvider } from 'components/ImageEditor/imageEditor.context';
+import { ShareBackdrop } from 'components/ShareBackdrop';
 import Room from 'interfaces/room.interface';
 import React from 'react';
 import { useQuery } from 'react-query';
@@ -38,9 +39,7 @@ export default function RoomPage() {
   const { id: roomId } = useParams<{ id: string }>();
   const [socket, setSocket] = React.useState<undefined | Socket>(undefined);
 
-  const {
-    data: room,
-  } = useQuery('getRoom', () => {
+  const { data: room } = useQuery('getRoom', () => {
     return getRoom(roomId);
   });
 
@@ -78,6 +77,7 @@ function Ready({ room, socket }: { room: Room; socket: Socket }) {
       socket={socket}
     >
       <CanvasToolbar />
+      <ShareBackdrop />
       <div className={classes.canvasContainer}>
         <Canvas ref={canvasRef} />
       </div>

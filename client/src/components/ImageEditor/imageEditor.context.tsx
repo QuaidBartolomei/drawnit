@@ -4,12 +4,13 @@ import React, { createContext, FC, useReducer } from 'react';
 import { RoomDispatch, roomReducer } from './imageEditor.reducer';
 import { Socket } from 'socket.io-client';
 
-export interface RoomState extends Room {
+export type RoomState = Room & {
   selectedTool: CanvasTools;
   canvasRef: React.RefObject<HTMLCanvasElement>;
   socket: Socket;
   color: string;
-}
+  showBackdrop: boolean;
+};
 
 const StateContext = createContext<RoomState | undefined>(undefined);
 const DispatchContext = createContext<RoomDispatch | undefined>(undefined);
@@ -22,13 +23,16 @@ type Props = {
 
 export const ImageEditorProvider: FC<Props> = props => {
   const { children, canvasRef, room, socket } = props;
-  const [state, dispatch] = useReducer(roomReducer, {
+  const initialState: RoomState = {
     ...room,
     selectedTool: CanvasTools.Pan,
     canvasRef,
     socket,
     color: '#000000',
-  });
+    showBackdrop: false,
+  };
+
+  const [state, dispatch] = useReducer(roomReducer, initialState);
 
   return (
     <StateContext.Provider value={state}>
