@@ -4,6 +4,7 @@ import { authMiddleware } from 'middleware/auth.middleware';
 import {
   createAndSaveRoomDoc,
   deleteAllRooms,
+  deleteBackgroundImage,
   getAllRooms,
   getBackgroundImage,
   getRoomById,
@@ -81,6 +82,16 @@ export const roomController = Router()
       const file = req.file;
       const { height, width } = imageSize(file.buffer);
       updateRoomValue(id, { height, width });
+      res.status(200).send();
+    } catch {
+      res.status(500).send();
+    }
+  })
+  .get(RoomRoutes.DELETE_BACKGROUND_IMAGE, async (req, res) => {
+    const id: string = req.params.id;
+    try {
+      const success = await deleteBackgroundImage(id);
+      if (!success) res.status(400).send();
       res.status(200).send();
     } catch {
       res.status(500).send();

@@ -4,7 +4,7 @@ import shortid from 'shortid';
 import {
   createAndSaveImageDocument,
   ImageFile,
-  ImageModel
+  ImageModel,
 } from 'models/image.model';
 
 const collectionName = 'Room';
@@ -66,10 +66,9 @@ export async function setBackgroundImage(
   roomId: string,
   file: Partial<ImageFile>
 ) {
-  let room = await RoomModel.findById(roomId);
+  const room = await RoomModel.findById(roomId);
   if (!room) return undefined;
-
-  let image = await createAndSaveImageDocument(file);
+  const image = await createAndSaveImageDocument(file);
   if (!image) return undefined;
   room.overwrite({ ...room, backgroundImageId: image.id });
   room.backgroundImageId = image.id;
@@ -77,10 +76,22 @@ export async function setBackgroundImage(
   return image;
 }
 
+export async function deleteBackgroundImage(roomId: string) {
+  const room = await RoomModel.findById(roomId);
+  if (!room) return false;
+  const { backgroundImageId } = room;
+  if (!backgroundImageId) return;
+  ImageModel.findByIdAndDelete(backgroundImageId);
+  room.overwrite({ ...room, backgroundImageId: '' });
+  room.backgroundImageId = '';
+  await room.save();
+  return true;
+}
+
 export async function getBackgroundImage(roomId: string) {
-  let room = await RoomModel.findById(roomId);
+  const room = await RoomModel.findById(roomId);
   if (!room || !room.backgroundImageId) return undefined;
-  let image = await ImageModel.findById(room.backgroundImageId);
+  const image = await ImageModel.findById(room.backgroundImageId);
   if (!image) return undefined;
   return image;
 }

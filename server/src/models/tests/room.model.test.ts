@@ -4,6 +4,7 @@ import { ImageModel } from 'models/image.model';
 import {
   createAndSaveRoomDoc,
   deleteAllRooms,
+  deleteBackgroundImage,
   getBackgroundImage,
   getRoomById,
   roomCount,
@@ -108,13 +109,11 @@ describe('get background image', () => {
     let testImage = await getBackgroundImage('');
     expect(testImage).toBeUndefined();
   });
-
   test('room with no image returns undefined', async () => {
     let { _id } = await createAndSaveRoomDoc(goodRoomData);
     let testImage = await getBackgroundImage(_id);
     expect(testImage).toBeUndefined();
   });
-
   test('valid params return image file', async () => {
     let room = await createAndSaveRoomDoc(goodRoomData);
     let controlImage = await setBackgroundImage(room._id, imageFile);
@@ -122,6 +121,21 @@ describe('get background image', () => {
     expect(testImage).toBeDefined();
     expect(testImage?.id).toBeDefined();
     expect(testImage?.id).toBe(controlImage?.id);
+  });
+});
+
+describe('delete background image', () => {
+  test('valid params return image file', async () => {
+    let room = await createAndSaveRoomDoc(goodRoomData);
+    let controlImage = await setBackgroundImage(room._id, imageFile);
+    let testImage = await getBackgroundImage(room._id);
+    expect(testImage).toBeDefined();
+    expect(testImage?.id).toBeDefined();
+    expect(testImage?.id).toBe(controlImage?.id);
+    await deleteBackgroundImage(room._id);
+    testImage = await getBackgroundImage(room._id);
+    expect(testImage).toBeFalsy();
+    expect(testImage?.id).toBeFalsy();
   });
 });
 

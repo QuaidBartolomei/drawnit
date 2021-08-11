@@ -6,11 +6,11 @@ import { initApp } from 'loaders/express.loader';
 import { ImageModel } from 'models/image.model';
 import {
   createAndSaveRoomDoc,
-
+  getBackgroundImage,
   getRoomById,
   roomCount,
   RoomModel,
-  setBackgroundImage
+  setBackgroundImage,
 } from 'models/room.model';
 import mongoose from 'mongoose';
 import { RoomClientRoutes } from 'routes/room.routes';
@@ -32,7 +32,7 @@ const encoding = 'base64';
 let expressServer: Server;
 const ERROR = 400;
 
-beforeAll(async (done) => {
+beforeAll(async done => {
   await initDb(process.env.MONGO_URL || '');
   expressServer = initApp(app, done);
 });
@@ -48,18 +48,18 @@ afterAll(async () => {
 });
 
 describe('CREATE_ROOM', () => {
-  test('create room request responds with error', (done) => {
+  test('create room request responds with error', done => {
     request(app)
       .post(RoomClientRoutes().CREATE_ROOM)
       .send(badRoomData)
       .expect(ERROR, done);
   });
 
-  test('create room request responds with success', (done) => {
+  test('create room request responds with success', done => {
     request(app)
       .post(RoomClientRoutes().CREATE_ROOM)
       .send(goodRoomData)
-      .expect(async (res) => {
+      .expect(async res => {
         expect(res.text).toBeTruthy();
         let room = JSON.parse(res.text) as Room;
         expect(room._id).toBeTruthy();
@@ -71,19 +71,19 @@ describe('CREATE_ROOM', () => {
 });
 
 describe('get room by id route', () => {
-  test('invalid id returns undefined', async (done) => {
+  test('invalid id returns undefined', async done => {
     request(app)
       .get(RoomClientRoutes('badid').GET_ROOM)
-      .expect((res) => {
+      .expect(res => {
         expect(res.text).toBeFalsy();
       })
       .expect(ERROR, done);
   });
-  test('valid id', async (done) => {
+  test('valid id', async done => {
     let controlRoom = await createAndSaveRoomDoc(goodRoomData);
     request(app)
       .get(RoomClientRoutes(controlRoom._id).GET_ROOM)
-      .expect((res) => {
+      .expect(res => {
         let testRoom = JSON.parse(res.text) as Room;
         expect(testRoom).toBeDefined();
         expect(testRoom._id).toBe(controlRoom._id);
@@ -108,7 +108,7 @@ test('delete all rooms route', async () => {
   expect(n).toBe(0);
 });
 
-test('set image route', async (done) => {
+test('set image route', async done => {
   let { _id } = await createAndSaveRoomDoc(goodRoomData);
   let route = RoomClientRoutes(_id).SET_IMAGE;
   request(app)
@@ -119,7 +119,7 @@ test('set image route', async (done) => {
 });
 
 describe('get background image', () => {
-  test('invalid room responds with error', (done) => {
+  test('invalid room responds with error', done => {
     request(app)
       .get(RoomClientRoutes('badid').GET_BACKGROUND_IMAGE)
       .expect(ERROR, done);
@@ -130,12 +130,47 @@ describe('get background image', () => {
     let controlImage = await setBackgroundImage(room._id, imageFile);
     await request(app)
       .get(RoomClientRoutes(room._id).GET_BACKGROUND_IMAGE)
-      .expect(async (res) => {
+      .expect(async res => {
         let encodedImage = res.text;
         expect(encodedImage).toBeDefined();
         expect(encodedImage).toBe(controlImage?.imageBuffer.toString('base64'));
       })
       .expect(200);
+  });
+});
+
+describe('get background image', () => {
+  test('invalid room responds with error', done => {
+    request(app)
+      .get(RoomClientRoutes('badid').GET_BACKGROUND_IMAGE)
+      .expect(ERROR, done);
+  });
+  test('get background image', async () => {
+    let room = await createAndSaveRoomDoc(goodRoomData);
+    let controlImage = await setBackgroundImage(room._id, imageFile);
+    await request(app)
+      .get(RoomClientRoutes(room._id).GET_BACKGROUND_IMAGE)
+      .expect(async res => {
+        let encodedImage = res.text;
+        expect(encodedImage).toBeDefined();
+        expect(encodedImage).toBe(controlImage?.imageBuffer.toString('base64'));
+      })
+      .expect(200);
+  });
+});
+
+describe('delete background image', () => {
+  const route = (id: string) => RoomClientRoutes(id).DELETE_BACKGROUND_IMAGE;
+  test('invalid room responds with error', done => {
+    request(app).get(route('badid')).expect(ERROR, done);
+  });
+  test('delete background image', async () => {
+    const room = await createAndSaveRoomDoc(goodRoomData);
+    await setBackgroundImage(room._id, imageFile);
+    await request(app).get(route(room._id)).expect(200);
+    const testImage = await getBackgroundImage(room._id);
+    expect(testImage).toBeFalsy();
+    expect(testImage?.id).toBeFalsy();
   });
 });
 
@@ -157,7 +192,7 @@ test('count rooms', async () => {
   await request(app)
     .get(RoomClientRoutes().COUNT)
     .send()
-    .expect((res) => {
+    .expect(res => {
       const n = Number(res.text);
       expect(n).toBe(0);
     })

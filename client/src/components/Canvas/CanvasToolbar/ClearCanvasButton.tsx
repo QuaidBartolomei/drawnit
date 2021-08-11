@@ -52,7 +52,7 @@ const ClearCanvasButton = () => {
     hideBackdrop();
   }
 
-  const Children = () => (
+  const AlertDialog = () => (
     <div className={classes.child}>
       <Button
         onClick={onRemoveBackground}
@@ -72,7 +72,7 @@ const ClearCanvasButton = () => {
   };
 
   const handleClick = () => {
-    dispatch({ type: 'set_backdrop_content', payload: <Children /> });
+    dispatch({ type: 'set_backdrop_content', payload: <AlertDialog /> });
   };
 
   return (
