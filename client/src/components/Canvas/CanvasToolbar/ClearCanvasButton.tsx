@@ -2,12 +2,13 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
-import { saveCanvasToDb } from 'apis/room.client.api';
+import { deleteBackgroundImage, saveCanvasToDb } from 'apis/room.client.api';
 import { sendClearCanvas } from 'apis/socket.client.api';
 import {
   useRoomDispatch,
   useRoomState,
 } from 'components/ImageEditor/imageEditor.context';
+import useSocket from 'components/useSocket';
 import React from 'react';
 import { clearCanvas } from 'utils/canvas.utils';
 
@@ -21,7 +22,7 @@ const useStyles = makeStyles(theme =>
       height: '100%',
       width: '100%',
       '&>*': {
-      margin: theme.spacing(1),
+        margin: theme.spacing(1),
       },
     },
     containerHorizontal: {
@@ -37,18 +38,22 @@ const useStyles = makeStyles(theme =>
 );
 
 const ClearCanvasButton = () => {
-  const room = useRoomState();
+  const { _id, canvasRef, socket } = useRoomState();
+
+  const { sendBackgroundImage } = useSocket();
   const classes = useStyles();
   const dispatch = useRoomDispatch();
 
   function onRemoveBackground() {
+    deleteBackgroundImage({ id: _id });
+    sendBackgroundImage();
     hideBackdrop();
   }
 
   function onRemoveChanges() {
-    clearCanvas(room.canvasRef);
-    saveCanvasToDb(room._id, '');
-    sendClearCanvas(room._id, room.socket);
+    clearCanvas(canvasRef);
+    saveCanvasToDb(_id, '');
+    sendClearCanvas(_id, socket);
     hideBackdrop();
   }
 

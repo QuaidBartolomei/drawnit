@@ -76,6 +76,17 @@ export async function getBackgroundImageUrl({
   return URL.createObjectURL(blob);
 }
 
+// DELETE_BACKGROUND_IMAGE: `/room/deleteImage/${roomId}`,
+export async function deleteBackgroundImage({
+  id,
+}: {
+  id: string;
+}): Promise<boolean> {
+  const res = await fetch(RoomClientRoutes(id).DELETE_BACKGROUND_IMAGE);
+  if (res.status !== StatusCodes.OK) return true;
+  return false;
+}
+
 //  COUNT
 export async function countRooms() {
   return fetchData<number>(RoomRoutes.COUNT);

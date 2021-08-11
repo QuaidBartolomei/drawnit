@@ -6,6 +6,7 @@ export function RoomClientRoutes(roomId = ':id') {
     GET_All: `${apiBase}/all`,
     SET_IMAGE: `${apiBase}/setImage/${roomId}`,
     GET_BACKGROUND_IMAGE: `${apiBase}/getImage/${roomId}`,
+    DELETE_BACKGROUND_IMAGE: `${apiBase}/deleteImage/${roomId}`,
     UPDATE_CANVAS: `${apiBase}/update/${roomId}`,
     DELETE_ROOM: `${apiBase}/delete/${roomId}`,
     DELETE_ALL: `${apiBase}/delete-all/`,
