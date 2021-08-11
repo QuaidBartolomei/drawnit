@@ -10,31 +10,24 @@ const useStyles = makeStyles(theme =>
   createStyles({
     backdrop: {
       zIndex: theme.zIndex.drawer + 1,
-      color: '#fff',
-      right: 'auto',
-      bottom: 'auto',
       height: '100vh',
       width: '100vw',
     },
-
     container: {
       zIndex: theme.zIndex.drawer + 2,
       backgroundColor: theme.palette.background.paper,
       color: theme.palette.text.primary,
       borderRadius: 8,
       border: 'thin black solid',
-      padding: theme.spacing(1),
+      padding: theme.spacing(2),
       maxWidth: '100vw',
-      '&>*': {
-        margin: '0.5rem',
-      },
     },
   })
 );
 
-export type ShareBackdropProps = {};
+export type BackdroppedAlertProps = {};
 
-export function ShareBackdrop() {
+export function BackdroppedAlert() {
   const { backdropContent } = useRoomState();
   const dispatch = useRoomDispatch();
   const classes = useStyles();

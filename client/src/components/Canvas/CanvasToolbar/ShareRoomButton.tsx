@@ -35,7 +35,7 @@ const useStyles = makeStyles(theme =>
   })
 );
 
-export default function ShareButton() {
+export default function ShareRoomButton() {
   const dispatch = useRoomDispatch();
   const classes = useStyles();
   const { _id  } = useRoomState();

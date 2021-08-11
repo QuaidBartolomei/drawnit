@@ -48,7 +48,7 @@ const Homepage = () => {
       if (!room) return;
       history.push(PageRoutes(roomId).ROOM);
     });
-  }, []);
+  }, [history]);
 
   function CreateRoomButton() {
     return (

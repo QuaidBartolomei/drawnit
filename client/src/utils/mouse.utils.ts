@@ -1,23 +1,9 @@
-import { subtract, Vector2 } from '@graph-ts/vector2';
-
-const screenToCanvasPosition = (
-  screenPosition: Vector2,
-  canvasRef: HTMLCanvasElement | null
-): Vector2 => {
-  return subtract(screenPosition, canvasOffset(canvasRef));
-};
-const canvasOffset = (canvasRef: HTMLCanvasElement | null): Vector2 => {
-  if (!canvasRef) return { x: 0, y: 0 };
-  return { x: canvasRef.offsetLeft, y: canvasRef.getBoundingClientRect().top };
-};
+import { Vector2 } from '@graph-ts/vector2';
+import { canvasMargin } from 'components/Canvas/Canvas';
 
 export const mousePositionScreen = (event: React.MouseEvent): Vector2 => ({
   x: event.pageX,
   y: event.pageY,
-});
-export const touchPositionScreen = (event: React.TouchEvent): Vector2 => ({
-  x: event.touches[0].clientX,
-  y: event.touches[0].clientY,
 });
 
 export const mousePositionCanvas = (event: React.MouseEvent) => ({
@@ -25,10 +11,18 @@ export const mousePositionCanvas = (event: React.MouseEvent) => ({
   y: event.nativeEvent.offsetY,
 });
 
-export function touchPositionCanvas(
-  event: React.TouchEvent,
-  canvasRef: HTMLCanvasElement | null
-): Vector2 {
-  const screenPos = touchPositionScreen(event);
-  return screenToCanvasPosition(screenPos, canvasRef);
+export function touchPositionCanvas(event: React.TouchEvent): Vector2 {
+  const { x: scrollLeft, y: scrollTop } = scrollOffset();
+  const { pageX, pageY } = event.targetTouches[0];
+  return {
+    x: pageX - canvasMargin + scrollLeft,
+    y: pageY - canvasMargin + scrollTop,
+  };
+}
+
+export function scrollOffset() {
+  const root = document.getElementById('root');
+  if (!root) return { x: 0, y: 0 };
+  const { scrollLeft, scrollTop } = root;
+  return { x: scrollLeft, y: scrollTop };
 }

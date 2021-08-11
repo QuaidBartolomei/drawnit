@@ -1,3 +1,4 @@
+import { createMuiTheme } from '@material-ui/core/styles';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { SocketEvents } from 'apis/socket.client.api';
 import { useBrushTool } from 'components/Canvas/hooks/brushTool.hook';
@@ -13,13 +14,15 @@ export enum CanvasTools {
   Pan,
 }
 
+export const canvasMargin = createMuiTheme({}).spacing(16);
+
 const useStyles = makeStyles(theme => {
   return createStyles({
     outsideWrapper: ({ width, height }) => ({
       display: 'inline-block',
       height,
       width,
-      margin: theme.spacing(16),
+      margin: canvasMargin,
     }),
     insideWrapper: {
       width: '100%',
@@ -46,11 +49,13 @@ type Ref = React.ForwardedRef<HTMLCanvasElement>;
 const Canvas = (props: Props, ref: Ref) => {
   const { socket, canvasRef, backgroundImageId, selectedTool, width, height } =
     useRoomState();
-  const size = { width, height };
+
   const classes = useStyles({
-    ...size,
+    width,
+    height,
     backgroundColor: backgroundImageId ? 'transparent' : 'white',
   });
+
   const canvasTools = {
     [CanvasTools.Brush]: useBrushTool(),
     [CanvasTools.Pan]: usePanTool(),
@@ -77,6 +82,7 @@ const Canvas = (props: Props, ref: Ref) => {
         <CanvasBackgroundImage />
         <canvas
           className={classes.canvas}
+          {...{ height, width }}
           {...props}
           {...canvasTools[selectedTool]}
           ref={ref}

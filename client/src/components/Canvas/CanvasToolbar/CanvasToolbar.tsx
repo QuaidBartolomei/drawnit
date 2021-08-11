@@ -2,12 +2,12 @@ import { createStyles, makeStyles } from '@material-ui/core/styles';
 import BrushIcon from '@material-ui/icons/Brush';
 import PanToolIcon from '@material-ui/icons/PanTool';
 import React from 'react';
+import { CanvasTools } from '../Canvas';
 import BrushColorInput from './BrushColorInput';
-import { CanvasTools } from './Canvas';
 import CanvasToolButton from './CanvasToolButton';
 import ChangeCanvasBackgroundButton from './ChangeCanvasBackgroundButton';
 import ClearCanvasButton from './ClearCanvasButton';
-import ShareButton from './ShareButton';
+import ShareRoomButton from './ShareRoomButton';
 
 const useStyles = makeStyles(theme =>
   createStyles({
@@ -58,7 +58,7 @@ export default function CanvasToolbar() {
       {canvasTools.map(CanvasToolButton)}
       <ClearCanvasButton />
       <ChangeCanvasBackgroundButton />
-      <ShareButton />
+      <ShareRoomButton />
     </div>
   );
 }

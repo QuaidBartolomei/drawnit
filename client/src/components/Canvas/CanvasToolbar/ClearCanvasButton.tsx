@@ -1,4 +1,6 @@
+import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import { saveCanvasToDb } from 'apis/room.client.api';
 import { sendClearCanvas } from 'apis/socket.client.api';
@@ -7,10 +9,7 @@ import {
   useRoomState,
 } from 'components/ImageEditor/imageEditor.context';
 import React from 'react';
-import Typography from '@material-ui/core/Typography';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { clearCanvas } from 'utils/canvas.utils';
-import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles(theme =>
   createStyles({
@@ -21,6 +20,9 @@ const useStyles = makeStyles(theme =>
       justifyContent: 'center',
       height: '100%',
       width: '100%',
+      '&>*': {
+      margin: theme.spacing(1),
+      },
     },
     containerHorizontal: {
       display: 'flex',
@@ -39,7 +41,9 @@ const ClearCanvasButton = () => {
   const classes = useStyles();
   const dispatch = useRoomDispatch();
 
-  function onRemoveBackground() {}
+  function onRemoveBackground() {
+    hideBackdrop();
+  }
 
   function onRemoveChanges() {
     clearCanvas(room.canvasRef);
@@ -56,6 +60,9 @@ const ClearCanvasButton = () => {
         variant='contained'
       >
         Remove Background
+      </Button>
+      <Button onClick={onRemoveChanges} color='secondary' variant='contained'>
+        Clear Edits
       </Button>
     </div>
   );

@@ -2,9 +2,9 @@ import { createStyles, makeStyles } from '@material-ui/core';
 import { getRoom } from 'apis/room.client.api';
 import { initSocket, SocketEvents } from 'apis/socket.client.api';
 import Canvas from 'components/Canvas/Canvas';
-import CanvasToolbar from 'components/Canvas/CanvasToolbar';
+import CanvasToolbar from 'components/Canvas/CanvasToolbar/CanvasToolbar';
 import { ImageEditorProvider } from 'components/ImageEditor/imageEditor.context';
-import { ShareBackdrop } from 'components/ShareBackdrop';
+import { BackdroppedAlert } from 'components/BackdroppedAlert';
 import Room from 'interfaces/room.interface';
 import React from 'react';
 import { useQuery } from 'react-query';
@@ -68,7 +68,7 @@ function Ready({ room, socket }: { room: Room; socket: Socket }) {
       socket={socket}
     >
       <CanvasToolbar />
-      <ShareBackdrop />
+      <BackdroppedAlert />
       <div className={classes.canvasContainer}>
         <Canvas ref={canvasRef} />
       </div>

@@ -9,22 +9,22 @@ import { mousePositionCanvas, touchPositionCanvas } from 'utils/mouse.utils';
 export function useBrushTool(): React.HTMLProps<HTMLCanvasElement> {
   const [isPainting, setIsPainting] = useState(false);
   const [positions, setPositions] = useState<Vector2[]>([]);
-  const [lastPosition, setLastPosition] = useState<Vector2>({ x: 0, y: 0 });
-  const { color, canvasRef, _id,  } = useRoomState();
+  const { color, canvasRef, _id } = useRoomState();
   const { sendBrushStroke } = useSocket();
+  const lastPosition = () => positions[positions.length - 1];
 
   const onDown = (position: Vector2) => {
-    console.log('brush down', position);
     setIsPainting(true);
     setPositions([position]);
-    setLastPosition(position);
   };
 
   const onMove = (position: Vector2) => {
     if (!isPainting) return;
-    if (distance(position, lastPosition) < 1) return;
-    drawBrushStroke(canvasRef, { positions: [position, lastPosition], color });
-    setLastPosition(position);
+    if (distance(position, lastPosition()) < 1) return;
+    drawBrushStroke(canvasRef, {
+      positions: [position, lastPosition()],
+      color,
+    });
     setPositions([...positions, position]);
   };
 
@@ -49,8 +49,8 @@ export function useBrushTool(): React.HTMLProps<HTMLCanvasElement> {
     onMouseUp: e => onEnd(),
     onMouseLeave: e => onEnd(),
 
-    onTouchStart: e => onDown(touchPositionCanvas(e, canvasRef.current)),
-    onTouchMove: e => onMove(touchPositionCanvas(e, canvasRef.current)),
+    onTouchStart: e => onDown(touchPositionCanvas(e)),
+    onTouchMove: e => onMove(touchPositionCanvas(e)),
     onTouchCancel: e => onEnd(),
     onTouchEnd: e => onEnd(),
     onClick: () => {},
