@@ -1,7 +1,7 @@
 import { CanvasTools } from 'components/Canvas/Canvas';
 import Room from 'interfaces/room.interface';
 import React, { createContext, FC, useReducer } from 'react';
-import { RoomDispatch, roomReducer } from './imageEditor.reducer';
+import { RoomDispatch, roomReducer } from './room.reducer';
 import { Socket } from 'socket.io-client';
 
 export type RoomState = Room & {
@@ -22,7 +22,7 @@ type Props = {
   socket: Socket;
 };
 
-export const ImageEditorProvider: FC<Props> = props => {
+export const RoomProvider: FC<Props> = props => {
   const { children, canvasRef, room, socket } = props;
   const initialState: RoomState = {
     ...room,

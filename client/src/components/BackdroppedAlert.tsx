@@ -1,10 +1,7 @@
 import Backdrop from '@material-ui/core/Backdrop';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import {
-  useRoomDispatch,
-  useRoomState,
-} from 'components/ImageEditor/imageEditor.context';
 import React from 'react';
+import { useRoomDispatch, useRoomState } from './Canvas/room.context';
 
 const useStyles = makeStyles(theme =>
   createStyles({

@@ -4,11 +4,8 @@ import { createStyles, makeStyles } from '@material-ui/core/styles';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import { deleteBackgroundImage, saveCanvasToDb } from 'apis/room.client.api';
 import { sendClearCanvas } from 'apis/socket.client.api';
-import {
-  useRoomDispatch,
-  useRoomState,
-} from 'components/ImageEditor/imageEditor.context';
-import useSocket from 'components/useSocket';
+import { useRoomDispatch, useRoomState } from '../room.context';
+import useSocket from 'components/Canvas/hooks/useSocket';
 import React from 'react';
 import { clearCanvas } from 'utils/canvas.utils';
 

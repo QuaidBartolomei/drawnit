@@ -2,7 +2,7 @@ import IconButton from '@material-ui/core/IconButton';
 import {
   useRoomDispatch,
   useRoomState
-} from 'components/ImageEditor/imageEditor.context';
+} from '../room.context';
 import React from 'react';
 import { CanvasTools } from '../Canvas';
 import { CanvasTool } from './CanvasToolbar';

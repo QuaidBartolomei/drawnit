@@ -1,10 +1,10 @@
 import { createStyles, makeStyles } from '@material-ui/core';
 import { getRoom } from 'apis/room.client.api';
 import { initSocket, SocketEvents } from 'apis/socket.client.api';
+import { BackdroppedAlert } from 'components/BackdroppedAlert';
 import Canvas from 'components/Canvas/Canvas';
 import CanvasToolbar from 'components/Canvas/CanvasToolbar/CanvasToolbar';
-import { ImageEditorProvider } from 'components/ImageEditor/imageEditor.context';
-import { BackdroppedAlert } from 'components/BackdroppedAlert';
+import { RoomProvider } from 'components/Canvas/room.context';
 import Room from 'interfaces/room.interface';
 import React from 'react';
 import { useQuery } from 'react-query';
@@ -57,26 +57,23 @@ function Ready({ room, socket }: { room: Room; socket: Socket }) {
   const classes = useStyles();
   const canvasRef = React.useRef<HTMLCanvasElement>(null);
   React.useEffect(() => {
-    const rootElement = document.getElementById('root');
-    if (!rootElement) return console.error('element with id "root" not found');
-    scrollToMiddle(rootElement);
+    scrollToMiddle('root');
   }, []);
   return (
-    <ImageEditorProvider
-      room={{ ...room }}
-      canvasRef={canvasRef}
-      socket={socket}
-    >
+    <RoomProvider room={{ ...room }} canvasRef={canvasRef} socket={socket}>
       <CanvasToolbar />
       <BackdroppedAlert />
       <div className={classes.canvasContainer}>
         <Canvas ref={canvasRef} />
       </div>
-    </ImageEditorProvider>
+    </RoomProvider>
   );
 }
 
-function scrollToMiddle(scrollingElement: HTMLElement) {
+function scrollToMiddle(scrollingElementName: string) {
+  const scrollingElement = document.getElementById(scrollingElementName);
+  if (!scrollingElement)
+    return console.error('element with id "root" not found');
   const viewportWidth = window.innerWidth;
   const fullWidth = scrollingElement.scrollWidth;
   const midpoint = (fullWidth - viewportWidth) / 2;

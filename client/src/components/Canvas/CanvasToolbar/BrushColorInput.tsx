@@ -4,7 +4,7 @@ import { SketchPicker } from 'react-color';
 import {
   useRoomDispatch,
   useRoomState,
-} from 'components/ImageEditor/imageEditor.context';
+} from '../room.context';
 
 const useStyles = makeStyles(theme =>
   createStyles({

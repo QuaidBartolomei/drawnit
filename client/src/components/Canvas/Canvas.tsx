@@ -3,11 +3,11 @@ import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { SocketEvents } from 'apis/socket.client.api';
 import { useBrushTool } from 'components/Canvas/hooks/brushTool.hook';
 import { usePanTool } from 'components/Canvas/hooks/panTool.hook';
-import { useRoomState } from 'components/ImageEditor/imageEditor.context';
 import { BrushStroke } from 'interfaces/brushStroke.interface';
 import React, { useEffect } from 'react';
 import { clearCanvas, drawBrushStroke } from 'utils/canvas.utils';
 import CanvasBackgroundImage from './CanvasBackgroundImage';
+import { useRoomState } from './room.context';
 
 export enum CanvasTools {
   Brush,

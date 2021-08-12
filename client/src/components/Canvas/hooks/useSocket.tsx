@@ -1,6 +1,6 @@
 import { SocketEvents } from 'apis/socket.client.api';
 import { BrushStroke } from 'interfaces/brushStroke.interface';
-import { useRoomState } from './ImageEditor/imageEditor.context';
+import { useRoomState } from '../room.context';
 
 
 export default function useSocket() {

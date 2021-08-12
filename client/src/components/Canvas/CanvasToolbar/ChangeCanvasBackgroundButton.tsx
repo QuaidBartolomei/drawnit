@@ -1,7 +1,7 @@
 import { setImage } from 'apis/room.client.api';
-import { useRoomState } from 'components/ImageEditor/imageEditor.context';
+import { useRoomState } from '../room.context';
 import ImageUploadButton from 'components/ImageUploadButton';
-import useSocket from 'components/useSocket';
+import useSocket from 'components/Canvas/hooks/useSocket';
 import React from 'react';
 
 export default function ChangeCanvasBackgroundButton() {

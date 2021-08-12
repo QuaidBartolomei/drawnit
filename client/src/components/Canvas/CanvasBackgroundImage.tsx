@@ -1,7 +1,7 @@
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { useRoomState } from 'components/ImageEditor/imageEditor.context';
 import React, { useEffect } from 'react';
 import { loadCanvasImage } from 'utils/canvas.utils';
+import { useRoomState } from './room.context';
 
 const useStyles = makeStyles(theme =>
   createStyles({

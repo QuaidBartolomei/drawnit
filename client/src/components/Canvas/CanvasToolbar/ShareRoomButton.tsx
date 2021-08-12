@@ -6,10 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
 import ShareIcon from '@material-ui/icons/Share';
 import copy from 'clipboard-copy';
-import {
-  useRoomDispatch,
-  useRoomState
-} from 'components/ImageEditor/imageEditor.context';
+import { useRoomDispatch, useRoomState } from '../room.context';
 import React from 'react';
 import { PageRoutes } from 'routes/page.routes';
 
@@ -38,7 +35,7 @@ const useStyles = makeStyles(theme =>
 export default function ShareRoomButton() {
   const dispatch = useRoomDispatch();
   const classes = useStyles();
-  const { _id  } = useRoomState();
+  const { _id } = useRoomState();
   const url = window.location.origin + PageRoutes(_id).ROOM;
 
   const UrlPreview = () => (
@@ -50,7 +47,6 @@ export default function ShareRoomButton() {
     </Container>
   );
 
-
   const Children = () => (
     <div className={classes.child}>
       <Typography>
@@ -59,7 +55,6 @@ export default function ShareRoomButton() {
       <UrlPreview />
     </div>
   );
-
 
   const handleToggle = () => {
     dispatch({ type: 'set_backdrop_content', payload: <Children /> });
