@@ -1,15 +1,10 @@
 import IconButton from '@material-ui/core/IconButton';
-import {
-  useRoomDispatch,
-  useRoomState
-} from '../room.context';
 import React from 'react';
 import { CanvasTools } from '../Canvas';
+import { useRoomDispatch, useRoomState } from '../room.context';
 import { CanvasTool } from './CanvasToolbar';
 
-export type CanvasToolButtonProps = {
-  // props
-} & CanvasTool;
+export type CanvasToolButtonProps = {} & CanvasTool;
 
 export default function CanvasToolButton(props: CanvasToolButtonProps) {
   const { label, id, icon } = props;
@@ -29,7 +24,6 @@ export default function CanvasToolButton(props: CanvasToolButtonProps) {
       onClick={() => setCanvasTool(id)}
       key={label}
       color={room.selectedTool === id ? 'secondary' : 'default'}
-
     >
       {icon}
     </IconButton>

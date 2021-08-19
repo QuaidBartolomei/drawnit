@@ -1,12 +1,11 @@
 import { StatusCodes } from 'http-status-codes';
 
-export async function getResponseData<T>(
-  res: Response
-): Promise<T | undefined> {
+async function getResponseData<T>(res: Response): Promise<T | undefined> {
   try {
-    const data:T = await res.json();
+    const data: T = await res.json();
     return data;
   } catch (err) {
+    console.error('get data failed');
     return undefined;
   }
 }
@@ -53,6 +52,7 @@ export async function fetchFile(route: string) {
   let blob = await res.blob();
   return blob;
 }
+
 export async function fetchDelete(route: string) {
   return fetch(route, {
     method: 'DELETE',

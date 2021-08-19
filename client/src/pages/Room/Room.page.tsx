@@ -6,7 +6,7 @@ import Canvas from 'components/Canvas/Canvas';
 import CanvasToolbar from 'components/Canvas/CanvasToolbar/CanvasToolbar';
 import { RoomProvider } from 'components/Canvas/room.context';
 import Room from 'interfaces/room.interface';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 import { Socket } from 'socket.io-client';
@@ -32,11 +32,15 @@ export default function RoomPage() {
   const { id: roomId } = useParams<{ id: string }>();
   const [socket, setSocket] = React.useState<undefined | Socket>(undefined);
 
-  const { data: room } = useQuery('getRoom', () => {
+  const {
+    data: room,
+    isError,
+    error,
+  } = useQuery('getRoom', () => {
     return getRoom(roomId);
   });
 
-  React.useEffect(() => {
+  useEffect(() => {
     initSocket().then(socket => {
       socket
         .on(SocketEvents.JoinRoom, () => {
@@ -49,14 +53,15 @@ export default function RoomPage() {
     });
   }, [roomId]);
 
-  if (!room || !socket) return null;
+  if (isError) console.error('getRoom error: ', error);
+  if (!room || !socket) return <div>loading...</div>;
   return <Ready room={room} socket={socket} />;
 }
 
 function Ready({ room, socket }: { room: Room; socket: Socket }) {
   const classes = useStyles();
   const canvasRef = React.useRef<HTMLCanvasElement>(null);
-  React.useEffect(() => {
+  useEffect(() => {
     scrollToMiddle('root');
   }, []);
   return (
@@ -70,10 +75,10 @@ function Ready({ room, socket }: { room: Room; socket: Socket }) {
   );
 }
 
-function scrollToMiddle(scrollingElementName: string) {
-  const scrollingElement = document.getElementById(scrollingElementName);
+function scrollToMiddle(scrollingElementId: string) {
+  const scrollingElement = document.getElementById(scrollingElementId);
   if (!scrollingElement)
-    return console.error('element with id "root" not found');
+    return console.error(`element with id: "${scrollingElementId}" not found`);
   const viewportWidth = window.innerWidth;
   const fullWidth = scrollingElement.scrollWidth;
   const midpoint = (fullWidth - viewportWidth) / 2;

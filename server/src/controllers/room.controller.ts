@@ -80,6 +80,7 @@ export const roomController = Router()
     try {
       await setBackgroundImage(id, { file: req.file });
       const file = req.file;
+      if (!file) throw 'file not found';
       const { height, width } = imageSize(file.buffer);
       updateRoomValue(id, { height, width });
       res.status(200).send();

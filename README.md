@@ -90,7 +90,7 @@ A list of commonly used resources that I find helpful are listed in the acknowle
 
 ## Getting Started
 
-The project is organized so that the client and server can be developed as seperate apps. This top level package can be used to build the project into a Node.js application that serves the compiled frontend as static files. 
+The project is organized so that the client and server can be developed as seperate apps. This top level package can be used to build the project into a Node.js application that serves the compiled frontend as static files.
 
 ### Prerequisites
 
@@ -134,7 +134,6 @@ npm run dev
 npm run test:all
 ```
 
-
 <!-- USAGE EXAMPLES -->
 
 ## Usage
@@ -145,7 +144,6 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 
 - table top
 - white board / brainstorming
-
 
 <!-- ROADMAP -->
 

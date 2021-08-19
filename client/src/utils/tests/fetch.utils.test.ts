@@ -2,9 +2,7 @@ import { StatusCodes } from 'http-status-codes';
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
 import {
-  fetchData,
-  getResponseData,
-  postAndGet,
+  fetchData, postAndGet,
   postData
 } from 'utils/fetch.utils';
 
@@ -56,13 +54,6 @@ export async function validatePost(data: Post | undefined) {
   expect(data?.title).toBeTruthy();
   expect(data?.userId).toBeTruthy();
 }
-
-// getResponseData
-test('getResponseData', async () => {
-  let res = await fetch(Routes.GET);
-  const data = await getResponseData<Post>(res);
-  validatePost(data);
-});
 
 // fetchData
 test('fetchData', async () => {
