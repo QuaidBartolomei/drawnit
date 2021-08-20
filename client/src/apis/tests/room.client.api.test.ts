@@ -1,15 +1,25 @@
 import {
   createRoom,
-  deleteAllRooms,
-  deleteRoom,
   getBackgroundImageUrl,
   getRoom,
   saveCanvasToDb,
   setImage,
 } from 'apis/room.client.api';
+import Room from 'interfaces/room.interface';
 import { rest } from 'msw';
 import { RoomClientRoutes } from 'routes/room.api.routes';
 import { imageFile, initServer } from 'utils/test.utils';
+
+const initialData: Room[] = [
+  {
+    _id: 'example',
+    backgroundImageId: '',
+    canvasImage: '',
+    height: 1,
+    width: 1,
+    backgroundImageUrl: '',
+  },
+];
 
 const server = initServer();
 
@@ -21,7 +31,7 @@ afterAll(() => server.close());
 describe('createRoom', () => {
   test('createRoom and get', async () => {
     const controlRoom = await createRoom();
-    const id = controlRoom?._id || '';
+    const id = controlRoom?._id || false;
     expect(id).toBeTruthy();
   });
 });
@@ -33,18 +43,12 @@ describe('GET_ROOM', () => {
     expect(testRoom).toBeFalsy();
   });
   test('getRoomById', async () => {
-    const id = '2';
+    const id = 'example';
     const testRoom = await getRoom(id);
     expect(testRoom).toBeTruthy();
     expect(testRoom?._id).toBeTruthy();
     expect(testRoom?._id).toBe(id);
   });
-});
-
-// DELETE_ALL: `/room/delete-all/`,
-test('delete all rooms', async () => {
-  const success = await deleteAllRooms();
-  expect(success).toBeTruthy();
 });
 
 // SET_IMAGE: `/room/setImage/${roomId}`,
@@ -96,14 +100,5 @@ describe('UPDATE_CANVAS', () => {
     const canvasString = 'newCanvas';
     const res = await saveCanvasToDb(id, canvasString);
     expect(res).toBeTruthy();
-  });
-});
-
-// DELETE_ROOM: `/room/delete/${roomId}`,
-describe('DELETE_ROOM', () => {
-  test('valid room', async () => {
-    const id = '2';
-    const result = await deleteRoom(id);
-    expect(result).toBeTruthy();
   });
 });

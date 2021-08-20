@@ -11,7 +11,7 @@ async function getResponseData<T>(res: Response): Promise<T | undefined> {
 }
 
 export async function fetchData<T>(route: string): Promise<T | undefined> {
-  let res = await fetch(route);
+  const res = await fetch(route);
   return getResponseData<T>(res);
 }
 

@@ -1,7 +1,10 @@
 import { readFileSync } from 'fs';
+import Room from 'interfaces/room.interface';
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
-import { RoomClientRoutes, RoomRoutes } from 'routes/room.api.routes';
+import { RoomRoutes } from 'routes/room.api.routes';
+
+window.URL.createObjectURL = () => 'a';
 
 export const imageBuffer = readFileSync(__dirname + '/image.jpg');
 export const imageBlob = new Blob([imageBuffer as BlobPart], {
@@ -9,13 +12,8 @@ export const imageBlob = new Blob([imageBuffer as BlobPart], {
 });
 export const imageFile = imageBlob as File;
 
-const exampleRoom = { backgroundImageId: '' };
-
-export function initServer() {
+export function initServer(initialData: Room[] = []) {
   return setupServer(
-    rest.get(RoomClientRoutes('').GET_ROOM, (req, res, ctx) => {
-      return res(ctx.json(undefined));
-    }),
     rest.post(RoomRoutes.CREATE_ROOM, (req, res, ctx) => {
       return res(ctx.json({ _id: '1' }));
     }),
@@ -26,13 +24,9 @@ export function initServer() {
       return res(ctx.status(200));
     }),
     rest.get(RoomRoutes.GET_ROOM, (req, res, ctx) => {
-      return res(ctx.json({ ...exampleRoom, _id: req.params.id }));
-    }),
-    rest.get(RoomRoutes.DELETE_ALL, (req, res, ctx) => {
-      return res(ctx.status(200));
-    }),
-    rest.get(RoomRoutes.DELETE_ROOM, (req, res, ctx) => {
-      return res(ctx.status(200));
+      const queryId: string = req.params.id;
+      if (!queryId) return res(ctx.status(500));
+      return res(ctx.json({ _id: 'example' }));
     }),
     rest.get(RoomRoutes.GET_BACKGROUND_IMAGE, (req, res, ctx) => {
       return res(ctx.text(imageBuffer.toString('base64')));

@@ -66,10 +66,3 @@ test('postData', async () => {
   const res = await postData<Post>(Routes.CREATE, newPost);
   expect(res.status).toBe(StatusCodes.CREATED);
 });
-
-// postAndGet
-test('postAndGet', async () => {
-  const data = await postAndGet<Post, Post>(Routes.CREATE, newPost);
-  validatePost(data);
-  expect(data?.title).toBe(newPost.title);
-});

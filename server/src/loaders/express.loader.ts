@@ -1,4 +1,3 @@
-import bodyParser from 'body-parser';
 import express from 'express';
 import cors from 'cors';
 import { authMiddleware } from 'middleware/auth.middleware';
@@ -11,7 +10,8 @@ import mongoSanitize from 'express-mongo-sanitize';
 export const initApp = (app = express(), callback?: () => void): Server => {
   return app
     .use(cors())
-    .use(bodyParser.json())
+    .use(express.json())
+    .use(express.urlencoded({ extended: true }))
     .use(xssAdvanced())
     .use(mongoSanitize())
     .use('/', roomController)

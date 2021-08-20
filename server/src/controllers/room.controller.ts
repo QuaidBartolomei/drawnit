@@ -19,6 +19,8 @@ import imageSize from 'image-size';
 
 export const roomController = Router()
   .post(RoomRoutes.CREATE_ROOM, async (req, res) => {
+    console.log('creating room');
+
     const room: Room = req.body;
     if (!room.height || !room.width) return res.status(400).send();
     try {
@@ -32,7 +34,13 @@ export const roomController = Router()
   .get(RoomRoutes.GET_ROOM, async (req, res) => {
     const id: string = req.params.id;
     try {
-      let roomDoc = await getRoomById(id);
+      console.log('getting room data... ');
+
+      const roomDoc = await getRoomById(id);
+
+      if (!roomDoc) console.log('no room: ', res);
+      console.log(roomDoc);
+
       if (!roomDoc) return res.status(400).send();
       res.status(200).send(JSON.stringify(roomDoc));
     } catch {
