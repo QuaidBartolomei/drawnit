@@ -35,7 +35,7 @@
     "@types/mongodb": "^3.6.20",
     "@types/mongoose": "^5.11.97",
     "@types/multer": "^1.4.7",
-    "@types/node": "^14.17.10",
+    "@types/node": "^14.17.12",
     "@types/serve-favicon": "^2.5.3",
     "@types/shortid": "0.0.29",
     "cors": "^2.8.5",
@@ -47,12 +47,12 @@
     "image-size": "^1.0.0",
     "jwks-rsa": "^1.12.3",
     "mongodb": "^3.6.11",
-    "mongoose": "^5.13.7",
+    "mongoose": "^5.13.8",
     "multer": "^1.4.3",
     "serve-favicon": "^2.5.0",
     "shortid": "^2.2.16",
     "socket.io": "^3.1.2",
-    "typescript": "^4.3.5",
+    "typescript": "^4.4.2",
     "xss-advanced": "^1.0.2"
   },
   "engines": {
