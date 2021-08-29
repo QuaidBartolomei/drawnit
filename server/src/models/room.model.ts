@@ -115,3 +115,18 @@ export async function deleteAllRooms() {
 export async function roomCount(): Promise<number> {
   return await RoomModel.countDocuments();
 }
+
+export const deleteExpiredRooms = async () => {
+  const maxAge = 1 * 24 * 60 * 60 * 1000; // 1 day
+  const minDate = new Date(Date.now() - maxAge);
+  const expiredRoomsQuery = {
+    dateLastVisited: {
+      $lte: minDate,
+    },
+  };
+  const expiredRooms = await RoomModel.find(expiredRoomsQuery);
+  console.log('deleting expired rooms:', expiredRooms.length);
+  await RoomModel.deleteMany(expiredRoomsQuery, (err: any) => {
+    if (err) return console.log(err);
+  });
+};

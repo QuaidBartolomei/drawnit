@@ -11,8 +11,6 @@ interface Env {
   MONGO_DB_URI: string;
 }
 
-const env: Partial<Env> = { ...process.env };
-
-env.PORT = env.PORT || '4000';
+const env: Partial<Env> = { PORT: '4000', ...process.env };
 
 export default env;

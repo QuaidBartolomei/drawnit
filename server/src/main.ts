@@ -5,6 +5,7 @@ import env from 'utils/env.utils';
 import express from 'express';
 import path from 'path';
 import favicon from 'serve-favicon';
+import { deleteExpiredRooms } from 'models/room.model';
 
 initDb(env.MONGO_DB_URI || '');
 
@@ -28,3 +29,7 @@ app
   });
 
 initSocketServer(server);
+
+setInterval(() => {
+  deleteExpiredRooms();
+}, 24 * 3600 * 1000);
