@@ -6,9 +6,6 @@ import mongoose from 'mongoose';
 export async function initMemoryDB(mongod: MongoMemoryServer) {
   mongoose.Promise = Promise;
   const mongoUri = await mongod.getUri();
-  const port = await mongod.getPort();
-  const dbPath = await mongod.getDbPath();
-  const dbName = await mongod.getDbName();
   const mongooseOpts = {
     useNewUrlParser: true,
     useUnifiedTopology: true,

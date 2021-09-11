@@ -3,9 +3,6 @@ export function base64toBlob(
   contentType: string = '',
   sliceSize = 512
 ) {
-  contentType = contentType || '';
-  sliceSize = sliceSize || 512;
-
   var byteCharacters = atob(b64Data);
   var byteArrays = [];
 

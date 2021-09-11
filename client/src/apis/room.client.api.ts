@@ -16,7 +16,6 @@ export async function createRoom(roomData: Partial<Room> = {}) {
       width: 1,
       ...roomData,
     });
-    console.log(response);
     return response.data as Room;
   } catch (error) {
     console.error(error);
@@ -29,7 +28,6 @@ export async function getRoom(id: string): Promise<Room | undefined> {
     console.log('getting room data...');
     const route = RoomClientRoutes(id).GET_ROOM;
     const response: AxiosResponse<Room> = await axios.get(route);
-    console.log(response);
     if (response.status !== 200) throw new Error('room not found');
     const room = response.data as Room;
     const backgroundImageUrl = await getBackgroundImageUrl(room);
@@ -80,7 +78,6 @@ export async function getBackgroundImageUrl({
     if (!backgroundImageId) return '';
     const res = await axios.get(RoomClientRoutes(_id).GET_BACKGROUND_IMAGE);
     if (res.status !== StatusCodes.OK) return '';
-    console.log(res);
     const encodedImage = (await res.data) as string;
     const blob = base64toBlob(encodedImage, 'image/jpeg');
     return URL.createObjectURL(blob);

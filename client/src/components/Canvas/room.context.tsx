@@ -3,6 +3,7 @@ import Room from 'interfaces/room.interface';
 import React, { createContext, FC, useReducer } from 'react';
 import { RoomDispatch, roomReducer } from './room.reducer';
 import { Socket } from 'socket.io-client';
+import isMobile from 'is-mobile';
 
 export type RoomState = Room & {
   selectedTool: CanvasTools;
@@ -10,11 +11,8 @@ export type RoomState = Room & {
   socket: Socket;
   color: string;
   showBackdrop: boolean;
-  backdropContent?:React.ReactNode
+  backdropContent?: React.ReactNode;
 };
-
-const StateContext = createContext<RoomState | undefined>(undefined);
-const DispatchContext = createContext<RoomDispatch | undefined>(undefined);
 
 type Props = {
   canvasRef: React.RefObject<HTMLCanvasElement>;
@@ -22,11 +20,15 @@ type Props = {
   socket: Socket;
 };
 
+const defaultTool: CanvasTools = isMobile({ tablet: true })
+  ? CanvasTools.Pan
+  : CanvasTools.Brush;
+
 export const RoomProvider: FC<Props> = props => {
   const { children, canvasRef, room, socket } = props;
   const initialState: RoomState = {
     ...room,
-    selectedTool: CanvasTools.Pan,
+    selectedTool: defaultTool,
     canvasRef,
     socket,
     color: '#000000',
@@ -59,3 +61,6 @@ export function useRoomDispatch() {
   }
   return context;
 }
+
+const StateContext = createContext<RoomState | undefined>(undefined);
+const DispatchContext = createContext<RoomDispatch | undefined>(undefined);

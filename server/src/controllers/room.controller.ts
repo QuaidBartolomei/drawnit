@@ -39,7 +39,6 @@ export const roomController = Router()
       const roomDoc = await getRoomById(id);
 
       if (!roomDoc) console.log('no room: ', res);
-      console.log(roomDoc);
 
       if (!roomDoc) return res.status(400).send();
       res.status(200).send(JSON.stringify(roomDoc));

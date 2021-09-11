@@ -47,7 +47,7 @@ export default function RoomPage() {
           setSocket(socket);
         })
         .on(SocketEvents.ReloadRoom, () => {
-          window.location.reload(false);
+          window.location.reload();
         })
         .emit(SocketEvents.JoinRoom, roomId);
     });
