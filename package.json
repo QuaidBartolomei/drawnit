@@ -1,5 +1,5 @@
 {
-  "name": "drawnit-server",
+  "name": "drawnit",
   "version": "1.0.0",
   "description": "",
   "main": "./src/main.js",
@@ -61,7 +61,8 @@
     "xss-advanced": "^1.0.2"
   },
   "engines": {
-    "node": "14.15.x"
+    "node": "14.15.x",
+    "yarn": "1.22.x"
   },
   "config": {
     "mongodbMemoryServer": {
