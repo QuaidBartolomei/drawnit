@@ -5,7 +5,7 @@ node_modules
 *.pnp.js
 *.todo
 */build
-*/dist
+dist
 *.env
 client/.eslintcache
 server/globalConfig.json

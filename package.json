@@ -6,6 +6,7 @@
   "scripts": {
     "start": "npm run serve",
     "postinstall": "npm run client:install",
+    "build": "npm run server:build",
     "serve": "NODE_PATH=./dist node dist/main.js",
     "test": "concurrently  \"npm run server:test\" \"npm run client:test\" ",
     "dev": "concurrently  \"npm run server:dev\" \"npm run client:dev\" ",
