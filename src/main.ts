@@ -9,7 +9,7 @@ import { deleteExpiredRooms } from 'models/room.model';
 
 initDb(env.MONGO_DB_URI || '');
 
-const client = path.join(__dirname, '../../client/build');
+const client = path.join(__dirname, '../client/build');
 const staticPath = path.join(client, 'static');
 const faviconPath = path.join(client, 'favicon.ico');
 
