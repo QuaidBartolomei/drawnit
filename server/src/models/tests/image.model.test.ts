@@ -1,5 +1,4 @@
 import { initDb } from 'loaders/db.loader';
-import { readFileSync } from 'fs';
 import { createAndSaveImageDocument, ImageModel } from 'models/image.model';
 import mongoose from 'mongoose';
 import { imageFile } from 'utils/test.utils';
@@ -17,18 +16,16 @@ afterAll(async () => {
 });
 
 describe('create image document', () => {
-  test('returns undefined for invalid file', async (done) => {
+  test('returns undefined for invalid file', async () => {
     let image = await createAndSaveImageDocument({});
     expect(image).toBeUndefined();
-    done();
   });
-  test('create image document', async (done) => {
+  test('create image document', async () => {
     const encoding = 'base64';
     const mimeType = '/image/jpeg';
     let image = await createAndSaveImageDocument(imageFile);
     expect(image).toBeDefined();
     expect(image?.contentType).toBe(mimeType);
     expect(image?.imageBuffer.toString(encoding)).toBe(imageFile.encodedFile);
-    done();
   });
 });

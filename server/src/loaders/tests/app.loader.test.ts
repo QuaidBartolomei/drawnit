@@ -1,4 +1,4 @@
-import {  initApp } from 'loaders/express.loader';
+import { initApp } from 'loaders/express.loader';
 import request from 'supertest';
 import { Server } from 'http';
 import express from 'express';
@@ -15,9 +15,9 @@ afterAll(async () => {
   expressServer.close();
 });
 
-test('Express app successfully listens when initApp is called', async (done) => {
+test('Express app successfully listens when initApp is called', async () => {
   app.get(TEST_ROUTE, (req, res) => {
     res.status(200).send();
   });
-  request(app).get(TEST_ROUTE).expect(200, done);
+  request(app).get(TEST_ROUTE).expect(200);
 });

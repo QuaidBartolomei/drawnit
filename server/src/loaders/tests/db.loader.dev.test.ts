@@ -7,17 +7,13 @@ const mongod = new MongoMemoryServer({
     version: '3.6.3',
   },
 });
-beforeAll(async (done) => {
+beforeAll(async () => {
   await initMemoryDB(mongod);
-  mongoose.connection.once('open', () => {
-    done();
-  });
 });
 
-afterAll(async (done) => {
+afterAll(async () => {
   await mongoose.disconnect();
   await mongod.stop();
-  done();
 });
 
 describe('...', () => {

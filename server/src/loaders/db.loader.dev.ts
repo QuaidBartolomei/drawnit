@@ -11,7 +11,7 @@ export async function initMemoryDB(mongod: MongoMemoryServer) {
     useUnifiedTopology: true,
   };
 
-  mongoose.connect(mongoUri, mongooseOpts);
+  await mongoose.connect(mongoUri, mongooseOpts);
 
   mongoose.connection.on('error', e => {
     if (e.message.code === 'ETIMEDOUT') {

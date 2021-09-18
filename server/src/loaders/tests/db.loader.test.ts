@@ -11,10 +11,9 @@ describe('DB Test', () => {
     await mongoose.disconnect();
   });
 
-  test('test if db connects to test environment successfully', async (done) => {
+  test('test if db connects to test environment successfully', async () => {
     await initDb(process.env.MONGO_URL || '');
     expect(mongoose.connection.readyState).toBe(1);
     await mongoose.disconnect();
-    done();
   });
 });

@@ -32,9 +32,9 @@ const encoding = 'base64';
 let expressServer: Server;
 const ERROR = 400;
 
-beforeAll(async done => {
+beforeAll(async () => {
   await initDb(process.env.MONGO_URL || '');
-  expressServer = initApp(app, done);
+  expressServer = initApp(app);
 });
 
 beforeEach(async () => {
@@ -71,7 +71,7 @@ describe('CREATE_ROOM', () => {
 });
 
 describe('get room by id route', () => {
-  test('invalid id returns undefined', async done => {
+  test('invalid id returns undefined', done => {
     request(app)
       .get(RoomClientRoutes('badid').GET_ROOM)
       .expect(res => {
@@ -79,7 +79,7 @@ describe('get room by id route', () => {
       })
       .expect(ERROR, done);
   });
-  test('valid id', async done => {
+  test('valid id', async () => {
     let controlRoom = await createAndSaveRoomDoc(goodRoomData);
     request(app)
       .get(RoomClientRoutes(controlRoom._id).GET_ROOM)
@@ -88,7 +88,7 @@ describe('get room by id route', () => {
         expect(testRoom).toBeDefined();
         expect(testRoom._id).toBe(controlRoom._id);
       })
-      .expect(200, done);
+      .expect(200);
   });
 });
 
@@ -108,14 +108,14 @@ test('delete all rooms route', async () => {
   expect(n).toBe(0);
 });
 
-test('set image route', async done => {
+test('set image route', async () => {
   let { _id } = await createAndSaveRoomDoc(goodRoomData);
   let route = RoomClientRoutes(_id).SET_IMAGE;
   request(app)
     .post(route)
     .set('content-type', 'multipart/form-data')
     .attach('image', __dirname + '/image.jpg')
-    .expect(200, done);
+    .expect(200);
 });
 
 describe('get background image', () => {
