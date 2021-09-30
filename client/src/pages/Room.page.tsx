@@ -10,7 +10,7 @@ import React, { useEffect } from 'react';
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 import { Socket } from 'socket.io-client';
-import gridBackground from './grid-background';
+import gridBackground from '../utils/grid-background';
 
 const useStyles = makeStyles(theme =>
   createStyles({

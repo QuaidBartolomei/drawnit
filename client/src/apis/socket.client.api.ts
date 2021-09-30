@@ -15,14 +15,14 @@ export function initSocket() {
   const url =
     process.env.NODE_ENV === 'production'
       ? window.location.hostname
-      : `${ window.location.hostname }:4000`;
+      : `${window.location.hostname}:4000`;
   const clientSocket = io(url, {
     reconnectionDelay: 0,
     forceNew: true,
     transports: ['websocket'],
   });
 
-  return new Promise<Socket>(function (resolve, reject) {
+  return new Promise<Socket>((resolve, reject) => {
     clientSocket.on(SocketEvents.Connect, async () => {
       resolve(clientSocket); // done
     });
