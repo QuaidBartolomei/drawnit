@@ -8,7 +8,7 @@ import {
 import Room from 'interfaces/room.interface';
 import { rest } from 'msw';
 import { RoomClientRoutes } from 'routes/room.api.routes';
-import { imageFile, initServer } from 'utils/test.utils';
+import { imageFile, initTestServer } from 'utils/test.utils';
 
 const initialData: Room[] = [
   {
@@ -21,7 +21,7 @@ const initialData: Room[] = [
   },
 ];
 
-const server = initServer();
+const server = initTestServer();
 
 beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());
@@ -55,7 +55,7 @@ describe('GET_ROOM', () => {
 describe('SET_IMAGE', () => {
   test('invalid room returns undefined', async () => {
     server.use(
-      rest.post(RoomClientRoutes('').SET_IMAGE, (req, res, ctx) => {
+      rest.post(RoomClientRoutes('').POST_ROOM_IMAGE, (req, res, ctx) => {
         return res(ctx.status(500));
       })
     );

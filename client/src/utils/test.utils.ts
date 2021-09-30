@@ -12,12 +12,12 @@ export const imageBlob = new Blob([imageBuffer as BlobPart], {
 });
 export const imageFile = imageBlob as File;
 
-export function initServer(initialData: Room[] = []) {
+export function initTestServer(initialData: Room[] = []) {
   return setupServer(
-    rest.post(RoomRoutes.CREATE_ROOM, (req, res, ctx) => {
+    rest.post(RoomRoutes.POST_ROOM, (req, res, ctx) => {
       return res(ctx.json({ _id: '1' }));
     }),
-    rest.post(RoomRoutes.SET_IMAGE, (req, res, ctx) => {
+    rest.post(RoomRoutes.POST_ROOM_IMAGE, (req, res, ctx) => {
       return res(ctx.json({ _id: req.params.id, backgroundImageId: '1' }));
     }),
     rest.post(RoomRoutes.UPDATE_CANVAS, (req, res, ctx) => {
@@ -28,7 +28,7 @@ export function initServer(initialData: Room[] = []) {
       if (!queryId) return res(ctx.status(500));
       return res(ctx.json({ _id: 'example' }));
     }),
-    rest.get(RoomRoutes.GET_BACKGROUND_IMAGE, (req, res, ctx) => {
+    rest.get(RoomRoutes.GET_ROOM_IMAGE, (req, res, ctx) => {
       return res(ctx.text(imageBuffer.toString('base64')));
     })
   );

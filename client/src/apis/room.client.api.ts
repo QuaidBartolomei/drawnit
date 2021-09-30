@@ -1,14 +1,14 @@
 import axios, { AxiosResponse } from 'axios';
 import { StatusCodes } from 'http-status-codes';
 import Room from 'interfaces/room.interface';
-import { RoomClientRoutes } from 'routes/room.api.routes';
+import { RoomClientRoutes, RoomRoutes } from 'routes/room.api.routes';
 import { base64toBlob } from 'utils/blob.utils';
 import { uploadFile } from 'utils/fetch.utils';
 
 // CREATE_ROOM: '/room/create',
 export async function createRoom(roomData: Partial<Room> = {}) {
   try {
-    const response = await axios.post(RoomClientRoutes().CREATE_ROOM, {
+    const response = await axios.post(RoomRoutes.POST_ROOM, {
       _id: '',
       backgroundImageId: '',
       canvasImage: '',
@@ -25,7 +25,7 @@ export async function createRoom(roomData: Partial<Room> = {}) {
 // GET_ROOM: `/room/get/${roomId}`,
 export async function getRoom(id: string): Promise<Room | undefined> {
   try {
-    console.log('getting room data...');
+    if (!id) return undefined;
     const route = RoomClientRoutes(id).GET_ROOM;
     const response: AxiosResponse<Room> = await axios.get(route);
     if (response.status !== 200) throw new Error('room not found');
@@ -43,9 +43,12 @@ export async function setImage(
   id: string,
   imageFile: File
 ): Promise<Room | undefined> {
+  if (!id) return undefined;
   try {
-    console.log('setting image...');
-    const res = await uploadFile(RoomClientRoutes(id).SET_IMAGE, imageFile);
+    const res = await uploadFile(
+      RoomClientRoutes(id).POST_ROOM_IMAGE,
+      imageFile
+    );
     if (res.status !== StatusCodes.OK) return undefined;
     return getRoom(id);
   } catch (error) {
@@ -58,7 +61,9 @@ export async function saveCanvasToDb(
   id: string,
   canvasString: string
 ): Promise<boolean> {
+  if (!id) return false;
   try {
+    const route = RoomClientRoutes(id).UPDATE_CANVAS;
     const res = await axios.post(RoomClientRoutes(id).UPDATE_CANVAS, {
       canvasImage: canvasString,
     } as Partial<Room>);
@@ -75,8 +80,8 @@ export async function getBackgroundImageUrl({
   backgroundImageId,
 }: Partial<Room>): Promise<string | undefined> {
   try {
-    if (!backgroundImageId) return '';
-    const res = await axios.get(RoomClientRoutes(_id).GET_BACKGROUND_IMAGE);
+    if (!backgroundImageId || !_id) return undefined;
+    const res = await axios.get(RoomClientRoutes(_id).GET_ROOM_IMAGE);
     if (res.status !== StatusCodes.OK) return '';
     const encodedImage = (await res.data) as string;
     const blob = base64toBlob(encodedImage, 'image/jpeg');
@@ -92,7 +97,7 @@ export async function deleteBackgroundImage({
 }: {
   id: string;
 }): Promise<boolean> {
-  const res = await axios.get(RoomClientRoutes(id).DELETE_BACKGROUND_IMAGE);
+  const res = await axios.get(RoomClientRoutes(id).DELETE_ROOM_IMAGE);
   if (res.status !== StatusCodes.OK) return true;
   return false;
 }
