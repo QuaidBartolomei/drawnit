@@ -63,7 +63,6 @@ export async function saveCanvasToDb(
 ): Promise<boolean> {
   if (!id) return false;
   try {
-    const route = RoomClientRoutes(id).UPDATE_CANVAS;
     const res = await axios.post(RoomClientRoutes(id).UPDATE_CANVAS, {
       canvasImage: canvasString,
     } as Partial<Room>);

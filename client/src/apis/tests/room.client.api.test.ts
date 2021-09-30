@@ -5,21 +5,9 @@ import {
   saveCanvasToDb,
   setImage,
 } from 'apis/room.client.api';
-import Room from 'interfaces/room.interface';
 import { rest } from 'msw';
 import { RoomClientRoutes } from 'routes/room.api.routes';
 import { imageFile, initTestServer } from 'utils/test.utils';
-
-const initialData: Room[] = [
-  {
-    _id: 'example',
-    backgroundImageId: '',
-    canvasImage: '',
-    height: 1,
-    width: 1,
-    backgroundImageUrl: '',
-  },
-];
 
 const server = initTestServer();
 
