@@ -11,7 +11,7 @@
     Upload an image and draw on it or a blank canvas together with others in real time!
     <br />
     <br />
-    <a href="https://github.com/othneildrew/Best-README-Template">View Demo</a>
+    <a href="https://drawnit.herokuapp.com">View Demo</a>
 </p>
 
 ### Built With
