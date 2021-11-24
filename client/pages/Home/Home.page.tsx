@@ -1,4 +1,4 @@
-import { createRoom } from "apis/room.client.api";
+import { createRoom } from "utils/apis/room.client.api";
 import { GetServerSideProps } from "next";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
