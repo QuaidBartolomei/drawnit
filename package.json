@@ -25,7 +25,7 @@
   "author": "Quaid Bartolomei",
   "license": "ISC",
   "devDependencies": {
-    "concurrently": "^5.3.0"
-  },
-  "dependencies": {}
+    "concurrently": "^5.3.0",
+    "prettier": "2.4.1"
+  }
 }
