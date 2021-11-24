@@ -1,7 +1,6 @@
 {
   "engines": {
-    "node": "14.15.x",
-    "yarn": "1.22.x"
+    "node": "^16"
   },
   "name": "drawnit",
   "version": "1.0.0",
@@ -18,10 +17,10 @@
     "server:install": "cd server && npm install",
     "server:test": "cd server && npm run test",
     "server:build": "cd server && npm install && npm run build",
-    "client": "cd client && yarn start",
-    "client:install": "cd client && yarn",
-    "client:test": "concurrently  \"npm run server:dev\" \"cd client && yarn test\" ",
-    "client:build": "cd client && yarn && yarn run build"
+    "client": "cd client && npm run start",
+    "client:install": "cd client && npm install",
+    "client:test": "concurrently  \"npm run server:dev\" \"cd client && npm run test\" ",
+    "client:build": "cd client && npm install && npm run build"
   },
   "author": "Quaid Bartolomei",
   "license": "ISC",

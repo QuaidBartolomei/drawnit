@@ -31,8 +31,7 @@ The project is organized so that the client and server can be developed as seper
 
 ### Prerequisites
 
-- npm 14.15.x
-- yarn 1.22.x
+- node ^16
 
 ### Installation
 
