@@ -1,19 +1,27 @@
-import { createRoom } from "utils/apis/room.client.api";
-import { GetServerSideProps } from "next";
+import { createRoom } from 'utils/apis/room.client.api'
+import { GetServerSideProps } from 'next'
+import { useRouter } from 'next/router'
+import { useEffect } from 'react'
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const room = await createRoom();
-  if (!room) return { notFound: true };
+  const room = await createRoom()
+  console.log('room', room)
+  if (!room) return { notFound: true }
   return {
-    redirect: {
-      destination: "/" + room._id,
-      permanent: false,
+    props: {
+      roomId: room._id,
     },
-  };
-};
+  }
+}
 
-const Homepage = () => {
-  return null;
-};
+const Homepage = ({ roomId }: { roomId: string }) => {
+  const router = useRouter()
 
-export default Homepage;
+  useEffect(() => {
+    router.push('/room/' + roomId)
+  }, [])
+
+  return <div>hello</div>
+}
+
+export default Homepage
