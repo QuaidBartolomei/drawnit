@@ -2,6 +2,13 @@
   "name": "drawnit-client",
   "version": "0.1.0",
   "private": true,
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "build:heroku": "npm run install --production=false; npm run build; npm prune --production",
+    "test": "react-scripts test --testURL=http://localhost:4000",
+    "eject": "react-scripts eject"
+  },
   "dependencies": {
     "@fontsource/roboto": "^4.5.1",
     "@graph-ts/vector2": "^1.1.0",
@@ -35,12 +42,6 @@
     "prettier": "2.4.1",
     "react-scripts": "4.0.3",
     "typescript": "^4.5.2"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --testURL=http://localhost:4000",
-    "eject": "react-scripts eject"
   },
   "browserslist": {
     "production": [

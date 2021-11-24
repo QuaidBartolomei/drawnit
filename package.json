@@ -8,9 +8,10 @@
   "scripts": {
     "build": "npm run server:build && npm run client:build",
     "client": "cd client && npm run start",
-    "client:build": "cd client && npm install && npm run build",
+    "client:build": "cd client; npm run install --production=false; npm run build; npm prune --production",
     "client:dev": "cd client && npm run dev",
     "client:install": "cd client && npm install",
+    "client:lint": "cd client && npm run lint",
     "client:test": "concurrently  \"npm run server:dev\" \"cd client && npm run test\" ",
     "dev": "concurrently  \"npm run server:dev\" \"npm run client:dev\" ",
     "full-install": "npm install && npm run server:install && npm run client:install",
