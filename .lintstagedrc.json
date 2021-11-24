@@ -1,3 +1,4 @@
 {
-  "*": "prettier --ignore-unknown --write"
+  "*": "prettier --ignore-unknown --write",
+  "client/**/*.{ts,tsx}": "npm run client:lint-staged"
 }
