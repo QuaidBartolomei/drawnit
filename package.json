@@ -20,12 +20,15 @@
     "client": "cd client && npm run start",
     "client:install": "cd client && npm install",
     "client:test": "concurrently  \"npm run server:dev\" \"cd client && npm run test\" ",
-    "client:build": "cd client && npm install && npm run build"
+    "client:build": "cd client && npm install && npm run build",
+    "prepare": "husky install"
   },
   "author": "Quaid Bartolomei",
   "license": "ISC",
   "devDependencies": {
     "concurrently": "^5.3.0",
+    "husky": "^7.0.4",
+    "lint-staged": "^12.1.2",
     "prettier": "2.4.1"
   }
 }
