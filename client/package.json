@@ -5,6 +5,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "build:heroku": "npm run install --production=false; npm run build; npm prune --production",
     "test": "react-scripts test --testURL=http://localhost:4000",
     "eject": "react-scripts eject"
   },
