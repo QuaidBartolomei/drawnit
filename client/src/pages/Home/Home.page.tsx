@@ -1,20 +1,18 @@
-import { createRoom } from 'apis/room.client.api';
-import { useQuery } from 'react-query';
-import { useHistory } from 'react-router';
-import { PageRoutes } from 'routes/page.routes';
+import { createRoom } from "apis/room.client.api";
+import { GetServerSideProps } from "next";
 
-const defaultRoomSettings = {
-  width: 800,
-  height: 800,
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const room = await createRoom();
+  if (!room) return { notFound: true };
+  return {
+    redirect: {
+      destination: "/" + room._id,
+      permanent: false,
+    },
+  };
 };
 
 const Homepage = () => {
-  const history = useHistory();
-  const { data: room } = useQuery('create-room', () => {
-    return createRoom(defaultRoomSettings);
-  });
-  if (!room) return null;
-  history.push(PageRoutes(room._id).ROOM);
   return null;
 };
 
