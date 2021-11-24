@@ -1,11 +1,2 @@
 node_modules
-*/node_modules
-*.DS_Store
-*/.pnp
-*.pnp.js
-*.todo
-*/build
-*/dist
-*.env
-client/.eslintcache
-server/globalConfig.json
+.env
