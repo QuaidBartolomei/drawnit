@@ -1,35 +1,35 @@
 {
-  "engines": {
-    "node": "^16"
-  },
   "name": "drawnit",
   "version": "1.0.0",
   "description": "",
+  "license": "ISC",
+  "author": "Quaid Bartolomei",
   "main": "server/src/main.js",
   "scripts": {
-    "start": "npm run server",
-    "dev": "concurrently  \"npm run server:dev\" \"npm run client:dev\" ",
     "build": "npm run server:build && npm run client:build",
-    "full-install": "npm install && npm run server:install && npm run client:install",
-    "test:all": "concurrently  \"npm run server:test\" \"npm run client:test\" ",
-    "server": "cd server && npm start",
-    "server:dev": "cd server && npm run dev",
-    "server:install": "cd server && npm install",
-    "server:test": "cd server && npm run test",
-    "server:build": "cd server && npm install && npm run build",
     "client": "cd client && npm run start",
+    "client:build": "cd client && npm install && npm run build",
     "client:dev": "cd client && npm run dev",
     "client:install": "cd client && npm install",
     "client:test": "concurrently  \"npm run server:dev\" \"cd client && npm run test\" ",
-    "client:build": "cd client && npm install && npm run build",
-    "prepare": "husky install"
+    "dev": "concurrently  \"npm run server:dev\" \"npm run client:dev\" ",
+    "full-install": "npm install && npm run server:install && npm run client:install",
+    "prepare": "husky install",
+    "server": "cd server && npm start",
+    "server:build": "cd server && npm install && npm run build",
+    "server:dev": "cd server && npm run dev",
+    "server:install": "cd server && npm install",
+    "server:test": "cd server && npm run test",
+    "start": "npm run server",
+    "test:all": "concurrently  \"npm run server:test\" \"npm run client:test\" "
   },
-  "author": "Quaid Bartolomei",
-  "license": "ISC",
   "devDependencies": {
     "concurrently": "^5.3.0",
     "husky": "^7.0.4",
     "lint-staged": "^12.1.2",
     "prettier": "2.4.1"
+  },
+  "engines": {
+    "node": "^16"
   }
 }
