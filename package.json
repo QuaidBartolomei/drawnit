@@ -8,7 +8,7 @@
   "main": "server/src/main.js",
   "scripts": {
     "start": "npm run server",
-    "dev": "concurrently  \"npm run server:dev\" \"npm run client\" ",
+    "dev": "concurrently  \"npm run server:dev\" \"npm run client:dev\" ",
     "build": "npm run server:build && npm run client:build",
     "full-install": "npm install && npm run server:install && npm run client:install",
     "test:all": "concurrently  \"npm run server:test\" \"npm run client:test\" ",
@@ -18,6 +18,7 @@
     "server:test": "cd server && npm run test",
     "server:build": "cd server && npm install && npm run build",
     "client": "cd client && npm run start",
+    "client:dev": "cd client && npm run dev",
     "client:install": "cd client && npm install",
     "client:test": "concurrently  \"npm run server:dev\" \"cd client && npm run test\" ",
     "client:build": "cd client && npm install && npm run build",
