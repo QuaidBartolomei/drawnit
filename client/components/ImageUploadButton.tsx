@@ -1,56 +1,56 @@
-import Button, { ButtonProps } from "@material-ui/core/Button";
-import { createStyles, makeStyles } from "@material-ui/core/styles";
-import React from "react";
-import ImageIcon from "@material-ui/icons/Image";
+import Button, { ButtonProps } from '@material-ui/core/Button'
+import { createStyles, makeStyles } from '@material-ui/core/styles'
+import React from 'react'
+import ImageIcon from '@material-ui/icons/Image'
 
 const useStyles = makeStyles((theme) =>
   createStyles({
     root: {
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      justifyContent: "center",
-      "&>*": {},
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      '&>*': {},
     },
     fileButton: {
-      backgroundColor: "white",
-      "&:hover": {
-        cursor: "pointer",
+      backgroundColor: 'white',
+      '&:hover': {
+        cursor: 'pointer',
       },
     },
     fileInput: {
       width: 0.1,
       height: 0.1,
       opacity: 0,
-      overflow: "hidden",
-      position: "absolute",
+      overflow: 'hidden',
+      position: 'absolute',
       zIndex: -1,
     },
-  })
-);
+  }),
+)
 
 type Props = {
-  onFileSelect: (file: File) => void;
-};
+  onFileSelect: (file: File) => void
+}
 
 const ImageUploadButton = ({
   onFileSelect,
   children,
   ...props
 }: ButtonProps & Props) => {
-  const classes = useStyles();
+  const classes = useStyles()
 
   const handleImageUpload = async (
-    e: React.ChangeEvent<HTMLInputElement>
+    e: React.ChangeEvent<HTMLInputElement>,
   ): Promise<void> => {
-    e.preventDefault();
-    e.stopPropagation();
-    if (!e.currentTarget) return;
-    const files = e.currentTarget.files;
-    if (!files || !files.length) return;
-    const file = files[0];
-    onFileSelect(file);
-  };
+    e.preventDefault()
+    e.stopPropagation()
+    if (!e.currentTarget) return
+    const files = e.currentTarget.files
+    if (!files || !files.length) return
+    const file = files[0]
+    onFileSelect(file)
+  }
 
   return (
     <div className={classes.root}>
@@ -75,7 +75,7 @@ const ImageUploadButton = ({
         </Button>
       </label>
     </div>
-  );
-};
+  )
+}
 
-export default ImageUploadButton;
+export default ImageUploadButton

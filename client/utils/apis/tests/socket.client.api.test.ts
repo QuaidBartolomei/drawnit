@@ -1,40 +1,40 @@
-import { Socket } from "socket.io-client";
-import { initSocket, SocketEvents } from "utils/apis/socket.client.api";
+import { Socket } from 'socket.io-client'
+import { initSocket, SocketEvents } from 'utils/apis/socket.client.api'
 
-let clientSocket: Socket;
+let clientSocket: Socket
 
 beforeAll(async () => {
-  clientSocket = await initSocket();
-});
+  clientSocket = await initSocket()
+})
 afterAll(async () => {
-  clientSocket.disconnect();
-});
+  clientSocket.disconnect()
+})
 
-test("initSocket successfully connects", async () => {
-  expect(clientSocket.connected).toBeTruthy();
-});
+test('initSocket successfully connects', async () => {
+  expect(clientSocket.connected).toBeTruthy()
+})
 
-test("Socket joins room and receives join room event", async (done) => {
-  expect(clientSocket.connected).toBeTruthy();
+test('Socket joins room and receives join room event', async (done) => {
+  expect(clientSocket.connected).toBeTruthy()
 
   clientSocket.on(SocketEvents.JoinRoom, () => {
-    done();
-  });
-  clientSocket.emit(SocketEvents.JoinRoom, "roomid");
-});
+    done()
+  })
+  clientSocket.emit(SocketEvents.JoinRoom, 'roomid')
+})
 
-test("Socket A emits ping and Socket B receives", async (done) => {
+test('Socket A emits ping and Socket B receives', async (done) => {
   function resolve() {
-    clientSocketB.disconnect();
-    done();
+    clientSocketB.disconnect()
+    done()
   }
-  const clientSocketA = clientSocket;
-  const clientSocketB = await initSocket();
-  expect(clientSocketB.connected).toBeTruthy();
+  const clientSocketA = clientSocket
+  const clientSocketB = await initSocket()
+  expect(clientSocketB.connected).toBeTruthy()
 
   clientSocketB.on(SocketEvents.Ping, () => {
-    resolve();
-  });
+    resolve()
+  })
 
-  clientSocketA.emit(SocketEvents.Ping);
-});
+  clientSocketA.emit(SocketEvents.Ping)
+})
