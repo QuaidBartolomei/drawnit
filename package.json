@@ -23,12 +23,15 @@
     "server:dev": "cd server && npm run dev",
     "server:install": "cd server && npm install",
     "server:test": "cd server && npm run test",
-    "format": "prettier ./ --ignore-unknown --write"
+    "format": "prettier ./ --ignore-unknown --write",
+    "prepare": "husky install"
   },
   "author": "Quaid Bartolomei",
   "license": "ISC",
   "devDependencies": {
     "concurrently": "^5.3.0",
-    "prettier": "2.5.0"
+    "prettier": "2.5.0",
+    "husky": "^7.0.4",
+    "lint-staged": "^12.1.2"
   }
 }
