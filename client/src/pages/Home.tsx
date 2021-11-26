@@ -1,5 +1,5 @@
-import { useRouter } from 'next/router'
 import { useQuery } from 'react-query'
+import { useHistory } from 'react-router'
 import { getRoomPageRoute } from 'routes'
 import { createRoom } from 'utils/apis/room.client.api'
 
@@ -9,7 +9,7 @@ const defaultRoomSettings = {
 }
 
 const Homepage = () => {
-  const router = useRouter()
+  const router = useHistory()
   const { data: room } = useQuery('create-room', () => {
     return createRoom(defaultRoomSettings)
   })
