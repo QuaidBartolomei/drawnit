@@ -1,18 +1,19 @@
 import { createStyles, makeStyles } from '@material-ui/core'
-import { getRoom } from 'utils/apis/room.client.api'
-import { initSocket, SocketEvents } from 'utils/apis/socket.client.api'
 import { BackdroppedAlert } from 'components/BackdroppedAlert'
 import Canvas from 'components/Canvas/Canvas'
 import CanvasToolbar from 'components/Canvas/CanvasToolbar/CanvasToolbar'
 import { RoomProvider } from 'components/Canvas/room.context'
 import Room from 'interfaces/room.interface'
-import { GetServerSideProps } from 'next'
-import React, { useEffect } from 'react'
+import { useRouter } from 'next/router'
+import React, { useEffect, useRef, useState } from 'react'
+import { useQuery } from 'react-query'
 import { Socket } from 'socket.io-client'
-import { scrollToMiddle } from 'utils/scroll'
+import { getRoom } from 'utils/apis/room.client.api'
+import { initSocket, SocketEvents } from 'utils/apis/socket.client.api'
 import gridBackground from 'utils/grid-background'
+import { scrollToMiddle } from 'utils/scroll'
 
-const useStyles = makeStyles((theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     canvasContainer: {
       ...gridBackground,
@@ -28,31 +29,18 @@ const useStyles = makeStyles((theme) =>
   }),
 )
 
-type Params = {
-  room: string
-}
+export default function RoomPage() {
+  const router = useRouter()
+  const { room: roomId } = router.query as { room: string }
+  const [socket, setSocket] = useState<undefined | Socket>(undefined)
 
-interface Props {
-  room: Room
-}
-
-export const getServerSideProps: GetServerSideProps<Props, Params> = async (
-  context,
-) => {
-  console.log('room page loading...')
-  const { room: roomId } = context.params || { room: '' }
-  const room = await getRoom(roomId)
-  if (!room) return { notFound: true }
-  console.log('creating socket')
-  console.log('headers', context.req.headers)
-  console.log('host', context.req.headers.host)
-
-  return { props: { room } }
-}
-
-export default function RoomPage({ room }: Props) {
-  const { _id: roomId } = room
-  const [socket, setSocket] = React.useState<undefined | Socket>(undefined)
+  const {
+    data: room,
+    isError,
+    error,
+  } = useQuery('getRoom', () => {
+    return getRoom(roomId)
+  })
 
   useEffect(() => {
     initSocket().then((socket) => {
@@ -67,13 +55,14 @@ export default function RoomPage({ room }: Props) {
     })
   }, [roomId])
 
-  if (!socket) return <div>loading...</div>
+  if (isError) console.error('getRoom error: ', error)
+  if (!room || !socket) return <div>loading...</div>
   return <Ready room={room} socket={socket} />
 }
 
 function Ready({ room, socket }: { room: Room; socket: Socket }) {
   const classes = useStyles()
-  const canvasRef = React.useRef<HTMLCanvasElement>(null)
+  const canvasRef = useRef<HTMLCanvasElement>(null)
   useEffect(() => {
     scrollToMiddle('root')
   }, [])

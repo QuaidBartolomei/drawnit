@@ -1,27 +1,21 @@
-import { createRoom } from 'utils/apis/room.client.api'
-import { GetServerSideProps } from 'next'
 import { useRouter } from 'next/router'
-import { useEffect } from 'react'
+import { useQuery } from 'react-query'
+import { getRoomPageRoute } from 'routes'
+import { createRoom } from 'utils/apis/room.client.api'
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const room = await createRoom()
-  console.log('room', room)
-  if (!room) return { notFound: true }
-  return {
-    props: {
-      roomId: room._id,
-    },
-  }
+const defaultRoomSettings = {
+  width: 800,
+  height: 800,
 }
 
-const Homepage = ({ roomId }: { roomId: string }) => {
+const Homepage = () => {
   const router = useRouter()
-
-  useEffect(() => {
-    router.push('/room/' + roomId)
-  }, [roomId, router])
-
-  return <div>hello</div>
+  const { data: room } = useQuery('create-room', () => {
+    return createRoom(defaultRoomSettings)
+  })
+  if (!room) return <div>loading...</div>
+  router.push(getRoomPageRoute(room._id))
+  return null
 }
 
 export default Homepage

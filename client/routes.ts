@@ -1,8 +1,6 @@
-export function PageRoutes(roomId = ':id') {
-  return {
-    HOME: `/`,
-    ROOM: `/room/${roomId}`,
-  }
+export enum PageRoutes {
+  HOME = `/`,
+  ROOM = `/room/`,
 }
 
 export function RoomClientRoutes(roomId = ':id') {
@@ -22,3 +20,7 @@ export function RoomClientRoutes(roomId = ':id') {
 }
 
 export const RoomRoutes = RoomClientRoutes()
+
+export function getRoomPageRoute(id: string): string {
+  return `${PageRoutes.ROOM}${id}`
+}
