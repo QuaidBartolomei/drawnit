@@ -7,7 +7,10 @@
     "build": "react-scripts build",
     "build:heroku": "npm run install --production=false; npm run build; npm prune --production",
     "test": "react-scripts test --testURL=http://localhost:4000",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint . --cache",
+    "lint:fix": "npm run lint -- --fix",
+    "lint:errors": "npm run lint -- --quiet"
   },
   "dependencies": {
     "@fontsource/roboto": "^4.5.1",
