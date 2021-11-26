@@ -8,7 +8,7 @@
   "scripts": {
     "build": "npm run server:build && npm run client:build",
     "client": "cd client && npm run start",
-    "client:build": "cd client && npm ci --production=false && npm run build && npm prune --production",
+    "client:build": "cd client && npm run build:heroku",
     "client:dev": "cd client && npm run dev",
     "client:install": "cd client && npm install",
     "client:lint": "cd client && npm run lint",
@@ -17,7 +17,7 @@
     "full-install": "npm install && npm run server:install && npm run client:install",
     "prepare": "husky install",
     "server": "cd server && npm start",
-    "server:build": "cd server && npm ci --production=false && npm run build && npm prune --production",
+    "server:build": "cd server && npm run build:heroku",
     "server:dev": "cd server && npm run dev",
     "server:install": "cd server && npm install",
     "server:test": "cd server && npm run test",
