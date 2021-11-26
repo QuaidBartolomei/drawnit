@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from 'axios'
 import { StatusCodes } from 'http-status-codes'
 import Room from 'interfaces/room.interface'
-import { RoomClientRoutes } from 'routes/room.api.routes'
+import { RoomClientRoutes } from 'routes'
 import { base64toBlob } from 'utils/blob.utils'
 import { uploadFile } from 'utils/fetch.utils'
 
