@@ -54,7 +54,7 @@ export default function RoomPage() {
   }, [roomId])
 
   if (isError) console.error('getRoom error: ', error)
-  if (!room || !socket) return <div>loading...</div>
+  if (!room || !socket) return <div>loading room:{roomId}...</div>
   return <Ready room={room} socket={socket} />
 }
 
