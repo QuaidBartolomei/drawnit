@@ -22,5 +22,5 @@ export function RoomClientRoutes(roomId = ':id') {
 export const RoomRoutes = RoomClientRoutes()
 
 export function getRoomPageRoute(id: string): string {
-  return `${PageRoutes.ROOM}${id}`
+  return `/room/${id}`
 }
