@@ -19,5 +19,5 @@
     "incremental": true
   },
   "include": ["**/*.tsx", "**/*.ts"],
-  "exclude": ["node_modules", "**/*.test.*", "**/*.spec.*"]
+  "exclude": ["node_modules", "**/*.test.*", "**/*.spec.*", "**/*.js"]
 }
