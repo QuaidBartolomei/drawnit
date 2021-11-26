@@ -19,7 +19,7 @@ const Homepage = ({ roomId }: { roomId: string }) => {
 
   useEffect(() => {
     router.push('/room/' + roomId)
-  }, [])
+  }, [roomId, router])
 
   return <div>hello</div>
 }

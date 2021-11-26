@@ -19,5 +19,7 @@ module.exports = {
       typescript: {},
     },
   },
-  rules: {},
+  rules: {
+    '@typescript-eslint/no-empty-function': 'off',
+  },
 }

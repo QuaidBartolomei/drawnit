@@ -4,7 +4,7 @@ import { CanvasTools } from '../Canvas'
 import { useRoomDispatch, useRoomState } from '../room.context'
 import { CanvasTool } from './CanvasToolbar'
 
-export type CanvasToolButtonProps = {} & CanvasTool
+export type CanvasToolButtonProps = CanvasTool
 
 export default function CanvasToolButton(props: CanvasToolButtonProps) {
   const { label, id, icon } = props

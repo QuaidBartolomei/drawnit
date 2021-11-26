@@ -22,8 +22,6 @@ const useStyles = makeStyles((theme) =>
   }),
 )
 
-export type BackdroppedAlertProps = {}
-
 export function BackdroppedAlert() {
   const { backdropContent } = useRoomState()
   const dispatch = useRoomDispatch()
