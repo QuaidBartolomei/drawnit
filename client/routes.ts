@@ -1,6 +1,6 @@
 export enum PageRoutes {
   HOME = `/`,
-  ROOM = `/room/`,
+  ROOM = `/room/:id`,
 }
 
 export function RoomClientRoutes(roomId = ':id') {

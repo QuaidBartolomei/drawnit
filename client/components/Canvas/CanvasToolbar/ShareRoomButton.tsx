@@ -6,11 +6,11 @@ import Typography from '@material-ui/core/Typography'
 import FileCopyIcon from '@material-ui/icons/FileCopy'
 import ShareIcon from '@material-ui/icons/Share'
 import copy from 'clipboard-copy'
-import { useRoomDispatch, useRoomState } from '../room.context'
 import React from 'react'
-import { PageRoutes } from 'routes'
+import { getRoomPageRoute } from 'routes'
+import { useRoomDispatch, useRoomState } from '../room.context'
 
-const useStyles = makeStyles((theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     child: {
       display: 'flex',
@@ -36,7 +36,7 @@ export default function ShareRoomButton() {
   const dispatch = useRoomDispatch()
   const classes = useStyles()
   const { _id } = useRoomState()
-  const url = window.location.origin + PageRoutes(_id).ROOM
+  const url = window.location.origin + getRoomPageRoute(_id)
 
   const UrlPreview = () => (
     <Container className={classes.containerHorizontal}>
