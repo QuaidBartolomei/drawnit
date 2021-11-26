@@ -16,7 +16,7 @@ export function drawBrushStroke(
   const positions = brushStroke.positions || []
   const color = brushStroke.color || 'red'
   const size = brushStroke.size || 3
-  let canvasContext = getCanvasContext(canvasRef)
+  const canvasContext = getCanvasContext(canvasRef)
   if (!canvasContext) return
   canvasContext.lineJoin = 'round'
   if (positions.length < 1) return
@@ -24,7 +24,7 @@ export function drawBrushStroke(
   canvasContext.moveTo(positions[0].x, positions[0].y)
   canvasContext.strokeStyle = color
   canvasContext.lineWidth = size
-  for (let position of positions) {
+  for (const position of positions) {
     canvasContext.lineTo(position.x, position.y)
     canvasContext.moveTo(position.x, position.y)
   }
@@ -34,7 +34,7 @@ export function drawBrushStroke(
 
 export function getImageString(ref: CanvasRef): string {
   if (!ref.current) return ''
-  let image = ref.current.toDataURL()
+  const image = ref.current.toDataURL()
   return JSON.stringify(image)
 }
 
@@ -54,7 +54,7 @@ export function setCanvasSize(ref: CanvasRef, width: number, height: number) {
 }
 
 export function clearCanvas(ref: CanvasRef) {
-  let canvasContext = getCanvasContext(ref)
+  const canvasContext = getCanvasContext(ref)
   if (!canvasContext) return
   canvasContext.clearRect(
     0,

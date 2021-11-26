@@ -2,7 +2,7 @@ import { readFileSync } from 'fs'
 import Room from 'interfaces/room.interface'
 import { rest } from 'msw'
 import { setupServer } from 'msw/node'
-import { RoomRoutes } from 'routes/room.api.routes'
+import { RoomRoutes } from 'routes'
 
 window.URL.createObjectURL = () => 'a'
 

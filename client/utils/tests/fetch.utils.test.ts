@@ -1,7 +1,6 @@
 import { StatusCodes } from 'http-status-codes'
 import { rest } from 'msw'
 import { setupServer } from 'msw/node'
-import { fetchData, postAndGet, postData } from 'utils/fetch.utils'
 
 const Routes = {
   GET: `/posts/1`,
