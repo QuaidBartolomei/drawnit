@@ -1,6 +1,6 @@
 import { createStyles, makeStyles } from '@material-ui/core'
 import { getRoom } from 'apis/room'
-import { initSocket, SocketEvents } from 'apis/socket.client.api'
+import { initSocket, SocketEvents } from 'apis/socket'
 import { BackdroppedAlert } from 'components/BackdroppedAlert'
 import Canvas from 'components/Canvas/Canvas'
 import CanvasToolbar from 'components/Canvas/CanvasToolbar/CanvasToolbar'

@@ -1,10 +1,12 @@
 import { Socket } from 'socket.io-client'
-import { initSocket, SocketEvents } from 'apis/socket.client.api'
+import { initSocket, SocketEvents } from 'apis/socket'
 
 let clientSocket: Socket
+let clientSocketB: Socket
 
 beforeAll(async () => {
   clientSocket = await initSocket()
+  clientSocketB = await initSocket()
 })
 afterAll(async () => {
   clientSocket.disconnect()
@@ -14,7 +16,7 @@ test('initSocket successfully connects', async () => {
   expect(clientSocket.connected).toBeTruthy()
 })
 
-test('Socket joins room and receives join room event', async (done) => {
+test('Socket joins room and receives join room event', (done) => {
   expect(clientSocket.connected).toBeTruthy()
 
   clientSocket.on(SocketEvents.JoinRoom, () => {
@@ -23,17 +25,12 @@ test('Socket joins room and receives join room event', async (done) => {
   clientSocket.emit(SocketEvents.JoinRoom, 'roomid')
 })
 
-test('Socket A emits ping and Socket B receives', async (done) => {
-  function resolve() {
-    clientSocketB.disconnect()
-    done()
-  }
+test('Socket A emits ping and Socket B receives', (done) => {
   const clientSocketA = clientSocket
-  const clientSocketB = await initSocket()
-  expect(clientSocketB.connected).toBeTruthy()
 
   clientSocketB.on(SocketEvents.Ping, () => {
-    resolve()
+    clientSocketB.disconnect()
+    done()
   })
 
   clientSocketA.emit(SocketEvents.Ping)

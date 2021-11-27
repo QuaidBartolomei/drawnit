@@ -1,6 +1,6 @@
 import { createMuiTheme } from '@material-ui/core/styles'
 import { createStyles, makeStyles } from '@material-ui/core/styles'
-import { SocketEvents } from 'apis/socket.client.api'
+import { SocketEvents } from 'apis/socket'
 import { useBrushTool } from 'components/Canvas/hooks/brushTool.hook'
 import { usePanTool } from 'components/Canvas/hooks/panTool.hook'
 import { BrushStroke } from 'interfaces/brushStroke.interface'
