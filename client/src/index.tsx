@@ -5,7 +5,7 @@ import RoomPage from 'pages/Room/Room.page'
 import ReactDOM from 'react-dom'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import { PageRoutes } from 'routes/page.routes'
+import { PageRoutes } from 'routes'
 import 'global-styles.css'
 const routes = PageRoutes()
 

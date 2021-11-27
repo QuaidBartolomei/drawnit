@@ -1,7 +1,7 @@
 import { createRoom } from 'apis/room.client.api'
 import { useQuery } from 'react-query'
 import { useHistory } from 'react-router'
-import { PageRoutes } from 'routes/page.routes'
+import { PageRoutes } from 'routes'
 
 const defaultRoomSettings = {
   width: 800,

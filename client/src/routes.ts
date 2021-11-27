@@ -1,3 +1,10 @@
+export function PageRoutes(roomId = ':id') {
+  return {
+    HOME: `/`,
+    ROOM: `/room/${roomId}`,
+  }
+}
+
 export function RoomClientRoutes(roomId = ':id') {
   const base = '/api/room'
   return {
