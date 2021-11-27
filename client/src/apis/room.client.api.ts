@@ -2,8 +2,8 @@ import axios, { AxiosResponse } from 'axios'
 import { StatusCodes } from 'http-status-codes'
 import Room from 'interfaces/room.interface'
 import { RoomClientRoutes } from 'routes/room.api.routes'
-import { base64toBlob } from 'utils/blob.utils'
-import { uploadFile } from 'utils/fetch.utils'
+import { base64toBlob } from 'utils/blob'
+import { uploadFile } from 'utils/fetch'
 
 // CREATE_ROOM: '/room/create',
 export async function createRoom(roomData: Partial<Room> = {}) {

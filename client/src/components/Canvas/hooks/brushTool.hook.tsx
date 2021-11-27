@@ -3,8 +3,8 @@ import { saveCanvasToDb } from 'apis/room.client.api'
 import { useRoomState } from '../room.context'
 import useSocket from 'components/Canvas/hooks/useSocket'
 import React, { useState } from 'react'
-import { drawBrushStroke, getImageString } from 'utils/canvas.utils'
-import { mousePositionCanvas, touchPositionCanvas } from 'utils/mouse.utils'
+import { drawBrushStroke, getImageString } from 'utils/canvas'
+import { mousePositionCanvas, touchPositionCanvas } from 'utils/mouse'
 
 export function useBrushTool(): React.HTMLProps<HTMLCanvasElement> {
   const [isPainting, setIsPainting] = useState(false)

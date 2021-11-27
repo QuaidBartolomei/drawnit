@@ -8,7 +8,7 @@ import {
 import Room from 'interfaces/room.interface'
 import { rest } from 'msw'
 import { RoomClientRoutes } from 'routes/room.api.routes'
-import { imageFile, initServer } from 'utils/test.utils'
+import { imageFile, initServer } from 'utils/test'
 
 const initialData: Room[] = [
   {

@@ -7,7 +7,7 @@ import { sendClearCanvas } from 'apis/socket.client.api'
 import { useRoomDispatch, useRoomState } from '../room.context'
 import useSocket from 'components/Canvas/hooks/useSocket'
 import React from 'react'
-import { clearCanvas } from 'utils/canvas.utils'
+import { clearCanvas } from 'utils/canvas'
 
 const useStyles = makeStyles((theme) =>
   createStyles({

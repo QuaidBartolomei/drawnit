@@ -5,7 +5,7 @@ import { useBrushTool } from 'components/Canvas/hooks/brushTool.hook'
 import { usePanTool } from 'components/Canvas/hooks/panTool.hook'
 import { BrushStroke } from 'interfaces/brushStroke.interface'
 import React, { useEffect } from 'react'
-import { clearCanvas, drawBrushStroke } from 'utils/canvas.utils'
+import { clearCanvas, drawBrushStroke } from 'utils/canvas'
 import CanvasBackgroundImage from './CanvasBackgroundImage'
 import { useRoomState } from './room.context'
 
