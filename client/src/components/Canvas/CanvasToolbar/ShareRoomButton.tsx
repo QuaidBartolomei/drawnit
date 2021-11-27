@@ -1,16 +1,16 @@
-import Container from '@material-ui/core/Container';
-import IconButton from '@material-ui/core/IconButton';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
-import Typography from '@material-ui/core/Typography';
-import FileCopyIcon from '@material-ui/icons/FileCopy';
-import ShareIcon from '@material-ui/icons/Share';
-import copy from 'clipboard-copy';
-import { useRoomDispatch, useRoomState } from '../room.context';
-import React from 'react';
-import { PageRoutes } from 'routes/page.routes';
+import Container from '@material-ui/core/Container'
+import IconButton from '@material-ui/core/IconButton'
+import { createStyles, makeStyles } from '@material-ui/core/styles'
+import TextField from '@material-ui/core/TextField'
+import Typography from '@material-ui/core/Typography'
+import FileCopyIcon from '@material-ui/icons/FileCopy'
+import ShareIcon from '@material-ui/icons/Share'
+import copy from 'clipboard-copy'
+import { useRoomDispatch, useRoomState } from '../room.context'
+import React from 'react'
+import { PageRoutes } from 'routes/page.routes'
 
-const useStyles = makeStyles(theme =>
+const useStyles = makeStyles((theme) =>
   createStyles({
     child: {
       display: 'flex',
@@ -29,23 +29,23 @@ const useStyles = makeStyles(theme =>
     urlField: {
       width: 340,
     },
-  })
-);
+  }),
+)
 
 export default function ShareRoomButton() {
-  const dispatch = useRoomDispatch();
-  const classes = useStyles();
-  const { _id } = useRoomState();
-  const url = window.location.origin + PageRoutes(_id).ROOM;
+  const dispatch = useRoomDispatch()
+  const classes = useStyles()
+  const { _id } = useRoomState()
+  const url = window.location.origin + PageRoutes(_id).ROOM
 
   const UrlPreview = () => (
     <Container className={classes.containerHorizontal}>
-      <TextField className={classes.urlField} value={url} variant='outlined' />
-      <IconButton aria-label='copy' onClick={() => copy(url)}>
+      <TextField className={classes.urlField} value={url} variant="outlined" />
+      <IconButton aria-label="copy" onClick={() => copy(url)}>
         <FileCopyIcon />
       </IconButton>
     </Container>
-  );
+  )
 
   const Children = () => (
     <div className={classes.child}>
@@ -54,15 +54,15 @@ export default function ShareRoomButton() {
       </Typography>
       <UrlPreview />
     </div>
-  );
+  )
 
   const handleToggle = () => {
-    dispatch({ type: 'set_backdrop_content', payload: <Children /> });
-  };
+    dispatch({ type: 'set_backdrop_content', payload: <Children /> })
+  }
 
   return (
     <IconButton aria-label={'Share'} onClick={handleToggle}>
       <ShareIcon />
     </IconButton>
-  );
+  )
 }

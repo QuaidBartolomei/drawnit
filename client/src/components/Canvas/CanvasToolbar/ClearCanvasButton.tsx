@@ -1,15 +1,15 @@
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
-import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
-import { deleteBackgroundImage, saveCanvasToDb } from 'apis/room.client.api';
-import { sendClearCanvas } from 'apis/socket.client.api';
-import { useRoomDispatch, useRoomState } from '../room.context';
-import useSocket from 'components/Canvas/hooks/useSocket';
-import React from 'react';
-import { clearCanvas } from 'utils/canvas.utils';
+import Button from '@material-ui/core/Button'
+import IconButton from '@material-ui/core/IconButton'
+import { createStyles, makeStyles } from '@material-ui/core/styles'
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever'
+import { deleteBackgroundImage, saveCanvasToDb } from 'apis/room.client.api'
+import { sendClearCanvas } from 'apis/socket.client.api'
+import { useRoomDispatch, useRoomState } from '../room.context'
+import useSocket from 'components/Canvas/hooks/useSocket'
+import React from 'react'
+import { clearCanvas } from 'utils/canvas.utils'
 
-const useStyles = makeStyles(theme =>
+const useStyles = makeStyles((theme) =>
   createStyles({
     child: {
       display: 'flex',
@@ -31,57 +31,57 @@ const useStyles = makeStyles(theme =>
     urlField: {
       width: 340,
     },
-  })
-);
+  }),
+)
 
 const ClearCanvasButton = () => {
-  const { _id, canvasRef, socket } = useRoomState();
+  const { _id, canvasRef, socket } = useRoomState()
 
-  const { sendBackgroundImage } = useSocket();
-  const classes = useStyles();
-  const dispatch = useRoomDispatch();
+  const { sendBackgroundImage } = useSocket()
+  const classes = useStyles()
+  const dispatch = useRoomDispatch()
 
   function onRemoveBackground() {
-    deleteBackgroundImage({ id: _id });
-    sendBackgroundImage();
-    hideBackdrop();
+    deleteBackgroundImage({ id: _id })
+    sendBackgroundImage()
+    hideBackdrop()
   }
 
   function onRemoveChanges() {
-    clearCanvas(canvasRef);
-    saveCanvasToDb(_id, '');
-    sendClearCanvas(_id, socket);
-    hideBackdrop();
+    clearCanvas(canvasRef)
+    saveCanvasToDb(_id, '')
+    sendClearCanvas(_id, socket)
+    hideBackdrop()
   }
 
   const AlertDialog = () => (
     <div className={classes.child}>
       <Button
         onClick={onRemoveBackground}
-        color='secondary'
-        variant='contained'
+        color="secondary"
+        variant="contained"
       >
         Remove Background
       </Button>
-      <Button onClick={onRemoveChanges} color='secondary' variant='contained'>
+      <Button onClick={onRemoveChanges} color="secondary" variant="contained">
         Clear Edits
       </Button>
     </div>
-  );
+  )
 
   const hideBackdrop = () => {
-    dispatch({ type: 'set_backdrop_content', payload: null });
-  };
+    dispatch({ type: 'set_backdrop_content', payload: null })
+  }
 
   const handleClick = () => {
-    dispatch({ type: 'set_backdrop_content', payload: <AlertDialog /> });
-  };
+    dispatch({ type: 'set_backdrop_content', payload: <AlertDialog /> })
+  }
 
   return (
     <IconButton onClick={handleClick}>
       <DeleteForeverIcon />
     </IconButton>
-  );
-};
+  )
+}
 
-export default ClearCanvasButton;
+export default ClearCanvasButton

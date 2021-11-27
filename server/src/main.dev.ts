@@ -1,19 +1,19 @@
-import express from 'express';
-import { initMemoryDB } from 'loaders/db.loader.dev';
-import { initApp } from 'loaders/express.loader';
-import { initSocketServer } from 'loaders/socket.loader';
-import { MongoMemoryServer } from 'mongodb-memory-server';
+import express from 'express'
+import { initMemoryDB } from 'loaders/db.loader.dev'
+import { initApp } from 'loaders/express.loader'
+import { initSocketServer } from 'loaders/socket.loader'
+import { MongoMemoryServer } from 'mongodb-memory-server'
 
 const mongod = new MongoMemoryServer({
   binary: {
     version: '3.6.3',
   },
-});
+})
 
-initMemoryDB(mongod);
+initMemoryDB(mongod)
 const server = initApp(express(), () => {
-  console.log('server is listening');
-});
-initSocketServer(server);
+  console.log('server is listening')
+})
+initSocketServer(server)
 
-process.on('SIGTERM', () => process.exit());
+process.on('SIGTERM', () => process.exit())

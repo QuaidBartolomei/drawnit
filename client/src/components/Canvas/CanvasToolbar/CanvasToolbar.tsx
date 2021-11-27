@@ -1,15 +1,15 @@
-import { createStyles, makeStyles } from '@material-ui/core/styles';
-import BrushIcon from '@material-ui/icons/Brush';
-import PanToolIcon from '@material-ui/icons/PanTool';
-import React from 'react';
-import { CanvasTools } from '../Canvas';
-import BrushColorInput from './BrushColorInput';
-import CanvasToolButton from './CanvasToolButton';
-import ChangeCanvasBackgroundButton from './ChangeCanvasBackgroundButton';
-import ClearCanvasButton from './ClearCanvasButton';
-import ShareRoomButton from './ShareRoomButton';
+import { createStyles, makeStyles } from '@material-ui/core/styles'
+import BrushIcon from '@material-ui/icons/Brush'
+import PanToolIcon from '@material-ui/icons/PanTool'
+import React from 'react'
+import { CanvasTools } from '../Canvas'
+import BrushColorInput from './BrushColorInput'
+import CanvasToolButton from './CanvasToolButton'
+import ChangeCanvasBackgroundButton from './ChangeCanvasBackgroundButton'
+import ClearCanvasButton from './ClearCanvasButton'
+import ShareRoomButton from './ShareRoomButton'
 
-const useStyles = makeStyles(theme =>
+const useStyles = makeStyles((theme) =>
   createStyles({
     container: {
       maxWidth: '100%',
@@ -27,14 +27,14 @@ const useStyles = makeStyles(theme =>
       transform: 'translate(-50%)',
       zIndex: 10,
     },
-  })
-);
+  }),
+)
 
 export type CanvasTool = {
-  id: CanvasTools;
-  label: string;
-  icon: JSX.Element;
-};
+  id: CanvasTools
+  label: string
+  icon: JSX.Element
+}
 
 const canvasTools: CanvasTool[] = [
   {
@@ -47,10 +47,10 @@ const canvasTools: CanvasTool[] = [
     icon: <PanToolIcon />,
     label: 'pan',
   },
-];
+]
 
 export default function CanvasToolbar() {
-  const classes = useStyles();
+  const classes = useStyles()
 
   return (
     <div className={classes.container}>
@@ -60,5 +60,5 @@ export default function CanvasToolbar() {
       <ChangeCanvasBackgroundButton />
       <ShareRoomButton />
     </div>
-  );
+  )
 }

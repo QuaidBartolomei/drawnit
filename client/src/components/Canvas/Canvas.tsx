@@ -1,22 +1,22 @@
-import { createMuiTheme } from '@material-ui/core/styles';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { SocketEvents } from 'apis/socket.client.api';
-import { useBrushTool } from 'components/Canvas/hooks/brushTool.hook';
-import { usePanTool } from 'components/Canvas/hooks/panTool.hook';
-import { BrushStroke } from 'interfaces/brushStroke.interface';
-import React, { useEffect } from 'react';
-import { clearCanvas, drawBrushStroke } from 'utils/canvas.utils';
-import CanvasBackgroundImage from './CanvasBackgroundImage';
-import { useRoomState } from './room.context';
+import { createMuiTheme } from '@material-ui/core/styles'
+import { createStyles, makeStyles } from '@material-ui/core/styles'
+import { SocketEvents } from 'apis/socket.client.api'
+import { useBrushTool } from 'components/Canvas/hooks/brushTool.hook'
+import { usePanTool } from 'components/Canvas/hooks/panTool.hook'
+import { BrushStroke } from 'interfaces/brushStroke.interface'
+import React, { useEffect } from 'react'
+import { clearCanvas, drawBrushStroke } from 'utils/canvas.utils'
+import CanvasBackgroundImage from './CanvasBackgroundImage'
+import { useRoomState } from './room.context'
 
 export enum CanvasTools {
   Brush,
   Pan,
 }
 
-export const canvasMargin = createMuiTheme({}).spacing(16);
+export const canvasMargin = createMuiTheme({}).spacing(16)
 
-const useStyles = makeStyles(theme => {
+const useStyles = makeStyles((theme) => {
   return createStyles({
     outsideWrapper: ({ width, height }) => ({
       display: 'inline-block',
@@ -30,9 +30,9 @@ const useStyles = makeStyles(theme => {
       position: 'relative',
     },
     canvas: (size: {
-      width: number;
-      height: number;
-      backgroundColor: string;
+      width: number
+      height: number
+      backgroundColor: string
     }) => ({
       position: 'absolute',
       top: 0,
@@ -40,41 +40,41 @@ const useStyles = makeStyles(theme => {
       ...size,
       border: 'thin black solid',
     }),
-  });
-});
+  })
+})
 
-type Props = React.HTMLProps<HTMLCanvasElement>;
-type Ref = React.ForwardedRef<HTMLCanvasElement>;
+type Props = React.HTMLProps<HTMLCanvasElement>
+type Ref = React.ForwardedRef<HTMLCanvasElement>
 
 const Canvas = (props: Props, ref: Ref) => {
   const { socket, canvasRef, backgroundImageId, selectedTool, width, height } =
-    useRoomState();
+    useRoomState()
 
   const classes = useStyles({
     width,
     height,
     backgroundColor: backgroundImageId ? 'transparent' : 'white',
-  });
+  })
 
   const canvasTools = {
     [CanvasTools.Brush]: useBrushTool(),
     [CanvasTools.Pan]: usePanTool(),
-  };
+  }
 
   useEffect(() => {
     socket
       .on(SocketEvents.BrushStroke, (brushStrokeString: string) => {
-        const brushStroke: BrushStroke = JSON.parse(brushStrokeString);
-        drawBrushStroke(canvasRef, brushStroke);
+        const brushStroke: BrushStroke = JSON.parse(brushStrokeString)
+        drawBrushStroke(canvasRef, brushStroke)
       })
       .on(SocketEvents.ClearCanvas, () => {
-        clearCanvas(canvasRef);
-      });
+        clearCanvas(canvasRef)
+      })
     return () => {
-      socket.off(SocketEvents.BrushStroke);
-      socket.off(SocketEvents.ClearCanvas);
-    };
-  }, [socket, canvasRef]);
+      socket.off(SocketEvents.BrushStroke)
+      socket.off(SocketEvents.ClearCanvas)
+    }
+  }, [socket, canvasRef])
 
   return (
     <div className={classes.outsideWrapper}>
@@ -89,7 +89,7 @@ const Canvas = (props: Props, ref: Ref) => {
         ></canvas>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default React.forwardRef<HTMLCanvasElement, Props>(Canvas);
+export default React.forwardRef<HTMLCanvasElement, Props>(Canvas)

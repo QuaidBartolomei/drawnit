@@ -1,21 +1,21 @@
-import { setImage } from 'apis/room.client.api';
-import { useRoomState } from '../room.context';
-import ImageUploadButton from 'components/ImageUploadButton';
-import useSocket from 'components/Canvas/hooks/useSocket';
-import React from 'react';
+import { setImage } from 'apis/room.client.api'
+import { useRoomState } from '../room.context'
+import ImageUploadButton from 'components/ImageUploadButton'
+import useSocket from 'components/Canvas/hooks/useSocket'
+import React from 'react'
 
 export default function ChangeCanvasBackgroundButton() {
-  const room = useRoomState();
-  const { sendBackgroundImage } = useSocket();
+  const room = useRoomState()
+  const { sendBackgroundImage } = useSocket()
 
   async function changeImage(file: File) {
-    await setImage(room._id, file);
-    sendBackgroundImage();
+    await setImage(room._id, file)
+    sendBackgroundImage()
   }
 
   return (
     <ImageUploadButton onFileSelect={changeImage}>
       Set Background
     </ImageUploadButton>
-  );
+  )
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 export function usePanTool(): React.HTMLProps<HTMLCanvasElement> {
   return {
@@ -6,5 +6,5 @@ export function usePanTool(): React.HTMLProps<HTMLCanvasElement> {
       cursor: 'grab',
       touchAction: 'auto',
     },
-  };
+  }
 }

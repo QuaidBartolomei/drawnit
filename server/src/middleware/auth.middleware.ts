@@ -1,6 +1,6 @@
-import jwt from 'express-jwt';
-import JwksRsa from 'jwks-rsa';
-import env from 'utils/env.utils';
+import jwt from 'express-jwt'
+import JwksRsa from 'jwks-rsa'
+import env from 'utils/env.utils'
 
 export const authMiddleware = jwt({
   secret: JwksRsa.expressJwtSecret({
@@ -12,4 +12,4 @@ export const authMiddleware = jwt({
 
   audience: process.env.AUTH0_AUDIENCE,
   algorithms: ['RS256'],
-});
+})

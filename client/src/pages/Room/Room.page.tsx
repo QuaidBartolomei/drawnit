@@ -1,18 +1,18 @@
-import { createStyles, makeStyles } from '@material-ui/core';
-import { getRoom } from 'apis/room.client.api';
-import { initSocket, SocketEvents } from 'apis/socket.client.api';
-import { BackdroppedAlert } from 'components/BackdroppedAlert';
-import Canvas from 'components/Canvas/Canvas';
-import CanvasToolbar from 'components/Canvas/CanvasToolbar/CanvasToolbar';
-import { RoomProvider } from 'components/Canvas/room.context';
-import Room from 'interfaces/room.interface';
-import React, { useEffect } from 'react';
-import { useQuery } from 'react-query';
-import { useParams } from 'react-router-dom';
-import { Socket } from 'socket.io-client';
-import gridBackground from './grid-background';
+import { createStyles, makeStyles } from '@material-ui/core'
+import { getRoom } from 'apis/room.client.api'
+import { initSocket, SocketEvents } from 'apis/socket.client.api'
+import { BackdroppedAlert } from 'components/BackdroppedAlert'
+import Canvas from 'components/Canvas/Canvas'
+import CanvasToolbar from 'components/Canvas/CanvasToolbar/CanvasToolbar'
+import { RoomProvider } from 'components/Canvas/room.context'
+import Room from 'interfaces/room.interface'
+import React, { useEffect } from 'react'
+import { useQuery } from 'react-query'
+import { useParams } from 'react-router-dom'
+import { Socket } from 'socket.io-client'
+import gridBackground from './grid-background'
 
-const useStyles = makeStyles(theme =>
+const useStyles = makeStyles((theme) =>
   createStyles({
     canvasContainer: {
       ...gridBackground,
@@ -25,45 +25,45 @@ const useStyles = makeStyles(theme =>
       alignItems: 'center',
       justifyContent: 'center',
     },
-  })
-);
+  }),
+)
 
 export default function RoomPage() {
-  const { id: roomId } = useParams<{ id: string }>();
-  const [socket, setSocket] = React.useState<undefined | Socket>(undefined);
+  const { id: roomId } = useParams<{ id: string }>()
+  const [socket, setSocket] = React.useState<undefined | Socket>(undefined)
 
   const {
     data: room,
     isError,
     error,
   } = useQuery('getRoom', () => {
-    return getRoom(roomId);
-  });
+    return getRoom(roomId)
+  })
 
   useEffect(() => {
-    initSocket().then(socket => {
+    initSocket().then((socket) => {
       socket
         .on(SocketEvents.JoinRoom, () => {
-          setSocket(socket);
+          setSocket(socket)
         })
         .on(SocketEvents.ReloadRoom, () => {
-          window.location.reload();
+          window.location.reload()
         })
-        .emit(SocketEvents.JoinRoom, roomId);
-    });
-  }, [roomId]);
+        .emit(SocketEvents.JoinRoom, roomId)
+    })
+  }, [roomId])
 
-  if (isError) console.error('getRoom error: ', error);
-  if (!room || !socket) return <div>loading...</div>;
-  return <Ready room={room} socket={socket} />;
+  if (isError) console.error('getRoom error: ', error)
+  if (!room || !socket) return <div>loading...</div>
+  return <Ready room={room} socket={socket} />
 }
 
 function Ready({ room, socket }: { room: Room; socket: Socket }) {
-  const classes = useStyles();
-  const canvasRef = React.useRef<HTMLCanvasElement>(null);
+  const classes = useStyles()
+  const canvasRef = React.useRef<HTMLCanvasElement>(null)
   useEffect(() => {
-    scrollToMiddle('root');
-  }, []);
+    scrollToMiddle('root')
+  }, [])
   return (
     <RoomProvider room={{ ...room }} canvasRef={canvasRef} socket={socket}>
       <CanvasToolbar />
@@ -72,15 +72,15 @@ function Ready({ room, socket }: { room: Room; socket: Socket }) {
         <Canvas ref={canvasRef} />
       </div>
     </RoomProvider>
-  );
+  )
 }
 
 function scrollToMiddle(scrollingElementId: string) {
-  const scrollingElement = document.getElementById(scrollingElementId);
+  const scrollingElement = document.getElementById(scrollingElementId)
   if (!scrollingElement)
-    return console.error(`element with id: "${scrollingElementId}" not found`);
-  const viewportWidth = window.innerWidth;
-  const fullWidth = scrollingElement.scrollWidth;
-  const midpoint = (fullWidth - viewportWidth) / 2;
-  scrollingElement.scrollTo(midpoint, 0);
+    return console.error(`element with id: "${scrollingElementId}" not found`)
+  const viewportWidth = window.innerWidth
+  const fullWidth = scrollingElement.scrollWidth
+  const midpoint = (fullWidth - viewportWidth) / 2
+  scrollingElement.scrollTo(midpoint, 0)
 }

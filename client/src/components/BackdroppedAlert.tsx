@@ -1,9 +1,9 @@
-import Backdrop from '@material-ui/core/Backdrop';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
-import React from 'react';
-import { useRoomDispatch, useRoomState } from './Canvas/room.context';
+import Backdrop from '@material-ui/core/Backdrop'
+import { createStyles, makeStyles } from '@material-ui/core/styles'
+import React from 'react'
+import { useRoomDispatch, useRoomState } from './Canvas/room.context'
 
-const useStyles = makeStyles(theme =>
+const useStyles = makeStyles((theme) =>
   createStyles({
     backdrop: {
       zIndex: theme.zIndex.drawer + 1,
@@ -19,19 +19,19 @@ const useStyles = makeStyles(theme =>
       padding: theme.spacing(2),
       maxWidth: '100vw',
     },
-  })
-);
+  }),
+)
 
-export type BackdroppedAlertProps = {};
+export type BackdroppedAlertProps = {}
 
 export function BackdroppedAlert() {
-  const { backdropContent } = useRoomState();
-  const dispatch = useRoomDispatch();
-  const classes = useStyles();
+  const { backdropContent } = useRoomState()
+  const dispatch = useRoomDispatch()
+  const classes = useStyles()
 
   const handleClose = () => {
-    dispatch({ type: 'set_backdrop_content', payload: null });
-  };
+    dispatch({ type: 'set_backdrop_content', payload: null })
+  }
 
   return (
     <Backdrop
@@ -41,13 +41,13 @@ export function BackdroppedAlert() {
     >
       <div
         className={classes.container}
-        onClick={e => {
-          e.preventDefault();
-          e.stopPropagation();
+        onClick={(e) => {
+          e.preventDefault()
+          e.stopPropagation()
         }}
       >
         {backdropContent}
       </div>
     </Backdrop>
-  );
+  )
 }

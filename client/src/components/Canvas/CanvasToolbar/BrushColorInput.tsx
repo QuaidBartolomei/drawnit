@@ -1,12 +1,9 @@
-import React from 'react';
-import { makeStyles, createStyles } from '@material-ui/core/styles';
-import { SketchPicker } from 'react-color';
-import {
-  useRoomDispatch,
-  useRoomState,
-} from '../room.context';
+import React from 'react'
+import { makeStyles, createStyles } from '@material-ui/core/styles'
+import { SketchPicker } from 'react-color'
+import { useRoomDispatch, useRoomState } from '../room.context'
 
-const useStyles = makeStyles(theme =>
+const useStyles = makeStyles((theme) =>
   createStyles({
     container: {},
     color: ({ color }: { color: string }) => ({
@@ -35,36 +32,36 @@ const useStyles = makeStyles(theme =>
       bottom: '0px',
       left: '0px',
     },
-  })
-);
+  }),
+)
 
 export default function BrushColorInput(
-  props: React.HTMLProps<HTMLDivElement>
+  props: React.HTMLProps<HTMLDivElement>,
 ) {
-  const { color } = useRoomState();
-  const classes = useStyles({ color });
-  const dispatch = useRoomDispatch();
-  const setColor = (c: string) => dispatch({ type: 'set_color', payload: c });
-  const [showColorPicker, setShowColorPicker] = React.useState(false);
-  const toggleColorPicker = () => setShowColorPicker(!showColorPicker);
+  const { color } = useRoomState()
+  const classes = useStyles({ color })
+  const dispatch = useRoomDispatch()
+  const setColor = (c: string) => dispatch({ type: 'set_color', payload: c })
+  const [showColorPicker, setShowColorPicker] = React.useState(false)
+  const toggleColorPicker = () => setShowColorPicker(!showColorPicker)
 
   const Swatch = () => (
     <div className={classes.swatch} onClick={toggleColorPicker}>
       <div className={classes.color} />
     </div>
-  );
+  )
 
   const ColorPicker = () => (
     <div className={classes.popover}>
       <div className={classes.cover} onClick={toggleColorPicker} />
-      <SketchPicker color={color} onChange={c => setColor(c.hex)} />
+      <SketchPicker color={color} onChange={(c) => setColor(c.hex)} />
     </div>
-  );
+  )
 
   return (
     <div>
       <Swatch />
       {showColorPicker && <ColorPicker />}
     </div>
-  );
+  )
 }

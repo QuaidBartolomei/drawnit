@@ -1,27 +1,27 @@
 // intialize temporary db in server memory for client side testing
 
-import { MongoMemoryServer } from 'mongodb-memory-server';
-import mongoose from 'mongoose';
+import { MongoMemoryServer } from 'mongodb-memory-server'
+import mongoose from 'mongoose'
 
 export async function initMemoryDB(mongod: MongoMemoryServer) {
-  mongoose.Promise = Promise;
-  const mongoUri = await mongod.getUri();
+  mongoose.Promise = Promise
+  const mongoUri = await mongod.getUri()
   const mongooseOpts = {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-  };
+  }
 
-  await mongoose.connect(mongoUri, mongooseOpts);
+  await mongoose.connect(mongoUri, mongooseOpts)
 
-  mongoose.connection.on('error', e => {
+  mongoose.connection.on('error', (e) => {
     if (e.message.code === 'ETIMEDOUT') {
-      console.log(e);
-      mongoose.connect(mongoUri, mongooseOpts);
+      console.log(e)
+      mongoose.connect(mongoUri, mongooseOpts)
     }
-    console.log(e);
-  });
+    console.log(e)
+  })
 
   mongoose.connection.once('open', () => {
-    console.log(`MongoDB successfully connected to ${mongoUri}`);
-  });
+    console.log(`MongoDB successfully connected to ${mongoUri}`)
+  })
 }

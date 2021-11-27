@@ -1,9 +1,9 @@
-import Button, { ButtonProps } from '@material-ui/core/Button';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
-import React from 'react';
-import ImageIcon from '@material-ui/icons/Image';
+import Button, { ButtonProps } from '@material-ui/core/Button'
+import { createStyles, makeStyles } from '@material-ui/core/styles'
+import React from 'react'
+import ImageIcon from '@material-ui/icons/Image'
 
-const useStyles = makeStyles(theme =>
+const useStyles = makeStyles((theme) =>
   createStyles({
     root: {
       display: 'flex',
@@ -26,52 +26,56 @@ const useStyles = makeStyles(theme =>
       position: 'absolute',
       zIndex: -1,
     },
-  })
-);
+  }),
+)
 
 type Props = {
-  onFileSelect: (file: File) => void;
-};
+  onFileSelect: (file: File) => void
+}
 
 const ImageUploadButton = ({
   onFileSelect,
   children,
   ...props
 }: ButtonProps & Props) => {
-  const classes = useStyles();
+  const classes = useStyles()
 
   const handleImageUpload = async (
-    e: React.ChangeEvent<HTMLInputElement>
+    e: React.ChangeEvent<HTMLInputElement>,
   ): Promise<void> => {
-    e.preventDefault();
-    e.stopPropagation();
-    if (!e.currentTarget) return;
-    const files = e.currentTarget.files;
-    if (!files || !files.length) return;
-    const file = files[0];
-    onFileSelect(file);
-  };
+    e.preventDefault()
+    e.stopPropagation()
+    if (!e.currentTarget) return
+    const files = e.currentTarget.files
+    if (!files || !files.length) return
+    const file = files[0]
+    onFileSelect(file)
+  }
 
   return (
     <div className={classes.root}>
       <input
-        accept='image/*'
+        accept="image/*"
         className={classes.fileInput}
-        id='image-file-input'
-        type='file'
-        name='file'
+        id="image-file-input"
+        type="file"
+        name="file"
         onChange={handleImageUpload}
       />
-      <label htmlFor='image-file-input'>
+      <label htmlFor="image-file-input">
         <Button
-        style={{
-          width:16
-        }}  color='default' component='span' {...props}>
+          style={{
+            width: 16,
+          }}
+          color="default"
+          component="span"
+          {...props}
+        >
           <ImageIcon />
         </Button>
       </label>
     </div>
-  );
-};
+  )
+}
 
-export default ImageUploadButton;
+export default ImageUploadButton

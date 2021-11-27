@@ -1,5 +1,5 @@
 export function RoomClientRoutes(roomId = ':id') {
-  const base = '/api/room';
+  const base = '/api/room'
   return {
     CREATE_ROOM: `${base}/create`,
     GET_ROOM: `${base}/get/${roomId}`,
@@ -11,7 +11,7 @@ export function RoomClientRoutes(roomId = ':id') {
     DELETE_ROOM: `${base}/delete/${roomId}`,
     DELETE_ALL: `${base}/delete-all/`,
     COUNT: `${base}/count`,
-  };
+  }
 }
 
-export const RoomRoutes = RoomClientRoutes();
+export const RoomRoutes = RoomClientRoutes()
