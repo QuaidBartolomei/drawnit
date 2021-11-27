@@ -53,7 +53,7 @@
 		"xss-advanced": "^1.0.2"
 	},
 	"engines": {
-		"node": "14.15.x"
+		"node": "^16"
 	},
 	"config": {
 		"mongodbMemoryServer": {
