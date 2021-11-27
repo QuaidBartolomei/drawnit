@@ -11,6 +11,7 @@
     "dev": "concurrently  \"npm run server:dev\" \"npm run client\" ",
     "build": "npm run server:build && npm run client:build",
     "client": "cd client && npm run start",
+    "client:build": "cd client && npm ci --production=false && npm run build && npm prune --production",
     "client:dev": "cd client && npm run dev",
     "client:install": "cd client && npm install",
     "client:lint": "cd client && npm run lint",
@@ -21,8 +22,7 @@
     "server:build": "cd server && npm ci --production=false && npm run build && npm prune --production",
     "server:dev": "cd server && npm run dev",
     "server:install": "cd server && npm install",
-    "server:test": "cd server && npm run test",
-    "client:build": "cd client && npm install && npm run build"
+    "server:test": "cd server && npm run test"
   },
   "author": "Quaid Bartolomei",
   "license": "ISC",
