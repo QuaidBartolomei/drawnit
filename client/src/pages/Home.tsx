@@ -1,4 +1,4 @@
-import { createRoom } from 'apis/room.client.api'
+import { createRoom } from 'apis/room'
 import { useQuery } from 'react-query'
 import { useHistory } from 'react-router'
 import { PageRoutes } from 'routes'

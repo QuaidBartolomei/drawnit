@@ -1,5 +1,5 @@
 import { distance, Vector2 } from '@graph-ts/vector2'
-import { saveCanvasToDb } from 'apis/room.client.api'
+import { saveCanvasToDb } from 'apis/room'
 import { useRoomState } from '../room.context'
 import useSocket from 'components/Canvas/hooks/useSocket'
 import React, { useState } from 'react'

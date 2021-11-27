@@ -1,4 +1,4 @@
-import { setImage } from 'apis/room.client.api'
+import { setImage } from 'apis/room'
 import { useRoomState } from '../room.context'
 import ImageUploadButton from 'components/ImageUploadButton'
 import useSocket from 'components/Canvas/hooks/useSocket'

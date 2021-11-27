@@ -4,7 +4,7 @@ import {
   getRoom,
   saveCanvasToDb,
   setImage,
-} from 'apis/room.client.api'
+} from 'apis/room'
 import Room from 'interfaces/room.interface'
 import { rest } from 'msw'
 import { RoomClientRoutes } from 'routes'
