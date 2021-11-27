@@ -1,7 +1,7 @@
 // import * as serviceWorker from './serviceWorker';
 import CssBaseline from '@material-ui/core/CssBaseline'
-import Homepage from 'pages/Home/Home.page'
-import RoomPage from 'pages/Room/Room.page'
+import Homepage from 'pages/Home'
+import RoomPage from 'pages/Room'
 import ReactDOM from 'react-dom'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
