@@ -34,12 +34,12 @@ export async function postAndGet<T1, T2>(
     console.log('res.status', res.status)
     return undefined
   }
-  let responseData = await getResponseData<T1>(res)
+  const responseData = await getResponseData<T1>(res)
   return responseData
 }
 
 export async function uploadFile(route: string, file: File) {
-  var formData = new FormData()
+  const formData = new FormData()
   formData.append('image', file, file.name)
   return fetch(route, {
     method: 'POST',
@@ -48,8 +48,8 @@ export async function uploadFile(route: string, file: File) {
 }
 
 export async function fetchFile(route: string) {
-  let res = await fetch(route)
-  let blob = await res.blob()
+  const res = await fetch(route)
+  const blob = await res.blob()
   return blob
 }
 
