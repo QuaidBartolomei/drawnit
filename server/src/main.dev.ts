@@ -1,3 +1,4 @@
+import cors from 'cors'
 import express from 'express'
 import { initMemoryDB } from 'loaders/db.loader.dev'
 import { initApp } from 'loaders/express.loader'
@@ -11,7 +12,9 @@ const mongod = new MongoMemoryServer({
 })
 
 initMemoryDB(mongod)
-const server = initApp(express(), () => {
+const app = express()
+app.use(cors())
+const server = initApp(app, () => {
   console.log('server is listening')
 })
 initSocketServer(server)

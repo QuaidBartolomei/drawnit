@@ -1,4 +1,5 @@
 import { initApp } from 'loaders/express.loader'
+import cors from 'cors'
 import { initDb } from 'loaders/db.loader'
 import { initSocketServer } from 'loaders/socket.loader'
 import env from 'utils/env.utils'
@@ -14,6 +15,8 @@ const staticPath = path.join(client, 'static')
 const faviconPath = path.join(client, 'favicon.ico')
 
 const app = express()
+
+app.use(cors({ origin: env.HOST }))
 
 const server = initApp(app, () => {
   console.log('server is listening')

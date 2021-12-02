@@ -1,5 +1,4 @@
 import express from 'express'
-import cors from 'cors'
 import { authMiddleware } from 'middleware/auth.middleware'
 import env from 'utils/env.utils'
 import { roomController } from 'controllers/room.controller'
@@ -9,7 +8,6 @@ import mongoSanitize from 'express-mongo-sanitize'
 
 export const initApp = (app = express(), callback?: () => void): Server => {
   return app
-    .use(cors())
     .use(express.json())
     .use(express.urlencoded({ extended: true }))
     .use(xssAdvanced())

@@ -1,6 +1,3 @@
-import dotenv from 'dotenv'
-dotenv.config()
-
 interface Env {
   AUTH0_AUDIENCE: string
   AUTH0_DOMAIN: string
@@ -9,6 +6,7 @@ interface Env {
   PORT: string
   NODE_ENV: 'production' | 'development' | undefined
   MONGO_DB_URI: string
+  HOST: string
 }
 
 const env: Partial<Env> = { PORT: '4000', ...process.env }
