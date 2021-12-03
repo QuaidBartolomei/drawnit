@@ -7,7 +7,7 @@ import FileCopyIcon from '@material-ui/icons/FileCopy'
 import ShareIcon from '@material-ui/icons/Share'
 import copy from 'clipboard-copy'
 import { useRoomDispatch, useRoomState } from '../room.context'
-import React from 'react'
+
 import { PageRoutes } from 'routes'
 
 const useStyles = makeStyles((theme) =>

@@ -6,7 +6,7 @@ import Canvas from 'components/Canvas/Canvas'
 import CanvasToolbar from 'components/Canvas/CanvasToolbar/CanvasToolbar'
 import { RoomProvider } from 'components/Canvas/room.context'
 import Room from 'interfaces/room.interface'
-import React, { useEffect } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useQuery } from 'react-query'
 import { useParams } from 'react-router-dom'
 import { Socket } from 'socket.io-client'
@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) =>
 
 export default function RoomPage() {
   const { id: roomId } = useParams<{ id: string }>()
-  const [socket, setSocket] = React.useState<undefined | Socket>(undefined)
+  const [socket, setSocket] = useState<undefined | Socket>(undefined)
 
   const {
     data: room,
@@ -60,7 +60,7 @@ export default function RoomPage() {
 
 function Ready({ room, socket }: { room: Room; socket: Socket }) {
   const classes = useStyles()
-  const canvasRef = React.useRef<HTMLCanvasElement>(null)
+  const canvasRef = useRef<HTMLCanvasElement>(null)
   useEffect(() => {
     scrollToMiddle('root')
   }, [])

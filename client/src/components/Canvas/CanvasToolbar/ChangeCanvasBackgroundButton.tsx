@@ -2,9 +2,8 @@ import { setImage } from 'apis/room'
 import { useRoomState } from '../room.context'
 import ImageUploadButton from 'components/ImageUploadButton'
 import useSocket from 'components/Canvas/hooks/useSocket'
-import React from 'react'
 
-export default function ChangeCanvasBackgroundButton() {
+export default function ChangeCanvasBackgroundButton(): JSX.Element {
   const room = useRoomState()
   const { sendBackgroundImage } = useSocket()
 

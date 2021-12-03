@@ -1,6 +1,6 @@
 import { CanvasTools } from 'components/Canvas/Canvas'
 import Room from 'interfaces/room.interface'
-import React, { createContext, FC, useReducer } from 'react'
+import { createContext, FC, useContext, useReducer } from 'react'
 import { RoomDispatch, roomReducer } from './room.reducer'
 import { Socket } from 'socket.io-client'
 import isMobile from 'is-mobile'
@@ -47,7 +47,7 @@ export const RoomProvider: FC<Props> = (props) => {
 }
 
 export function useRoomState() {
-  const context = React.useContext(StateContext)
+  const context = useContext(StateContext)
   if (context === undefined) {
     throw new Error('useUserState must be used within a UserProvider')
   }
@@ -55,7 +55,7 @@ export function useRoomState() {
 }
 
 export function useRoomDispatch() {
-  const context = React.useContext(DispatchContext)
+  const context = useContext(DispatchContext)
   if (context === undefined) {
     throw new Error('useUserDispatch must be used within a CountProvider')
   }

@@ -1,7 +1,7 @@
 import { createStyles, makeStyles } from '@material-ui/core/styles'
 import BrushIcon from '@material-ui/icons/Brush'
 import PanToolIcon from '@material-ui/icons/PanTool'
-import React from 'react'
+
 import { CanvasTools } from '../Canvas'
 import BrushColorInput from './BrushColorInput'
 import CanvasToolButton from './CanvasToolButton'

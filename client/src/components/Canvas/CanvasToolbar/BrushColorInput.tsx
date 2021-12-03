@@ -1,5 +1,5 @@
-import React from 'react'
 import { makeStyles, createStyles } from '@material-ui/core/styles'
+import { useState } from 'react'
 import { SketchPicker } from 'react-color'
 import { useRoomDispatch, useRoomState } from '../room.context'
 
@@ -42,7 +42,7 @@ export default function BrushColorInput(
   const classes = useStyles({ color })
   const dispatch = useRoomDispatch()
   const setColor = (c: string) => dispatch({ type: 'set_color', payload: c })
-  const [showColorPicker, setShowColorPicker] = React.useState(false)
+  const [showColorPicker, setShowColorPicker] = useState(false)
   const toggleColorPicker = () => setShowColorPicker(!showColorPicker)
 
   const Swatch = () => (

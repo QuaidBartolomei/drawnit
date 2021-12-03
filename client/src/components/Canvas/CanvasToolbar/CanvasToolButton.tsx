@@ -1,5 +1,5 @@
 import IconButton from '@material-ui/core/IconButton'
-import React from 'react'
+
 import { CanvasTools } from '../Canvas'
 import { useRoomDispatch, useRoomState } from '../room.context'
 import { CanvasTool } from './CanvasToolbar'

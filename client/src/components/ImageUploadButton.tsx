@@ -1,6 +1,6 @@
 import Button, { ButtonProps } from '@material-ui/core/Button'
 import { createStyles, makeStyles } from '@material-ui/core/styles'
-import React from 'react'
+
 import ImageIcon from '@material-ui/icons/Image'
 
 const useStyles = makeStyles((theme) =>
@@ -10,7 +10,6 @@ const useStyles = makeStyles((theme) =>
       flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'center',
-      '&>*': {},
     },
     fileButton: {
       backgroundColor: 'white',
@@ -33,11 +32,7 @@ type Props = {
   onFileSelect: (file: File) => void
 }
 
-const ImageUploadButton = ({
-  onFileSelect,
-  children,
-  ...props
-}: ButtonProps & Props) => {
+const ImageUploadButton = ({ onFileSelect, ...props }: ButtonProps & Props) => {
   const classes = useStyles()
 
   const handleImageUpload = async (

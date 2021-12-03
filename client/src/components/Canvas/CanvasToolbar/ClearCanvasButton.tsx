@@ -6,7 +6,7 @@ import { deleteBackgroundImage, saveCanvasToDb } from 'apis/room'
 import { sendClearCanvas } from 'apis/socket'
 import { useRoomDispatch, useRoomState } from '../room.context'
 import useSocket from 'components/Canvas/hooks/useSocket'
-import React from 'react'
+
 import { clearCanvas } from 'utils/canvas'
 
 const useStyles = makeStyles((theme) =>
