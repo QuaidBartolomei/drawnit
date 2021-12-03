@@ -1,4 +1,3 @@
-import { initApp } from 'loaders/express.loader'
 import cors from 'cors'
 import { initDb } from 'loaders/db.loader'
 import { initSocketServer } from 'loaders/socket.loader'
@@ -7,6 +6,8 @@ import express from 'express'
 import path from 'path'
 import favicon from 'serve-favicon'
 import { deleteExpiredRooms } from 'models/room.model'
+import { initApp } from 'loaders/app.loader'
+import { initServer } from 'loaders/express.loader'
 
 initDb(env.MONGO_DB_URI || '')
 
@@ -14,15 +15,10 @@ const client = path.join(__dirname, '../../client/build')
 const staticPath = path.join(client, 'static')
 const faviconPath = path.join(client, 'favicon.ico')
 
-const app = express()
-
-app.use(cors({ origin: env.HOST }))
-
-const server = initApp(app, () => {
-  console.log('server is listening')
-})
+const app = initApp()
 
 app
+  .use(cors({ origin: env.HOST }))
   .use('/static', express.static(staticPath))
   .use(favicon(faviconPath))
   .get('*', (req, res) => {
@@ -30,6 +26,10 @@ app
       root: client,
     })
   })
+
+const server = initServer(app, () => {
+  console.log('server is listening')
+})
 
 initSocketServer(server)
 

@@ -1,11 +1,10 @@
 import { Router } from 'express'
+import imageSize from 'image-size'
 import Room from 'interfaces/room.interface'
-import { authMiddleware } from 'middleware/auth.middleware'
 import {
   createAndSaveRoomDoc,
   deleteAllRooms,
   deleteBackgroundImage,
-  getAllRooms,
   getBackgroundImage,
   getRoomById,
   roomCount,
@@ -15,7 +14,6 @@ import {
 } from 'models/room.model'
 import multer from 'multer'
 import { RoomRoutes } from 'routes/room.routes'
-import imageSize from 'image-size'
 
 export const roomController = Router()
   .post(RoomRoutes.CREATE_ROOM, async (req, res) => {
@@ -59,15 +57,6 @@ export const roomController = Router()
     try {
       await deleteAllRooms()
       res.status(200).send()
-    } catch {
-      res.status(500).send()
-    }
-  })
-  .get(RoomRoutes.GET_All, authMiddleware, async (req, res) => {
-    try {
-      let roomDocs = await getAllRooms()
-      if (!roomDocs) return res.status(400).send()
-      res.status(200).send(roomDocs)
     } catch {
       res.status(500).send()
     }

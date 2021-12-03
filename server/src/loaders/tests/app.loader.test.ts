@@ -1,18 +1,14 @@
-import { initApp } from 'loaders/express.loader'
 import request from 'supertest'
 import { Server } from 'http'
 import express from 'express'
+import { initApp } from 'loaders/app.loader'
 
 const TEST_ROUTE = '/test'
 const app = express()
 let expressServer: Server
 
-beforeAll(async () => {
-  expressServer = initApp(app)
-})
-
-afterAll(async () => {
-  expressServer.close()
+beforeAll(() => {
+  initApp(app)
 })
 
 test('Express app successfully listens when initApp is called', async () => {

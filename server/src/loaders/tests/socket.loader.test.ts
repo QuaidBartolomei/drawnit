@@ -1,8 +1,10 @@
-import { initApp } from 'loaders/express.loader'
+import { initApp } from 'loaders/app.loader'
+import { initServer } from 'loaders/express.loader'
 import { initSocketServer, SocketEvents } from 'loaders/socket.loader'
 import { io, Socket as ClientSocket } from 'socket.io-client'
 
-const httpServer = initApp()
+const app = initApp()
+const httpServer = initServer(app)
 const ioServer = initSocketServer(httpServer)
 const address = httpServer.address() as { address: string; port: number }
 const url = `http://[${address.address}]:${address.port}`

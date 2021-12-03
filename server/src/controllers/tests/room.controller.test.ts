@@ -1,8 +1,7 @@
 import express from 'express'
-import { Server } from 'http'
 import Room from 'interfaces/room.interface'
+import { initApp } from 'loaders/app.loader'
 import { initDb } from 'loaders/db.loader'
-import { initApp } from 'loaders/express.loader'
 import { ImageModel } from 'models/image.model'
 import {
   createAndSaveRoomDoc,
@@ -29,12 +28,11 @@ const badRoomData = {}
 const app = express()
 const encoding = 'base64'
 
-let expressServer: Server
 const ERROR = 400
 
 beforeAll(async () => {
   await initDb(process.env.MONGO_URL || '')
-  expressServer = initApp(app)
+  initApp(app)
 })
 
 beforeEach(async () => {
@@ -43,7 +41,6 @@ beforeEach(async () => {
 })
 
 afterAll(async () => {
-  expressServer.close()
   await mongoose.disconnect()
 })
 
