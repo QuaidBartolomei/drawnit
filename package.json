@@ -20,6 +20,7 @@
     "prepare": "husky install",
     "server": "cd server && npm start",
     "server:build": "cd server && npm ci --production=false && npm run build && npm prune --production",
+    "server:ci": "cd server && npm run test:ci",
     "server:dev": "cd server && npm run dev",
     "server:install": "cd server && npm install",
     "server:lint": "cd server && npm run lint",

@@ -11,7 +11,8 @@
     "lint-staged": "eslint --cache --fix",
     "serve": "NODE_PATH=./dist node dist/main.js",
     "start": "npm run serve",
-    "test": "jest"
+    "test": "jest",
+    "test:ci": "npm ci && npm run build && jest --ci"
   },
   "config": {
     "mongodbMemoryServer": {
