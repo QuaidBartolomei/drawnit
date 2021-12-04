@@ -13,8 +13,8 @@
     "client:install": "cd client && npm install",
     "client:lint": "cd client && npm run lint",
     "client:lint-staged": "cd client && npm run lint-staged",
-    "client:test": "concurrently  \"npm run server:dev\" \"cd client && npm run test -- --watchAll=false\" ",
-    "dev": "concurrently  \"npm run server:dev\" \"npm run client\" ",
+    "client:test": "start-server-and-test server:dev http://localhost:4000/test 'cd client && npm run test'",
+    "dev": "start-server-and-test server:dev http://localhost:4000/test client",
     "format": "prettier ./ --ignore-unknown --write",
     "full-install": "npm install && npm run server:install && npm run client:install",
     "prepare": "husky install",
@@ -29,11 +29,11 @@
     "test:all": "npm run server:test && npm run client:test"
   },
   "devDependencies": {
-    "concurrently": "^5.3.0",
     "husky": "^7.0.4",
     "lint-staged": "^12.1.2",
     "prettier": "2.5.0",
-    "sort-package-json": "^1.53.1"
+    "sort-package-json": "^1.53.1",
+    "start-server-and-test": "^1.14.0"
   },
   "engines": {
     "node": "^16"

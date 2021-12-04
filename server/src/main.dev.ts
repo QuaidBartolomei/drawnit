@@ -14,6 +14,9 @@ const mongod = new MongoMemoryServer({
 initMemoryDB(mongod)
 const app = initApp()
 app.use(cors())
+app.get('/test', (req, res) => {
+  res.send(200)
+})
 const server = initServer(app, () => {
   console.log('server is listening')
 })
