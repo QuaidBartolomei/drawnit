@@ -1,11 +1,9 @@
-import request from 'supertest'
-import { Server } from 'http'
 import express from 'express'
 import { initApp } from 'loaders/app.loader'
+import request from 'supertest'
 
 const TEST_ROUTE = '/test'
 const app = express()
-let expressServer: Server
 
 beforeAll(() => {
   initApp(app)

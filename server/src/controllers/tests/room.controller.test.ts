@@ -26,7 +26,6 @@ const goodRoomData: Room = {
 
 const badRoomData = {}
 const app = express()
-const encoding = 'base64'
 
 const ERROR = 400
 

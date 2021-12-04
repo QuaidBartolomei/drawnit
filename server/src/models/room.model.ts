@@ -126,7 +126,7 @@ export const deleteExpiredRooms = async () => {
   }
   const expiredRooms = await RoomModel.find(expiredRoomsQuery)
   console.log('deleting expired rooms:', expiredRooms.length)
-  await RoomModel.deleteMany(expiredRoomsQuery, (err: any) => {
+  await RoomModel.deleteMany(expiredRoomsQuery, () => {
     if (err) return console.log(err)
   })
 }
