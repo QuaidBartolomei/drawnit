@@ -5,6 +5,8 @@ module.exports = {
   },
   extends: [
     'eslint:recommended',
+    'plugin:import/recommended',
+    'plugin:import/typescript',
     'plugin:@typescript-eslint/recommended',
     'prettier',
   ],
@@ -15,4 +17,15 @@ module.exports = {
   },
   plugins: ['@typescript-eslint'],
   rules: {},
+  settings: {
+    'import/parsers': {
+      '@typescript-eslint/parser': ['.ts', '.tsx'],
+    },
+    'import/resolver': {
+      typescript: {
+        alwaysTryTypes: true, // always try to resolve types under `<root>@types` directory even it doesn't contain any source code, like `@types/unist`
+        project: './',
+      },
+    },
+  },
 }
