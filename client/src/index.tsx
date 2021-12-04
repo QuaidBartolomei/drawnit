@@ -2,14 +2,14 @@
 import CssBaseline from '@material-ui/core/CssBaseline'
 import Homepage from 'pages/Home'
 import RoomPage from 'pages/Room'
-import ReactDOM from 'react-dom'
+import { render } from 'react-dom'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { PageRoutes } from 'routes'
 import 'global-styles.css'
 const routes = PageRoutes()
 
-ReactDOM.render(<App />, document.getElementById('root'))
+render(<App />, document.getElementById('root'))
 
 function App() {
   const queryClient = new QueryClient()

@@ -1,13 +1,9 @@
-import {
-  createMuiTheme,
-  createStyles,
-  makeStyles,
-} from '@material-ui/core/styles'
+import { createTheme, createStyles, makeStyles } from '@material-ui/core/styles'
 import { SocketEvents } from 'apis/socket'
 import { useBrushTool } from 'components/Canvas/hooks/brushTool.hook'
 import { usePanTool } from 'components/Canvas/hooks/panTool.hook'
 import { BrushStroke } from 'interfaces/brushStroke.interface'
-import React, { useEffect } from 'react'
+import { useEffect, forwardRef } from 'react'
 import { clearCanvas, drawBrushStroke } from 'utils/canvas'
 import CanvasBackgroundImage from './CanvasBackgroundImage'
 import { useRoomState } from './room.context'
@@ -17,7 +13,7 @@ export enum CanvasTools {
   Pan,
 }
 
-export const canvasMargin = createMuiTheme({}).spacing(16)
+export const canvasMargin = createTheme({}).spacing(16)
 
 const useStyles = makeStyles(() => {
   return createStyles({
@@ -95,4 +91,4 @@ const Canvas = (props: Props, ref: Ref) => {
   )
 }
 
-export default React.forwardRef<HTMLCanvasElement, Props>(Canvas)
+export default forwardRef<HTMLCanvasElement, Props>(Canvas)

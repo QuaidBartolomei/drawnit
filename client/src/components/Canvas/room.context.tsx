@@ -3,7 +3,7 @@ import Room from 'interfaces/room.interface'
 import { createContext, FC, useContext, useReducer } from 'react'
 import { RoomDispatch, roomReducer } from './room.reducer'
 import { Socket } from 'socket.io-client'
-import isMobile from 'is-mobile'
+import { isMobile } from 'is-mobile'
 
 export type RoomState = Room & {
   selectedTool: CanvasTools
