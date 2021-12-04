@@ -55,6 +55,8 @@
     "@typescript-eslint/parser": "^5.5.0",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
+    "eslint-import-resolver-typescript": "^2.5.0",
+    "eslint-plugin-import": "^2.25.3",
     "eslint-plugin-react": "^7.27.1",
     "jest-environment-jsdom": "^26.6.2",
     "msw": "^0.24.2",
