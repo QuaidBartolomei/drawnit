@@ -9,7 +9,7 @@
     "dev": "NODE_PATH=./src ts-node-dev -r dotenv/config ./src/main.dev.ts --debug",
     "serve": "NODE_PATH=./dist node dist/main.js",
     "start": "npm run serve",
-    "test": "jest --watchAll"
+    "test": "jest"
   },
   "config": {
     "mongodbMemoryServer": {

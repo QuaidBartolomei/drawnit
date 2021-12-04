@@ -12,7 +12,7 @@
     "client:dev": "cd client && npm run dev",
     "client:install": "cd client && npm install",
     "client:lint-staged": "cd client && eslint --fix --quiet --cache",
-    "client:test": "concurrently  \"npm run server:dev\" \"cd client && npm run test\" ",
+    "client:test": "concurrently  \"npm run server:dev\" \"cd client && npm run test -- --watchAll=false\" ",
     "dev": "concurrently  \"npm run server:dev\" \"npm run client\" ",
     "format": "prettier ./ --ignore-unknown --write",
     "full-install": "npm install && npm run server:install && npm run client:install",
@@ -23,7 +23,7 @@
     "server:install": "cd server && npm install",
     "server:test": "cd server && npm run test",
     "start": "npm run server",
-    "test:all": "concurrently  \"npm run server:test\" \"npm run client:test\" "
+    "test:all": "npm run server:test && npm run client:test"
   },
   "devDependencies": {
     "concurrently": "^5.3.0",
