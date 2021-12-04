@@ -1,11 +1,9 @@
-// intialize temporary db in server memory for client side testing
-
 import { MongoMemoryServer } from 'mongodb-memory-server'
 import mongoose from 'mongoose'
 
 export async function initMemoryDB(mongod: MongoMemoryServer) {
   mongoose.Promise = Promise
-  const mongoUri = await mongod.getUri()
+  const mongoUri = mongod.getUri()
   const mongooseOpts = {
     useNewUrlParser: true,
     useUnifiedTopology: true,
