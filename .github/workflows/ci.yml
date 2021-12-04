@@ -22,15 +22,11 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
       - name: Install
-        run: npm ci
-      - name: Install client and server
         run: npm run full-install
       - name: Linting
         run: npm run lint
       - name: Client Tests
         run: npm run client:test
-      - name: Server Tests
-        run: npm run server:test
       - name: Build Client
         run: npm run client:build
       - name: Build Server
