@@ -2,7 +2,7 @@ import cors from 'cors'
 import { initDb } from 'loaders/db.loader'
 import { initSocketServer } from 'loaders/socket.loader'
 import env from 'utils/env.utils'
-import express from 'express'
+import { static as serveStaticFiles } from 'express'
 import path from 'path'
 import favicon from 'serve-favicon'
 import { deleteExpiredRooms } from 'models/room.model'
@@ -19,7 +19,7 @@ const app = initApp()
 
 app
   .use(cors({ origin: env.HOST }))
-  .use('/static', express.static(staticPath))
+  .use('/static', serveStaticFiles(staticPath))
   .use(favicon(faviconPath))
   .get('*', (req, res) => {
     res.sendFile('index.html', {

@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import imageSize from 'image-size'
+import { imageSize } from 'image-size'
 import Room from 'interfaces/room.interface'
 import {
   createAndSaveRoomDoc,
