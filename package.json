@@ -26,7 +26,7 @@
     "server:install": "cd server && npm ci",
     "server:lint": "cd server && npm run lint",
     "server:lint-staged": "cd server && npm run lint-staged",
-    "server:test": "cd server && npm run test -- --ci",
+    "server:test": "cd server && npm run test -- --ci --silent",
     "start": "npm run server",
     "test:all": "npm run server:test && npm run client:test"
   },
