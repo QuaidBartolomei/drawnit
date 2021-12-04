@@ -1,7 +1,6 @@
 import express from 'express'
 import Room from 'interfaces/room.interface'
 import { initApp } from 'loaders/app.loader'
-import { initDb } from 'loaders/db.loader'
 import { ImageModel } from 'models/image.model'
 import {
   createAndSaveRoomDoc,
@@ -11,7 +10,6 @@ import {
   RoomModel,
   setBackgroundImage,
 } from 'models/room.model'
-import mongoose from 'mongoose'
 import { RoomClientRoutes } from 'routes/room.routes'
 import request from 'supertest'
 import { imageFile } from 'utils/test.utils'
@@ -30,17 +28,12 @@ const app = express()
 const ERROR = 400
 
 beforeAll(async () => {
-  await initDb(process.env.MONGO_URL || '')
   initApp(app)
 })
 
 beforeEach(async () => {
   await RoomModel.deleteMany({})
   await ImageModel.deleteMany({})
-})
-
-afterAll(async () => {
-  await mongoose.disconnect()
 })
 
 describe('CREATE_ROOM', () => {

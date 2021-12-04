@@ -1,18 +1,8 @@
-import { initDb } from 'loaders/db.loader'
 import { createAndSaveImageDocument, ImageModel } from 'models/image.model'
-import mongoose from 'mongoose'
 import { imageFile } from 'utils/test.utils'
-
-beforeAll(async () => {
-  await initDb(process.env.MONGO_URL || '')
-})
 
 beforeEach(async () => {
   await ImageModel.deleteMany({})
-})
-
-afterAll(async () => {
-  await mongoose.disconnect()
 })
 
 describe('create image document', () => {

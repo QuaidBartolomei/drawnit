@@ -1,5 +1,4 @@
 import Room from 'interfaces/room.interface'
-import { initDb } from 'loaders/db.loader'
 import { ImageModel } from 'models/image.model'
 import {
   createAndSaveRoomDoc,
@@ -12,7 +11,6 @@ import {
   setBackgroundImage,
   updateRoomValue,
 } from 'models/room.model'
-import mongoose from 'mongoose'
 import { imageFile } from 'utils/test.utils'
 
 const goodRoomData: Room = {
@@ -23,18 +21,9 @@ const goodRoomData: Room = {
   width: 1,
 }
 
-beforeAll(async () => {
-  await initDb(process.env.MONGO_URL || '')
-  mongoose.connection.readyState
-})
-
 beforeEach(async () => {
   await RoomModel.deleteMany({})
   await ImageModel.deleteMany({})
-})
-
-afterAll(async () => {
-  await mongoose.disconnect()
 })
 
 describe('createAndSaveRoomDoc', () => {
