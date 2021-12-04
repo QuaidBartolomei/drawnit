@@ -8,7 +8,9 @@
     "lint": "eslint . --cache",
     "lint-staged": "eslint --cache --fix",
     "start": "react-scripts start",
-    "test": "react-scripts test --testURL=http://localhost:4000"
+    "test": "react-scripts test --testURL=http://localhost:4000",
+    "test-integration": "npm run test -- src/__tests__/integration",
+    "test-unit": "npm run test -- --testPathIgnorePatterns=src/__tests__/integration"
   },
   "browserslist": {
     "production": [
