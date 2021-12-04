@@ -19,7 +19,7 @@ export enum CanvasTools {
 
 export const canvasMargin = createMuiTheme({}).spacing(16)
 
-const useStyles = makeStyles((theme) => {
+const useStyles = makeStyles(() => {
   return createStyles({
     outsideWrapper: ({ width, height }) => ({
       display: 'inline-block',

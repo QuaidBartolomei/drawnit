@@ -4,7 +4,7 @@ import ImageUploadButton from 'components/ImageUploadButton'
 import IconButton from '@material-ui/core/IconButton'
 import DeleteIcon from '@material-ui/icons/Delete'
 
-const useStyles = makeStyles((theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     container: {},
     containerHorizontal: {

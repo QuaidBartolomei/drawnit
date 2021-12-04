@@ -1,5 +1,4 @@
 import { readFileSync } from 'fs'
-import Room from 'interfaces/room.interface'
 import { rest } from 'msw'
 import { setupServer } from 'msw/node'
 import { RoomRoutes } from 'routes'
@@ -12,7 +11,7 @@ export const imageBlob = new Blob([imageBuffer as BlobPart], {
 })
 export const imageFile = imageBlob as File
 
-export function initServer(initialData: Room[] = []) {
+export function initServer() {
   return setupServer(
     rest.post(RoomRoutes.CREATE_ROOM, (req, res, ctx) => {
       return res(ctx.json({ _id: '1' }))

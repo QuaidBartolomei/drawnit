@@ -3,9 +3,8 @@ import { useState } from 'react'
 import { SketchPicker } from 'react-color'
 import { useRoomDispatch, useRoomState } from '../room.context'
 
-const useStyles = makeStyles((theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
-    container: {},
     color: ({ color }: { color: string }) => ({
       width: '36px',
       height: '14px',
@@ -35,9 +34,7 @@ const useStyles = makeStyles((theme) =>
   }),
 )
 
-export default function BrushColorInput(
-  props: React.HTMLProps<HTMLDivElement>,
-) {
+export default function BrushColorInput() {
   const { color } = useRoomState()
   const classes = useStyles({ color })
   const dispatch = useRoomDispatch()

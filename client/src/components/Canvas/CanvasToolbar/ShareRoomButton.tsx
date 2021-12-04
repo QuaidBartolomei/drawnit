@@ -10,7 +10,7 @@ import { useRoomDispatch, useRoomState } from '../room.context'
 
 import { PageRoutes } from 'routes'
 
-const useStyles = makeStyles((theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     child: {
       display: 'flex',

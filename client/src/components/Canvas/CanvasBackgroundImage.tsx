@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import { loadCanvasImage } from 'utils/canvas'
 import { useRoomState } from './room.context'
 
-const useStyles = makeStyles((theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     canvas: {
       border: 'thin black solid',
@@ -24,7 +24,7 @@ const CanvasBackgroundImage = () => {
     if (!canvasImage) return
     const img = new Image()
     img.src = JSON.parse(canvasImage)
-    img.onload = (e) => {
+    img.onload = () => {
       loadCanvasImage(canvasRef, img)
     }
   }, [canvasImage, canvasRef])

@@ -46,13 +46,13 @@ export function useBrushTool(): React.HTMLProps<HTMLCanvasElement> {
     },
     onMouseDown: (e) => onDown(mousePositionCanvas(e)),
     onMouseMove: (e) => onMove(mousePositionCanvas(e)),
-    onMouseUp: (e) => onEnd(),
-    onMouseLeave: (e) => onEnd(),
+    onMouseUp: () => onEnd(),
+    onMouseLeave: () => onEnd(),
 
     onTouchStart: (e) => onDown(touchPositionCanvas(e)),
     onTouchMove: (e) => onMove(touchPositionCanvas(e)),
-    onTouchCancel: (e) => onEnd(),
-    onTouchEnd: (e) => onEnd(),
+    onTouchCancel: () => onEnd(),
+    onTouchEnd: () => onEnd(),
     onClick: () => {},
   }
 }

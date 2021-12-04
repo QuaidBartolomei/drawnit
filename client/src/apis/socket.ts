@@ -22,7 +22,7 @@ export function initSocket() {
     transports: ['websocket'],
   })
 
-  return new Promise<Socket>(function (resolve, reject) {
+  return new Promise<Socket>(function (resolve) {
     clientSocket.on(SocketEvents.Connect, async () => {
       resolve(clientSocket) // done
     })

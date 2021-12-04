@@ -3,7 +3,7 @@ import { createStyles, makeStyles } from '@material-ui/core/styles'
 
 import ImageIcon from '@material-ui/icons/Image'
 
-const useStyles = makeStyles((theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     root: {
       display: 'flex',
