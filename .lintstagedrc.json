@@ -1,5 +1,6 @@
 {
   "**/package.json": "npx sort-package-json",
   "*": "prettier --ignore-unknown --write",
-  "client/**/*.{ts,tsx}": "npm run client:lint-staged"
+  "client/**/*.{ts,tsx}": "npm run client:lint-staged",
+  "client/**/.eslint*": "npm run client:lint"
 }
