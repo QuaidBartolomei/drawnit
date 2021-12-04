@@ -58,7 +58,7 @@ describe('CREATE_ROOM', () => {
       .send(goodRoomData)
       .expect(async (res) => {
         expect(res.text).toBeTruthy()
-        let room = JSON.parse(res.text) as Room
+        const room = JSON.parse(res.text) as Room
         expect(room._id).toBeTruthy()
         const n = await roomCount()
         expect(n).toBe(1)
@@ -77,11 +77,11 @@ describe('get room by id route', () => {
       .expect(ERROR, done)
   })
   test('valid id', async () => {
-    let controlRoom = await createAndSaveRoomDoc(goodRoomData)
+    const controlRoom = await createAndSaveRoomDoc(goodRoomData)
     request(app)
       .get(RoomClientRoutes(controlRoom._id).GET_ROOM)
       .expect((res) => {
-        let testRoom = JSON.parse(res.text) as Room
+        const testRoom = JSON.parse(res.text) as Room
         expect(testRoom).toBeDefined()
         expect(testRoom._id).toBe(controlRoom._id)
       })
@@ -106,8 +106,8 @@ test('delete all rooms route', async () => {
 })
 
 test('set image route', async () => {
-  let { _id } = await createAndSaveRoomDoc(goodRoomData)
-  let route = RoomClientRoutes(_id).SET_IMAGE
+  const { _id } = await createAndSaveRoomDoc(goodRoomData)
+  const route = RoomClientRoutes(_id).SET_IMAGE
   request(app)
     .post(route)
     .set('content-type', 'multipart/form-data')
@@ -123,12 +123,12 @@ describe('get background image', () => {
   })
 
   test('get background image', async () => {
-    let room = await createAndSaveRoomDoc(goodRoomData)
-    let controlImage = await setBackgroundImage(room._id, imageFile)
+    const room = await createAndSaveRoomDoc(goodRoomData)
+    const controlImage = await setBackgroundImage(room._id, imageFile)
     await request(app)
       .get(RoomClientRoutes(room._id).GET_BACKGROUND_IMAGE)
       .expect(async (res) => {
-        let encodedImage = res.text
+        const encodedImage = res.text
         expect(encodedImage).toBeDefined()
         expect(encodedImage).toBe(controlImage?.imageBuffer.toString('base64'))
       })
@@ -143,12 +143,12 @@ describe('get background image', () => {
       .expect(ERROR, done)
   })
   test('get background image', async () => {
-    let room = await createAndSaveRoomDoc(goodRoomData)
-    let controlImage = await setBackgroundImage(room._id, imageFile)
+    const room = await createAndSaveRoomDoc(goodRoomData)
+    const controlImage = await setBackgroundImage(room._id, imageFile)
     await request(app)
       .get(RoomClientRoutes(room._id).GET_BACKGROUND_IMAGE)
       .expect(async (res) => {
-        let encodedImage = res.text
+        const encodedImage = res.text
         expect(encodedImage).toBeDefined()
         expect(encodedImage).toBe(controlImage?.imageBuffer.toString('base64'))
       })
@@ -173,14 +173,14 @@ describe('delete background image', () => {
 
 describe('update canvas', () => {
   test('canvas image data successfully updates', async () => {
-    let controlData = { canvasImage: 'abc123' } as Partial<Room>
-    let room = await createAndSaveRoomDoc(goodRoomData)
+    const controlData = { canvasImage: 'abc123' } as Partial<Room>
+    const room = await createAndSaveRoomDoc(goodRoomData)
     await request(app)
       .post(RoomClientRoutes(room._id).UPDATE_CANVAS)
       .type('application/json')
       .send(JSON.stringify(controlData))
       .expect(200)
-    let updatedRoom = await getRoomById(room._id)
+    const updatedRoom = await getRoomById(room._id)
     expect(updatedRoom?.canvasImage).toBe(controlData.canvasImage)
   })
 })

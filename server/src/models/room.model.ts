@@ -49,7 +49,7 @@ export const RoomModel = mongoose.model<RoomDocument>(
 )
 
 export const createAndSaveRoomDoc = async (data: Partial<Room>) => {
-  let room = new RoomModel({ ...data, _id: shortid.generate() })
+  const room = new RoomModel({ ...data, _id: shortid.generate() })
   room.isNew = true
   return room.save()
 }

@@ -22,7 +22,7 @@ export const roomController = Router()
     const room: Room = req.body
     if (!room.height || !room.width) return res.status(400).send()
     try {
-      let savedRoom = await createAndSaveRoomDoc(room)
+      const savedRoom = await createAndSaveRoomDoc(room)
       if (!savedRoom) return res.status(400).send()
       res.status(200).send(JSON.stringify(savedRoom))
     } catch {
@@ -64,7 +64,7 @@ export const roomController = Router()
   .get(RoomRoutes.GET_BACKGROUND_IMAGE, async (req, res) => {
     const id: string = req.params.id
     try {
-      let image = await getBackgroundImage(id)
+      const image = await getBackgroundImage(id)
       if (!image) return res.status(400).send()
       res.status(200).send(image.imageBuffer.toString('base64'))
     } catch {
@@ -96,9 +96,9 @@ export const roomController = Router()
   })
   .post(RoomRoutes.UPDATE_CANVAS, async (req, res) => {
     const id: string = req.params.id
-    let data: Partial<Room> = req.body
+    const data: Partial<Room> = req.body
     try {
-      let updatedRoom = await updateRoomValue(id, data)
+      const updatedRoom = await updateRoomValue(id, data)
       if (!updatedRoom) return res.status(400).send()
       res.status(200).send()
     } catch {

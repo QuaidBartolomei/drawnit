@@ -37,11 +37,11 @@ export async function createAndSaveImageDocument({
   encodedFile,
   mimeType,
 }: Partial<ImageFile>): Promise<ImageDocument | undefined> {
-  let encodedImg = encodedFile || file?.buffer.toString(ENCODING) || undefined
+  const encodedImg = encodedFile || file?.buffer.toString(ENCODING) || undefined
   if (!encodedImg) return undefined
-  let imageBuffer = Buffer.from(encodedImg, ENCODING)
-  let contentType = file?.mimetype || mimeType || ''
+  const imageBuffer = Buffer.from(encodedImg, ENCODING)
+  const contentType = file?.mimetype || mimeType || ''
   const imageData: Partial<ImageData> = { contentType, imageBuffer }
-  let image = new ImageModel(imageData)
+  const image = new ImageModel(imageData)
   return image.save()
 }
