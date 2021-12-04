@@ -16,7 +16,8 @@
   },
   "config": {
     "mongodbMemoryServer": {
-      "debug": "0"
+      "debug": "0",
+      "runtimeDownload": "false"
     }
   },
   "dependencies": {
