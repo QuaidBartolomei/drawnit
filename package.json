@@ -16,7 +16,7 @@
     "client:lint-staged": "cd client && npm run lint-staged",
     "client:test": "cd client && npm run test-unit -- --silent",
     "dev": "start-server-and-test server:dev http://localhost:4000/test client",
-    "format": "prettier ./ --ignore-unknown --write",
+    "format": "prettier ./ --ignore-unknown --write --check",
     "full-install": "npm install && npm run server:install && npm run client:install",
     "lint": "npm run client:lint && npm run server:lint",
     "prepare": "husky install",
