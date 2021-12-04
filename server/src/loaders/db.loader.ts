@@ -10,8 +10,5 @@ export async function initDb(url: string) {
     console.log('db connected')
   })
 
-  await mongoose.connect(url, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  await mongoose.connect(url, {})
 }
