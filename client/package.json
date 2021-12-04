@@ -50,7 +50,7 @@
     "@types/react-router-dom": "^5.1.6",
     "@typescript-eslint/eslint-plugin": "^5.5.0",
     "@typescript-eslint/parser": "^5.5.0",
-    "eslint": "^8.3.0",
+    "eslint": "^7.32.0",
     "eslint-plugin-react": "^7.27.1",
     "jest-environment-jsdom": "^26.6.2",
     "msw": "^0.24.2",
