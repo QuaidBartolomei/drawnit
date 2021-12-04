@@ -13,7 +13,7 @@
     "client:install": "cd client && npm ci",
     "client:lint": "cd client && npm run lint",
     "client:lint-staged": "cd client && npm run lint-staged",
-    "client:test": "start-server-and-test server:dev http://localhost:4000/test 'cd client && npm run test'",
+    "client:test": "start-server-and-test server:dev http://localhost:4000/test 'cd client && npm run test -- --silent'",
     "dev": "start-server-and-test server:dev http://localhost:4000/test client",
     "format": "prettier ./ --ignore-unknown --write",
     "full-install": "npm install && npm run server:install && npm run client:install",
@@ -26,7 +26,7 @@
     "server:install": "cd server && npm ci",
     "server:lint": "cd server && npm run lint",
     "server:lint-staged": "cd server && npm run lint-staged",
-    "server:test": "cd server && npm run test",
+    "server:test": "cd server && npm run test -- --ci",
     "start": "npm run server",
     "test:all": "npm run server:test && npm run client:test"
   },
