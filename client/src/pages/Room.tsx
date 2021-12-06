@@ -18,7 +18,7 @@ const useStyles = makeStyles(() =>
       ...gridBackground,
       width: 'max-content',
       minHeight: '100vh',
-      minWidth: '100vw',
+      minWidth: '100%',
       position: 'relative',
       display: 'flex',
       flexDirection: 'row',
