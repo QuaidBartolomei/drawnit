@@ -2,11 +2,7 @@ import { MongoMemoryServer } from 'mongodb-memory-server'
 import mongoose from 'mongoose'
 
 export async function initMemoryDB() {
-  const mongod = await MongoMemoryServer.create({
-    binary: {
-      version: '3.6.3',
-    },
-  })
+  const mongod = await MongoMemoryServer.create()
 
   mongoose.Promise = Promise
   const mongoUri = mongod.getUri()
