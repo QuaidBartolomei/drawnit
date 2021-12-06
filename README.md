@@ -30,20 +30,20 @@ The project is organized so that the client and server can be developed as seper
 
 ### Prerequisites
 
-- node ^16
+- node 16
 
 ### Installation
 
 1. Clone the repo
-   ```sh
+   ```bash
    git clone https://github.com/quaidbartolomei/drawnit.git
    ```
 2. Install NPM packages (Project, Client, Server)
-   ```sh
+   ```bash
    npm run full-install
    ```
 3. (Production only): set the env values
-   ```
+   ```env
    MONGO_DB_URI=<your uri here>
    HOST=<production hostname here>
    ```
@@ -52,45 +52,27 @@ The project is organized so that the client and server can be developed as seper
 
 - After installation you can start the app in development mode. [mongodb-memory-server](https://github.com/nodkz/mongodb-memory-server) is used to create a temporary db in memory.
 
-```sh
+```bash
 npm run dev
 ```
 
 - There is also a script to run tests on both ends. The client app currently relies on a local dev server for testing its api calls. This dev server will also be initialized by the script
 
-```sh
+```bash
 npm run test:all
+```
+
+- Cypress end-to-end tests require an active dev server. Use the following command to initialize all required servers and run cypress tests in headless mode:
+
+```bash
+npm run test:integration
 ```
 
 <!-- USAGE EXAMPLES -->
 
-## Roadmap
-
-See the [open issues](https://github.com/othneildrew/Best-README-Template/issues) for a list of proposed features (and known issues).
-
-<!-- CONTRIBUTING -->
-
-## Contributing
-
-Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-<!-- LICENSE -->
-
-## License
-
-Distributed under the MIT License. See `LICENSE` for more information.
-
-<!-- CONTACT -->
-
 ## Contact
 
-Quaid Bartolomei - (http://quaid.world)
+[ Quaid Bartolomei ](https://www.linkedin.com/in/quaidb/)
 
 Project Link: [https://github.com/QuaidBartolomei/drawnit](https://github.com/QuaidBartolomei/drawnit)
 
@@ -98,5 +80,5 @@ Project Link: [https://github.com/QuaidBartolomei/drawnit](https://github.com/Qu
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://www.linkedin.com/in/quaid-bartolomei-065078203/
+[linkedin-url]: https://www.linkedin.com/in/quaidb/
 [product-screenshot]: images/screenshot.png
