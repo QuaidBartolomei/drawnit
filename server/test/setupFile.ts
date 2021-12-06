@@ -31,7 +31,7 @@ export async function connect(
   const options = Object.assign({}, staticOptions)
 
   // to not duplicate code
-  const connectionString = `${process.env.MONGO_URI}`
+  const connectionString = `${process.env.MONGO_URI}/jest`
 
   if (extraConfig.createNewConnection) {
     connection = await mongooseInstance
