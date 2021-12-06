@@ -27,6 +27,8 @@ jobs:
         run: npm run lint
       - name: Client Tests
         run: npm run client:unit
+      - name: Client E2E
+        run: npm run test:integration
       - name: Server Tests
         run: npm run server:test
       - name: Build Client
