@@ -9,9 +9,9 @@ beforeAll(() => {
   initApp(app)
 })
 
-test('Express app successfully listens when initApp is called', async () => {
+test('Express app successfully listens when initApp is called', (done) => {
   app.get(TEST_ROUTE, (req, res) => {
     res.status(200).send()
   })
-  await request(app).get(TEST_ROUTE).expect(200)
+  request(app).get(TEST_ROUTE).expect(200, done)
 })

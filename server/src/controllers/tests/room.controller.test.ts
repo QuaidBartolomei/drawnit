@@ -26,6 +26,7 @@ const badRoomData = {}
 const app = express()
 
 const ERROR = 400
+let controlRoom: Room = goodRoomData
 
 beforeAll(async () => {
   initApp(app)
@@ -34,6 +35,7 @@ beforeAll(async () => {
 beforeEach(async () => {
   await RoomModel.deleteMany({})
   await ImageModel.deleteMany({})
+  controlRoom = await createAndSaveRoomDoc(goodRoomData)
 })
 
 describe('CREATE_ROOM', () => {
@@ -53,7 +55,7 @@ describe('CREATE_ROOM', () => {
         const room = JSON.parse(res.text) as Room
         expect(room._id).toBeTruthy()
         const n = await roomCount()
-        expect(n).toBe(1)
+        expect(n).toBe(2)
       })
       .expect(200, done)
   })
@@ -68,8 +70,7 @@ describe('get room by id route', () => {
       })
       .expect(ERROR, done)
   })
-  test('valid id', async () => {
-    const controlRoom = await createAndSaveRoomDoc(goodRoomData)
+  test('valid id', (done) => {
     request(app)
       .get(RoomClientRoutes(controlRoom._id).GET_ROOM)
       .expect((res) => {
@@ -77,12 +78,12 @@ describe('get room by id route', () => {
         expect(testRoom).toBeDefined()
         expect(testRoom._id).toBe(controlRoom._id)
       })
-      .expect(200)
+      .expect(200, done)
   })
 })
 
 test('delete room by id route', async () => {
-  const { _id } = await createAndSaveRoomDoc(goodRoomData)
+  const { _id } = controlRoom
   expect(_id).toBeTruthy()
   await request(app).get(RoomClientRoutes(_id).DELETE_ROOM).expect(200)
   const testRoom = await getRoomById(_id)
@@ -98,9 +99,9 @@ test('delete all rooms route', async () => {
 })
 
 test('set image route', async () => {
-  const { _id } = await createAndSaveRoomDoc(goodRoomData)
+  const { _id } = controlRoom
   const route = RoomClientRoutes(_id).SET_IMAGE
-  request(app)
+  await request(app)
     .post(route)
     .set('content-type', 'multipart/form-data')
     .attach('image', __dirname + '/image.jpg')
@@ -115,7 +116,7 @@ describe('get background image', () => {
   })
 
   test('get background image', async () => {
-    const room = await createAndSaveRoomDoc(goodRoomData)
+    const room = controlRoom
     const controlImage = await setBackgroundImage(room._id, imageFile)
     await request(app)
       .get(RoomClientRoutes(room._id).GET_BACKGROUND_IMAGE)
@@ -183,7 +184,7 @@ test('count rooms', async () => {
     .send()
     .expect((res) => {
       const n = Number(res.text)
-      expect(n).toBe(0)
+      expect(n).toBe(1)
     })
     .expect(200)
 })
