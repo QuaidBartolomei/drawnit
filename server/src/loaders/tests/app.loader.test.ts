@@ -13,5 +13,5 @@ test('Express app successfully listens when initApp is called', async () => {
   app.get(TEST_ROUTE, (req, res) => {
     res.status(200).send()
   })
-  request(app).get(TEST_ROUTE).expect(200)
+  await request(app).get(TEST_ROUTE).expect(200)
 })
