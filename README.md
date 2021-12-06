@@ -4,14 +4,16 @@
 <br />
 <p align="center">
 
-  <h3 align="center">Drawnit</h3>
+ <h1 align="center">Drawnit</h3>
+
+[ ![Screenshot](client/cypress/screenshots/home.cy.ts/screenshot.png) ](https://drawnit.herokuapp.com)
 
   <p align="center">
     Upload an image and draw on it or a blank canvas together with others in real time!
     <br />
     <br />
     <a href="https://drawnit.herokuapp.com">View Demo</a>
-</p>
+  </p>
 
 ### Built With
 
