@@ -15,7 +15,8 @@
     "jsx": "react-jsx",
     "baseUrl": "src",
     "noFallthroughCasesInSwitch": true,
-    "types": ["cypress"]
+    "types": ["cypress"],
+    "isolatedModules": true
   },
-  "include": ["**/*.ts", "**/*.tsx"]
+  "include": ["src"]
 }
