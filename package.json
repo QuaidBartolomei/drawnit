@@ -30,7 +30,7 @@
     "server:lint-staged": "cd server && npm run lint-staged",
     "server:test": "cd server && npm run test -- --ci --silent",
     "start": "npm run server",
-    "test:all": "npm run server:test && npm run client:test",
+    "test:all": "npm run server:test && npm run client:test && npm run test:integration",
     "test:integration": "start-server-and-test dev http://localhost:3000 client:e2e"
   },
   "devDependencies": {
