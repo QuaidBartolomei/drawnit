@@ -4,10 +4,10 @@ import { createStyles, makeStyles } from '@material-ui/core/styles'
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever'
 import { deleteBackgroundImage, saveCanvasToDb } from 'apis/room'
 import { sendClearCanvas } from 'apis/socket'
-import { useRoomDispatch, useRoomState } from '../room.context'
 import useSocket from 'components/Canvas/hooks/useSocket'
-
 import { clearCanvas } from 'utils/canvas'
+
+import { useRoomDispatch, useRoomState } from '../room.context'
 
 const useStyles = makeStyles((theme) =>
   createStyles({

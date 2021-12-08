@@ -1,9 +1,10 @@
 import { CanvasTools } from 'components/Canvas/Canvas'
 import Room from 'interfaces/room.interface'
-import { createContext, FC, useContext, useReducer } from 'react'
-import { RoomDispatch, roomReducer } from './room.reducer'
-import { Socket } from 'socket.io-client'
 import { isMobile } from 'is-mobile'
+import { createContext, FC, useContext, useReducer } from 'react'
+import { Socket } from 'socket.io-client'
+
+import { RoomDispatch, roomReducer } from './room.reducer'
 
 export type RoomState = Room & {
   selectedTool: CanvasTools

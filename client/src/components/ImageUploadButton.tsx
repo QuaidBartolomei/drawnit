@@ -1,6 +1,5 @@
 import Button, { ButtonProps } from '@material-ui/core/Button'
 import { createStyles, makeStyles } from '@material-ui/core/styles'
-
 import ImageIcon from '@material-ui/icons/Image'
 
 const useStyles = makeStyles(() =>

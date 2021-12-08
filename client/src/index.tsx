@@ -1,4 +1,6 @@
 // import * as serviceWorker from './serviceWorker';
+import 'global-styles.css'
+
 import CssBaseline from '@material-ui/core/CssBaseline'
 import Homepage from 'pages/Home'
 import RoomPage from 'pages/Room'
@@ -6,7 +8,6 @@ import { render } from 'react-dom'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { PageRoutes } from 'routes'
-import 'global-styles.css'
 const routes = PageRoutes()
 
 render(<App />, document.getElementById('root'))

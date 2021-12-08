@@ -1,5 +1,6 @@
 import { SocketEvents } from 'apis/socket'
 import { BrushStroke } from 'interfaces/brushStroke.interface'
+
 import { useRoomState } from '../room.context'
 
 export default function useSocket() {

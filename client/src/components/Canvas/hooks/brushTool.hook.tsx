@@ -1,10 +1,11 @@
 import { distance, Vector2 } from '@graph-ts/vector2'
 import { saveCanvasToDb } from 'apis/room'
-import { useRoomState } from '../room.context'
 import useSocket from 'components/Canvas/hooks/useSocket'
 import React, { useState } from 'react'
 import { drawBrushStroke, getImageString } from 'utils/canvas'
 import { mousePositionCanvas, touchPositionCanvas } from 'utils/mouse'
+
+import { useRoomState } from '../room.context'
 
 export function useBrushTool(): React.HTMLProps<HTMLCanvasElement> {
   const [isPainting, setIsPainting] = useState(false)

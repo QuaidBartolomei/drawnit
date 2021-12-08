@@ -1,6 +1,7 @@
-import { makeStyles, createStyles } from '@material-ui/core/styles'
+import { createStyles, makeStyles } from '@material-ui/core/styles'
 import { useState } from 'react'
 import { SketchPicker } from 'react-color'
+
 import { useRoomDispatch, useRoomState } from '../room.context'
 
 const useStyles = makeStyles(() =>

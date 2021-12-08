@@ -6,9 +6,9 @@ import Typography from '@material-ui/core/Typography'
 import FileCopyIcon from '@material-ui/icons/FileCopy'
 import ShareIcon from '@material-ui/icons/Share'
 import copy from 'clipboard-copy'
-import { useRoomDispatch, useRoomState } from '../room.context'
-
 import { PageRoutes } from 'routes'
+
+import { useRoomDispatch, useRoomState } from '../room.context'
 
 const useStyles = makeStyles(() =>
   createStyles({

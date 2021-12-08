@@ -1,5 +1,5 @@
-import { Socket } from 'socket.io-client'
 import { initSocket, SocketEvents } from 'apis/socket'
+import { Socket } from 'socket.io-client'
 
 let clientSocket: Socket
 let clientSocketB: Socket

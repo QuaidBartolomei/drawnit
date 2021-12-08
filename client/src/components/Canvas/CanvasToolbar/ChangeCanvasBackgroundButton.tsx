@@ -1,7 +1,8 @@
 import { setImage } from 'apis/room'
-import { useRoomState } from '../room.context'
-import ImageUploadButton from 'components/ImageUploadButton'
 import useSocket from 'components/Canvas/hooks/useSocket'
+import ImageUploadButton from 'components/ImageUploadButton'
+
+import { useRoomState } from '../room.context'
 
 export default function ChangeCanvasBackgroundButton(): JSX.Element {
   const room = useRoomState()
