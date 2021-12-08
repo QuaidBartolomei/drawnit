@@ -1,4 +1,8 @@
 module.exports = {
+  // testing
+  'client/**/*.{ts,tsx}': 'npm run client:test',
+  'server/**/*.ts': 'npm run server:test',
+
   // sort package.json if changed
   '**/package.json': 'sort-package-json',
 
@@ -6,8 +10,14 @@ module.exports = {
   '*': 'prettier --ignore-unknown --write',
 
   // lint typescript files
-  'client/**/*.{ts,tsx}': 'npm run client:lint-staged --',
-  'server/**/*.{ts,tsx}': 'npm run server:lint-staged --',
+  'client/**/*.{ts,tsx}': [
+    'npm run client:lint-staged --',
+    'npm run client:unit -- --findRelatedTests',
+  ],
+  'server/**/*.ts': [
+    'npm run server:lint-staged --',
+    'npm run server:test -- --findRelatedTests',
+  ],
 
   // lint entire project if eslint settings changed
   'client/**/.eslint*': 'npm run client:lint',

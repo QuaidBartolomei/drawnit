@@ -12,10 +12,10 @@
     "client:dev": "cd client && npm run dev",
     "client:e2e": "cd client && npm run test-e2e",
     "client:install": "cd client && npm ci",
-    "client:integration": "start-server-and-test server:dev http://localhost:4000/test 'cd client && npm run test-integration -- --silent'",
     "client:lint": "cd client && npm run lint",
     "client:lint-staged": "cd client && npm run lint-staged",
-    "client:test": "cd client && npm run test-unit -- --silent",
+    "client:test": "npm run client:unit && npm run test:integration",
+    "client:unit": "cd client && npm run test-unit -- --silent",
     "dev": "start-server-and-test server:dev http://localhost:4000/test client",
     "format": "prettier ./ --ignore-unknown --write --check",
     "full-install": "npm ci && npm run server:install && npm run client:install",
@@ -30,7 +30,7 @@
     "server:lint-staged": "cd server && npm run lint-staged",
     "server:test": "cd server && npm run test -- --ci --silent",
     "start": "npm run server",
-    "test:all": "npm run server:test && npm run client:test && npm run test:integration",
+    "test:all": "npm run server:test && npm run client:test",
     "test:integration": "start-server-and-test dev http://localhost:3000 client:e2e"
   },
   "devDependencies": {
