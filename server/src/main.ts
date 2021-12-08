@@ -1,13 +1,13 @@
 import cors from 'cors'
-import { initDb } from 'loaders/db.loader'
-import { initSocketServer } from 'loaders/socket.loader'
-import env from 'utils/env.utils'
 import { static as serveStaticFiles } from 'express'
+import { initApp } from 'loaders/app.loader'
+import { initDb } from 'loaders/db.loader'
+import { initServer } from 'loaders/express.loader'
+import { initSocketServer } from 'loaders/socket.loader'
+import { deleteExpiredRooms } from 'models/room.model'
 import path from 'path'
 import favicon from 'serve-favicon'
-import { deleteExpiredRooms } from 'models/room.model'
-import { initApp } from 'loaders/app.loader'
-import { initServer } from 'loaders/express.loader'
+import env from 'utils/env.utils'
 
 initDb(env.MONGO_DB_URI || '')
 

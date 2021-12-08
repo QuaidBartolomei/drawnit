@@ -1,5 +1,5 @@
-import mongoose, { Schema } from 'mongoose'
 import Image from 'interfaces/image.interface'
+import mongoose, { Schema } from 'mongoose'
 
 const collectionName = 'Image'
 const ENCODING = 'base64'

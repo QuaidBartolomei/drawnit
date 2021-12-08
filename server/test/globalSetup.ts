@@ -2,6 +2,7 @@ import { config as configEnv } from 'dotenv'
 configEnv()
 import { MongoMemoryServer } from 'mongodb-memory-server'
 import mongoose from 'mongoose'
+
 import config from './config'
 
 export default async function globalSetup() {
