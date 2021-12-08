@@ -26,7 +26,7 @@ jobs:
       - name: Linting
         run: npm run lint
       - name: Client Tests
-        run: npm run client:test
+        run: npm run client:unit
       - name: Server Tests
         run: npm run server:test
       - name: Build Client
