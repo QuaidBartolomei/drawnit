@@ -10,12 +10,16 @@ import { useEffect, useRef, useState } from 'react'
 import { useQuery } from 'react-query'
 import { useParams } from 'react-router-dom'
 import { Socket } from 'socket.io-client'
-import gridBackground from '../utils/grid-background'
 
 const useStyles = makeStyles(() =>
   createStyles({
     canvasContainer: {
-      ...gridBackground,
+      // grid background
+      backgroundImage: `linear-gradient(rgba(0,0,0, .3) .1em, transparent .1em), linear-gradient(90deg, rgba(0, 0, 0, .3) .1em, transparent .1em)`,
+      backgroundPosition: '-2px -2px, -2px -2px, -1px -1px, -1px -1px',
+      backgroundSize: '3em 3em',
+      backgroundColor: '#e3e2e5',
+
       width: 'max-content',
       minHeight: '100vh',
       minWidth: '100%',
