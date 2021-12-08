@@ -60,6 +60,7 @@
     "eslint-import-resolver-typescript": "^2.5.0",
     "eslint-plugin-import": "^2.25.3",
     "eslint-plugin-react": "^7.27.1",
+    "eslint-plugin-simple-import-sort": "^7.0.0",
     "jest-environment-jsdom": "^26.6.2",
     "msw": "^0.24.2",
     "prettier": "2.4.1",
