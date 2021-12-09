@@ -3,5 +3,6 @@
   "componentFolder": "cypress/component-tests",
   "testFiles": "**/*.spec.*",
   "screenshotOnRunFailure": false,
-  "trashAssetsBeforeRuns": false
+  "trashAssetsBeforeRuns": false,
+  "env": { "ci": false }
 }

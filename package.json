@@ -10,7 +10,7 @@
     "client": "cd client && npm run start",
     "client:build": "cd client && npm ci --production=false && npm run build && npm prune --production",
     "client:ct": "cd client && npx cypress open-ct",
-    "client:e2e": "cd client && npx cypress run",
+    "client:e2e": "cd client && npx cypress run --env ci=true",
     "client:install": "cd client && npm ci",
     "client:integration": "start-server-and-test client http://localhost:3000 client:e2e",
     "client:lint": "cd client && npx eslint . --cache",
