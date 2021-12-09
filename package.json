@@ -27,7 +27,7 @@
     "server:install": "cd server && npm ci",
     "server:lint": "cd server && npx eslint . --cache",
     "server:lint-selected": "cd server && npx eslint --fix --cache",
-    "server:test": "cd server && npx jest --ci --silent",
+    "server:test": "cd server && npx jest",
     "start": "npm run server",
     "test": "npm run test:unit && npm run test:integration",
     "test:integration": "start-server-and-test dev http://localhost:3000 client:e2e",

@@ -26,7 +26,8 @@ jobs:
         run: npm run lint
 
       - name: Server Tests
-        run: npm run server:test
+        working-directory: server
+        run: npx jest --ci
 
       - name: Client Unit Tests
         run: npm run client:unit
