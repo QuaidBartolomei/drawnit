@@ -58,10 +58,6 @@ export async function getRoomById(id: string) {
   return (await RoomModel.findById(id)) || undefined
 }
 
-export async function getAllRooms(): Promise<Room[]> {
-  return await RoomModel.find({})
-}
-
 export async function setBackgroundImage(
   roomId: string,
   file: Partial<ImageFile>,
@@ -116,8 +112,9 @@ export async function roomCount(): Promise<number> {
   return await RoomModel.countDocuments()
 }
 
-export const deleteExpiredRooms = async () => {
-  const maxAge = 1 * 24 * 60 * 60 * 1000 // 1 day
+export const deleteExpiredRooms = async (
+  maxAge = 1 * 24 * 60 * 60 * 1000, // 1 day
+) => {
   const minDate = new Date(Date.now() - maxAge)
   const expiredRoomsQuery = {
     dateLastVisited: {

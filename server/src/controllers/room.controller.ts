@@ -18,26 +18,20 @@ import { RoomRoutes } from 'routes/room.routes'
 export const roomController = Router()
   .post(RoomRoutes.CREATE_ROOM, async (req, res) => {
     console.log('creating room')
-
     const room: Room = req.body
     if (!room.height || !room.width) return res.status(400).send()
     try {
       const savedRoom = await createAndSaveRoomDoc(room)
-      if (!savedRoom) return res.status(400).send()
       res.status(200).send(JSON.stringify(savedRoom))
     } catch {
-      res.status(500).send()
+      res.status(400).send()
     }
   })
   .get(RoomRoutes.GET_ROOM, async (req, res) => {
     const id: string = req.params.id
     try {
       console.log('getting room data... ')
-
       const roomDoc = await getRoomById(id)
-
-      if (!roomDoc) console.log('no room: ', res)
-
       if (!roomDoc) return res.status(400).send()
       res.status(200).send(JSON.stringify(roomDoc))
     } catch {
@@ -74,9 +68,9 @@ export const roomController = Router()
   .post(RoomRoutes.SET_IMAGE, multer().single('image'), async (req, res) => {
     const id: string = req.params.id
     try {
-      await setBackgroundImage(id, { file: req.file })
       const file = req.file
       if (!file) throw 'file not found'
+      await setBackgroundImage(id, { file })
       const { height, width } = imageSize(file.buffer)
       updateRoomValue(id, { height, width })
       res.status(200).send()

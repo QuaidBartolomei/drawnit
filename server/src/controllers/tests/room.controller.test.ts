@@ -151,6 +151,7 @@ describe('get background image', () => {
 
 describe('delete background image', () => {
   const route = (id: string) => RoomClientRoutes(id).DELETE_BACKGROUND_IMAGE
+
   test('invalid room responds with error', (done) => {
     request(app).get(route('badid')).expect(ERROR, done)
   })
@@ -165,6 +166,13 @@ describe('delete background image', () => {
 })
 
 describe('update canvas', () => {
+  test('invalid room responds with error', (done) => {
+    request(app)
+      .post(RoomClientRoutes('badid').UPDATE_CANVAS)
+      .send({})
+      .expect(ERROR, done)
+  })
+
   test('canvas image data successfully updates', async () => {
     const controlData = { canvasImage: 'abc123' } as Partial<Room>
     const room = await createAndSaveRoomDoc(goodRoomData)

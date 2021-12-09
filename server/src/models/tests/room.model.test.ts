@@ -4,6 +4,7 @@ import {
   createAndSaveRoomDoc,
   deleteAllRooms,
   deleteBackgroundImage,
+  deleteExpiredRooms,
   getBackgroundImage,
   getRoomById,
   roomCount,
@@ -156,6 +157,14 @@ test('delete all rooms', async () => {
 })
 
 test('roomCount', async () => {
+  const n = await roomCount()
+  expect(n).toBe(0)
+})
+
+test('delete expired rooms', async () => {
+  await createAndSaveRoomDoc(goodRoomData)
+  await new Promise((resolve) => setTimeout(resolve, 10))
+  await deleteExpiredRooms(5)
   const n = await roomCount()
   expect(n).toBe(0)
 })
