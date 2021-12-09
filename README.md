@@ -22,7 +22,7 @@
 - [Developing](#developing)
 - [Test Types](#test-types)
   - [Jest Unit Tests](#jest-unit-tests)
-- [Cypress Integration Tests](#cypress-integration-tests)
+  - [Cypress Integration Tests](#cypress-integration-tests)
   - [Cypress Component Tests](#cypress-component-tests)
   - [Other Test Scripts](#other-test-scripts)
     - [test:all](#testall)
@@ -90,9 +90,9 @@ npm run client:unit
 npm run server:test
 ```
 
-## Cypress Integration Tests
+### Cypress Integration Tests
 
-Thes tests are performed against a running backend dev server and client dev server.
+These tests are performed against a running backend dev server and client dev server.
 
 ```bash
 npm run test:integration
