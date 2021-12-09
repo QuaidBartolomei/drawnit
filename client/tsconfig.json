@@ -15,7 +15,7 @@
     "jsx": "react-jsx",
     "baseUrl": "src",
     "noFallthroughCasesInSwitch": true,
-    "types": ["cypress"],
+    "types": ["jest"],
     "isolatedModules": true
   },
   "include": ["src"]
