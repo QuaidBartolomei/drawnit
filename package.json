@@ -12,6 +12,7 @@
     "client:dev": "cd client && npm run dev",
     "client:e2e": "cd client && npm run test-e2e",
     "client:install": "cd client && npm ci",
+    "client:integration": "start-server-and-test client:dev http://localhost:3000 client:e2e",
     "client:lint": "cd client && npm run lint",
     "client:lint-selected": "cd client && npm run lint:fix-selected",
     "client:test": "npm run client:unit && npm run test:integration",

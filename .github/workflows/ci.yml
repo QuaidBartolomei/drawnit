@@ -7,31 +7,38 @@ on:
     branches: [main]
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [16.x]
-
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
+
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-      - name: Install
+
+      - name: Full Install
         run: npm run full-install
+
       - name: Linting
         run: npm run lint
-      - name: Client Tests
-        run: npm run client:unit
-      - name: Client E2E
-        run: npm run test:integration
+
       - name: Server Tests
         run: npm run server:test
-      - name: Build Client
-        run: npm run client:build
-      - name: Build Server
-        run: npm run server:build
+
+      - name: Client Unit Tests
+        run: npm run client:unit
+
+      - name: Start Dev Server
+        working-directory: server
+        run: npm run dev &
+
+      - name: Start Client Dev Server
+        working-directory: client
+        run: npm run dev &
+
+      - name: Cypress
+        working-directory: client
+        run: npm run test-e2e
