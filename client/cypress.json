@@ -1,1 +1,7 @@
-{ "video": false }
+{
+  "video": false,
+  "componentFolder": "cypress/component-tests",
+  "testFiles": "**/*.spec.*",
+  "screenshotOnRunFailure": false,
+  "trashAssetsBeforeRuns": false
+}

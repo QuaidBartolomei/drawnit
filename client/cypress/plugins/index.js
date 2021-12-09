@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-undef */
 /// <reference types="cypress" />
@@ -14,10 +15,13 @@
 // This function is called when a project is opened or re-opened (e.g. due to
 // the project's config changing)
 
+const injectDevServer = require('@cypress/react/plugins/react-scripts')
+
 /**
  * @type {Cypress.PluginConfig}
  */
 module.exports = (on, config) => {
-  // `on` is used to hook into various events Cypress emits
-  // `config` is the resolved Cypress config
+  injectDevServer(on, config)
+
+  return config
 }
