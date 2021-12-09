@@ -11,11 +11,11 @@ module.exports = {
 
   // lint typescript files
   'client/**/*.{ts,tsx}': [
-    'npm run client:lint-staged --',
+    'npm run client:lint-selected --',
     'npm run client:unit -- --findRelatedTests',
   ],
   'server/**/*.ts': [
-    'npm run server:lint-staged --',
+    'npm run server:lint-selected --',
     'npm run server:test -- --findRelatedTests',
   ],
 
