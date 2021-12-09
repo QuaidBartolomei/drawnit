@@ -31,6 +31,14 @@ jobs:
       - name: Client Unit Tests
         run: npm run client:unit
 
+      - name: Build Server
+        working-directory: server
+        run: npm run build &
+
+      - name: Build Client
+        working-directory: client
+        run: npm run build &
+
       - name: Start Dev Server
         working-directory: server
         run: npm run dev &
