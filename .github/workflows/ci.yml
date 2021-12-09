@@ -33,20 +33,19 @@ jobs:
 
       - name: Build Server
         working-directory: server
-        run: npm run build &
+        run: npm run build
 
       - name: Build Client
         working-directory: client
-        run: npm run build &
+        run: npm run build
+
+      - name: Cypress Component Tests
+        working-directory: client
+        run: npx cypress run-ct
 
       - name: Start Dev Server
         working-directory: server
         run: npm run dev &
 
-      - name: Start Client Dev Server
-        working-directory: client
-        run: npm run dev &
-
-      - name: Cypress
-        working-directory: client
-        run: npm run test-e2e
+      - name: Cypress End to End
+        run: npm run client:integration

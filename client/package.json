@@ -4,14 +4,12 @@
   "private": true,
   "scripts": {
     "build": "react-scripts build",
-    "cypress:ct": "cypress run-ct",
-    "dev": "react-scripts start",
+    "cy": "cypress open",
+    "cyc": "cypress open-ct",
     "eject": "react-scripts eject",
     "lint": "eslint . --cache",
-    "lint:fix-selected": "eslint --cache --fix",
     "start": "react-scripts start",
     "test": "react-scripts test --testURL=http://localhost:4000 --watchAll=false",
-    "test-e2e": "cypress run",
     "test-integration": "npm run test -- src/__tests__/integration",
     "test-unit": "npm run test -- --testPathIgnorePatterns=src/__tests__/integration cypress"
   },

@@ -1,8 +1,4 @@
 module.exports = {
-  // testing
-  'client/**/*.{ts,tsx}': 'npm run client:test',
-  'server/**/*.ts': 'npm run server:test',
-
   // sort package.json if changed
   '**/package.json': 'sort-package-json',
 
