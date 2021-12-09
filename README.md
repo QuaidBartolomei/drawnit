@@ -16,16 +16,19 @@
     <a href="https://drawnit.herokuapp.com">View Demo</a>
   </p>
 
-### Built With
-
-- [React](https://reactjs.org/)
-- [Express](https://expressjs.com/)
-- [MongoDB](https://www.mongodb.com/)
-- [Socket.IO](https://socket.io/)
-- [Typescript](https://www.typescriptlang.org/)
-- [Material-UI](https://material-ui.com/)
-
-<!-- GETTING STARTED -->
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+- [Developing](#developing)
+- [Test Types](#test-types)
+  - [Jest Unit Tests](#jest-unit-tests)
+- [Cypress Integration Tests](#cypress-integration-tests)
+  - [Cypress Component Tests](#cypress-component-tests)
+  - [Other Test Scripts](#other-test-scripts)
+    - [test:all](#testall)
+  - [Commit Hooks / Lint-Staged](#commit-hooks--lint-staged)
+- [Built With](#built-with)
+- [Contact](#contact)
 
 ## Getting Started
 
@@ -51,36 +54,91 @@ The project is organized so that the client and server can be developed as seper
    HOST=<production hostname here>
    ```
 
-### Developing / Testing
+## Developing
 
 - After installation you can start the app in development mode. [mongodb-memory-server](https://github.com/nodkz/mongodb-memory-server) is used to create a temporary db in memory.
+
+Start the server in dev mode:
+
+```bash
+npm run server:dev
+```
+
+Start the client in dev mode:
+
+```bash
+npm run server:dev
+```
+
+or use [start-server-and-test](https://github.com/bahmutov/start-server-and-test) to run the server and client in dev mode with a single terminal.
 
 ```bash
 npm run dev
 ```
 
-- There is also a script to run tests on both ends. The client app currently relies on a local dev server for testing its api calls. This dev server will also be initialized by the script
+## Test Types
+
+### Jest Unit Tests
+
+Self contained tests that do not require an active server. Mongo-memory-server is used for server testing.
 
 ```bash
-npm run test:all
+npm run client:unit
 ```
 
-- Cypress end-to-end tests require an active dev server. Use the following command to initialize all required servers and run cypress tests in headless mode:
+```bash
+npm run server:test
+```
+
+## Cypress Integration Tests
+
+Thes tests are performed against a running backend dev server and client dev server.
 
 ```bash
 npm run test:integration
 ```
 
-<!-- USAGE EXAMPLES -->
+This will start the client dev server and run cypress end-to-end integration tests in headless mode (`cypress run`).
+
+### Cypress Component Tests
+
+JSX component based unit testing.
+
+Soon to be implemented.
+
+### Other Test Scripts
+
+#### test:all
+
+```bash
+npm run test:all
+```
+
+This will start the client dev server and run cypress end-to-end integration tests in headless mode (`cypress run`).
+
+### Commit Hooks / Lint-Staged
+
+Lint staged will perform linting, formatting, package.json sorting, and unit testing as necessary before any files that are committed. File and script settings for lint-staged can be found in `linstagedrc.js`.
+
+- `package.json` - sort with [sort-package-json](https://github.com/keithamus/sort-package-json)
+- typescript files - lint and unit test
+- all recognized files - format with prettier
+
+## Built With
+
+- [React](https://reactjs.org/)
+- [Express](https://expressjs.com/)
+- [MongoDB](https://www.mongodb.com/)
+- [Socket.IO](https://socket.io/)
+- [Typescript](https://www.typescriptlang.org/)
+- [Material-UI](https://material-ui.com/)
 
 ## Contact
 
+[![LinkedIn][linkedin-shield]][linkedin-url]
 [ Quaid Bartolomei ](https://www.linkedin.com/in/quaidb/)
 
 Project Link: [https://github.com/QuaidBartolomei/drawnit](https://github.com/QuaidBartolomei/drawnit)
-
-<!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/quaidb/
