@@ -1,7 +1,7 @@
 import { createStyles, createTheme, makeStyles } from '@material-ui/core/styles'
 import { SocketEvents } from 'apis/socket'
-import { useBrushTool } from 'components/Canvas/hooks/brushTool.hook'
-import { usePanTool } from 'components/Canvas/hooks/panTool.hook'
+import { useBrushTool } from 'components/Canvas/hooks/useBrushTool'
+import { usePanTool } from 'components/Canvas/hooks/usePanTool'
 import { BrushStroke } from 'interfaces/brushStroke.interface'
 import { forwardRef, useEffect } from 'react'
 import { clearCanvas, drawBrushStroke } from 'utils/canvas'
@@ -29,7 +29,7 @@ const useStyles = makeStyles(() => {
       height: '100%',
       position: 'relative',
     },
-    canvas: (size: {
+    canvas: (settings: {
       width: number
       height: number
       backgroundColor: string
@@ -37,7 +37,7 @@ const useStyles = makeStyles(() => {
       position: 'absolute',
       top: 0,
       left: 0,
-      ...size,
+      ...settings,
       border: 'thin black solid',
     }),
   })
