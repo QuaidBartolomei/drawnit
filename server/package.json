@@ -8,7 +8,7 @@
     "build": "tsc --project tsconfig.prod.json",
     "dev": "NODE_PATH=./src ts-node-dev -r dotenv/config ./src/main.dev.ts --debug",
     "lint": "eslint . --cache",
-    "serve": "NODE_PATH=./dist node dist/main.js",
+    "serve": "NODE_PATH=./dist node -r dotenv/config dist/main.js",
     "start": "npm run serve",
     "test": "jest"
   },

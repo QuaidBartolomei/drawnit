@@ -21,6 +21,9 @@ app
   .use(cors({ origin: env.HOST }))
   .use('/static', serveStaticFiles(staticPath))
   .use(favicon(faviconPath))
+  .get('/ok', (req, res) => {
+    res.send(200)
+  })
   .get('*', (req, res) => {
     res.sendFile('index.html', {
       root: client,
