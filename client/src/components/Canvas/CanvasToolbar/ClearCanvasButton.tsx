@@ -2,10 +2,10 @@ import Button from '@material-ui/core/Button'
 import IconButton from '@material-ui/core/IconButton'
 import { createStyles, makeStyles } from '@material-ui/core/styles'
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever'
-import { deleteBackgroundImage, saveCanvasToDb } from 'apis/room'
-import { sendClearCanvas } from 'apis/socket'
 import useSocket from 'components/Canvas/hooks/useSocket'
 import { clearCanvas } from 'utils/canvas'
+import { deleteBackgroundImage, saveCanvasToDb } from 'utils/roomApi'
+import { sendClearCanvas } from 'utils/socket'
 
 import { useRoomDispatch, useRoomState } from '../room.context'
 

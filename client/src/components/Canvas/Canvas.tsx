@@ -1,13 +1,14 @@
-import { createStyles, createTheme, makeStyles } from '@material-ui/core/styles'
-import { SocketEvents } from 'apis/socket'
-import { useBrushTool } from 'components/Canvas/hooks/useBrushTool'
-import { usePanTool } from 'components/Canvas/hooks/usePanTool'
-import { BrushStroke } from 'interfaces/brushStroke.interface'
-import { forwardRef, useEffect } from 'react'
-import { clearCanvas, drawBrushStroke } from 'utils/canvas'
+import { createStyles, createTheme, makeStyles } from '@material-ui/core/styles';
+import { BrushStroke } from 'interfaces/brushStroke.interface';
+import { forwardRef, useEffect } from 'react';
+import { clearCanvas, drawBrushStroke } from 'utils/canvas';
+import { SocketEvents } from 'utils/socket';
 
-import CanvasBackgroundImage from './CanvasBackgroundImage'
-import { useRoomState } from './room.context'
+import CanvasBackgroundImage from './CanvasBackgroundImage';
+import { useBrushTool } from './hooks/useBrushTool';
+import { usePanTool } from './hooks/usePanTool';
+import { useRoomState } from './room.context';
+
 
 export enum CanvasTools {
   Brush,

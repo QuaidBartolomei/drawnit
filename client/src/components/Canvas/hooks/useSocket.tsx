@@ -1,5 +1,5 @@
-import { SocketEvents } from 'apis/socket'
 import { BrushStroke } from 'interfaces/brushStroke.interface'
+import { SocketEvents } from 'utils/socket'
 
 import { useRoomState } from '../room.context'
 

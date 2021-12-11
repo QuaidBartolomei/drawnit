@@ -1,6 +1,4 @@
 import { createStyles, makeStyles } from '@material-ui/core'
-import { getRoom } from 'apis/room'
-import { initSocket, SocketEvents } from 'apis/socket'
 import { BackdroppedAlert } from 'components/BackdroppedAlert'
 import Canvas from 'components/Canvas/Canvas'
 import CanvasToolbar from 'components/Canvas/CanvasToolbar/CanvasToolbar'
@@ -10,6 +8,8 @@ import { useEffect, useRef, useState } from 'react'
 import { useQuery } from 'react-query'
 import { useParams } from 'react-router-dom'
 import { Socket } from 'socket.io-client'
+import { getRoom } from 'utils/roomApi'
+import { initSocket, SocketEvents } from 'utils/socket'
 
 const useStyles = makeStyles(() =>
   createStyles({

@@ -1,12 +1,12 @@
+import { rest } from 'msw'
+import { RoomClientRoutes } from 'routes'
 import {
   createRoom,
   getBackgroundImageUrl,
   getRoom,
   saveCanvasToDb,
   setImage,
-} from 'apis/room'
-import { rest } from 'msw'
-import { RoomClientRoutes } from 'routes'
+} from 'utils/roomApi'
 import { imageFile, initServer } from 'utils/test'
 
 const server = initServer()
