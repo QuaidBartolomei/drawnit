@@ -21,6 +21,7 @@ const injectDevServer = require('@cypress/react/plugins/react-scripts')
  * @type {Cypress.PluginConfig}
  */
 module.exports = (on, config) => {
+  if (config.env.ci) config.baseUrl = 'http://localhost:4000'
   injectDevServer(on, config)
 
   return config

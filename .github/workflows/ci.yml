@@ -30,7 +30,8 @@ jobs:
         run: npx jest --ci
 
       - name: Client Unit Tests
-        run: npm run client:unit
+        working-directory: client
+        run: npm run test-unit
 
       - name: Build Server
         working-directory: server
@@ -45,6 +46,6 @@ jobs:
         run: npx cypress run-ct
 
       - name: Cypress End to End
-        env: # Or as an environment variable
+        env:
           MONGO_DB_URI: ${{ secrets.MONGO_DB_URI }}
         run: npm run cypress:ci
