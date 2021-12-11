@@ -44,9 +44,5 @@ jobs:
         working-directory: client
         run: npx cypress run-ct
 
-      - name: Start Dev Server
-        working-directory: server
-        run: npm run dev &
-
       - name: Cypress End to End
-        run: npm run client:integration
+        run: npm run cypress:ci
