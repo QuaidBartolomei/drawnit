@@ -14,14 +14,8 @@ export const SocketEvents = {
   ReloadRoom: 'USEREVENT_reload_room',
 }
 
-const origin = `https://localhost:${env.PORT}`
-
 export const initSocketServer = (server: HttpServer) => {
-  const socketIOServer = new Server(server, {
-    cors: {
-      origin,
-    },
-  })
+  const socketIOServer = new Server(server)
   socketIOServer.on(SocketEvents.Connect, (clientSocket: Socket) => {
     clientSocket
       .on(SocketEvents.Ping, () => {
