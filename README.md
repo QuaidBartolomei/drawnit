@@ -20,17 +20,17 @@
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
 - [Developing](#developing)
-- [Test Types](#test-types)
+- [Testing](#testing)
   - [Jest Unit Tests](#jest-unit-tests)
-  - [Cypress Integration Tests](#cypress-integration-tests)
+  - [Cypress end to end Integration Tests](#cypress-end-to-end-integration-tests)
   - [Cypress Component Tests](#cypress-component-tests)
-  - [Other Test Scripts](#other-test-scripts)
-    - [test:all](#testall)
   - [Commit Hooks / Lint-Staged](#commit-hooks--lint-staged)
 - [Built With](#built-with)
 - [Contact](#contact)
 
 ## Getting Started
+
+This project contains a `/server` and `/client` applications contained in a top-level parent package. In production the backend server serves the static client build files.
 
 The project is organized so that the client and server can be developed as seperate apps. This top level package can be used to build the project into a Node.js application that serves the compiled frontend.
 
@@ -51,7 +51,6 @@ The project is organized so that the client and server can be developed as seper
 3. (Production only): set the env values
    ```env
    MONGO_DB_URI=<your uri here>
-   HOST=<production hostname here>
    ```
 
 ## Developing
@@ -76,45 +75,29 @@ or use [start-server-and-test](https://github.com/bahmutov/start-server-and-test
 npm run dev
 ```
 
-## Test Types
+## Testing
 
 ### Jest Unit Tests
 
-Self contained tests that do not require an active server. Mongo-memory-server is used for server testing.
+Jest unit tests for both the client and server are configured to run automatically with lint-staged.
+
+### Cypress end to end Integration Tests
+
+These tests are performed against a running full stack application. Use the following helper script in the top level package to run the client and dev server and run `cypress open` all in the same terminal window.
 
 ```bash
-npm run client:unit
+npm run cypress
 ```
-
-```bash
-npm run server:test
-```
-
-### Cypress Integration Tests
-
-These tests are performed against a running backend dev server and client dev server.
-
-```bash
-npm run test:integration
-```
-
-This will start the client dev server and run cypress end-to-end integration tests in headless mode (`cypress run`).
 
 ### Cypress Component Tests
 
 JSX component based unit testing.
 
-Soon to be implemented.
-
-### Other Test Scripts
-
-#### test:all
+From the `/client` directory run the following script to start the test browser.
 
 ```bash
-npm run test:all
+npm run cyc
 ```
-
-This will start the client dev server and run cypress end-to-end integration tests in headless mode (`cypress run`).
 
 ### Commit Hooks / Lint-Staged
 
