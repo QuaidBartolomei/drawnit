@@ -1,14 +1,13 @@
-import { createStyles, createTheme, makeStyles } from '@material-ui/core/styles';
-import { BrushStroke } from 'interfaces/brushStroke.interface';
-import { forwardRef, useEffect } from 'react';
-import { clearCanvas, drawBrushStroke } from 'utils/canvas';
-import { SocketEvents } from 'utils/socket';
+import { createStyles, createTheme, makeStyles } from '@material-ui/core/styles'
+import { BrushStroke } from 'interfaces/brushStroke.interface'
+import { forwardRef, useEffect } from 'react'
+import { clearCanvas } from 'utils/canvas'
+import { SocketEvents } from 'utils/socket'
 
-import CanvasBackgroundImage from './CanvasBackgroundImage';
-import { useBrushTool } from './hooks/useBrushTool';
-import { usePanTool } from './hooks/usePanTool';
-import { useRoomState } from './room.context';
-
+import CanvasBackgroundImage from './CanvasBackgroundImage'
+import { useBrushTool } from './hooks/useBrushTool'
+import { usePanTool } from './hooks/usePanTool'
+import { useRoomDispatch, useRoomState } from './room.context'
 
 export enum CanvasTools {
   Brush,
@@ -50,6 +49,7 @@ type Ref = React.ForwardedRef<HTMLCanvasElement>
 const Canvas = (props: Props, ref: Ref) => {
   const { socket, canvasRef, backgroundImageId, selectedTool, width, height } =
     useRoomState()
+  const roomDispatch = useRoomDispatch()
 
   const classes = useStyles({
     width,
@@ -66,7 +66,7 @@ const Canvas = (props: Props, ref: Ref) => {
     socket
       .on(SocketEvents.BrushStroke, (brushStrokeString: string) => {
         const brushStroke: BrushStroke = JSON.parse(brushStrokeString)
-        drawBrushStroke(canvasRef, brushStroke)
+        roomDispatch({ type: 'draw_brush_stroke', payload: brushStroke })
       })
       .on(SocketEvents.ClearCanvas, () => {
         clearCanvas(canvasRef)

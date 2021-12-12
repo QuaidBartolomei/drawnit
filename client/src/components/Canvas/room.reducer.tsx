@@ -1,4 +1,6 @@
 import { CanvasTools } from 'components/Canvas/Canvas'
+import { BrushStroke } from 'interfaces/brushStroke.interface'
+import { drawBrushStroke } from 'utils/canvas'
 
 import { RoomState } from './room.context'
 
@@ -9,6 +11,7 @@ type Action =
   | { type: 'set_background_image_url'; payload: string }
   | { type: 'show_backdrop'; payload: boolean }
   | { type: 'set_backdrop_content'; payload: React.ReactNode }
+  | { type: 'draw_brush_stroke'; payload: BrushStroke }
 
 export const roomReducer = (state: RoomState, action: Action): RoomState => {
   switch (action.type) {
@@ -29,6 +32,10 @@ export const roomReducer = (state: RoomState, action: Action): RoomState => {
     }
     case 'set_backdrop_content': {
       return { ...state, backdropContent: action.payload }
+    }
+    case 'draw_brush_stroke': {
+      drawBrushStroke(state.canvasRef, action.payload)
+      return state
     }
   }
 }

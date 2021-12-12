@@ -13,9 +13,7 @@ export function drawBrushStroke(
   canvasRef: CanvasRef,
   brushStroke: Partial<BrushStroke>,
 ) {
-  const positions = brushStroke.positions || []
-  const color = brushStroke.color || 'red'
-  const size = brushStroke.size || 3
+  const { color = 'red', size = 3, positions = [] } = brushStroke
   const canvasContext = getCanvasContext(canvasRef)
   if (!canvasContext) return
   canvasContext.lineJoin = 'round'
@@ -24,10 +22,10 @@ export function drawBrushStroke(
   canvasContext.moveTo(positions[0].x, positions[0].y)
   canvasContext.strokeStyle = color
   canvasContext.lineWidth = size
-  for (const position of positions) {
-    canvasContext.lineTo(position.x, position.y)
-    canvasContext.moveTo(position.x, position.y)
-  }
+  positions.forEach(({ x, y }) => {
+    canvasContext.lineTo(x, y)
+    canvasContext.moveTo(x, y)
+  })
   canvasContext.closePath()
   canvasContext.stroke()
 }
