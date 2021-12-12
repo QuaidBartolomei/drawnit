@@ -32,7 +32,7 @@
 
 This project contains a `/server` and `/client` applications contained in a top-level parent package. In production the backend server serves the static client build files.
 
-The project is organized so that the client and server can be developed as seperate apps. This top level package can be used to build the project into a Node.js application that serves the compiled frontend.
+The parent package contains several scripts to help with testing and developing the client and server together.
 
 ### Prerequisites
 
@@ -55,23 +55,23 @@ The project is organized so that the client and server can be developed as seper
 
 ## Developing
 
-- After installation you can start the app in development mode. [mongodb-memory-server](https://github.com/nodkz/mongodb-memory-server) is used to create a temporary db in memory.
+- After installation you can start the app in development mode. [mongodb-memory-server](https://github.com/nodkz/mongodb-memory-server) is used to create a temporary db in memory for development and unit testing.
 
-Start the server in dev mode:
+Start the server and client in dev mode with the parent package:
 
 ```bash
-npm run server:dev
+npm run dev
 ```
 
-Start the client in dev mode:
+or separately
 
 ```bash
-npm run server:dev
+cd client
+npm start
 ```
 
-or use [start-server-and-test](https://github.com/bahmutov/start-server-and-test) to run the server and client in dev mode with a single terminal.
-
 ```bash
+cd server
 npm run dev
 ```
 
@@ -79,7 +79,7 @@ npm run dev
 
 ### Jest Unit Tests
 
-Jest unit tests for both the client and server are configured to run automatically with lint-staged.
+Jest unit tests for both the client and server are configured to run automatically with lint-staged. `npm run jest:client` and `npm run jest:server` can be used to manually trigger a test run.
 
 ### Cypress end to end Integration Tests
 
