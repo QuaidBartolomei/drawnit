@@ -22,7 +22,7 @@ app
   .use('/static', serveStaticFiles(staticPath))
   .use(favicon(faviconPath))
   .get('/ok', (req, res) => {
-    res.send(200)
+    res.sendStatus(200)
   })
   .get('*', (req, res) => {
     res.sendFile('index.html', {

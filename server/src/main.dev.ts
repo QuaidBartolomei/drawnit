@@ -8,7 +8,7 @@ initMemoryDB()
 const app = initApp()
 app.use(cors())
 app.get('/test', (req, res) => {
-  res.send(200)
+  res.sendStatus(200)
 })
 const server = initServer(app, () => {
   console.log('server is listening')
