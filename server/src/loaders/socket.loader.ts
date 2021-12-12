@@ -1,6 +1,5 @@
 import { Server as HttpServer } from 'http'
 import { Server, Socket } from 'socket.io'
-import env from 'utils/env.utils'
 
 export const SocketEvents = {
   Connect: 'connection',

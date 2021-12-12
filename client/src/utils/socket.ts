@@ -11,16 +11,16 @@ export const SocketEvents = {
   BackgroundImage: 'USEREVENT_background_image',
   ReloadRoom: 'USEREVENT_reload_room',
 }
+
 export function initSocket() {
-  const url =
-    process.env.NODE_ENV === 'production'
-      ? window.location.hostname
-      : `${window.location.hostname}:4000`
-  const clientSocket = io(url, {
+  const url = `${window.location.hostname}:4000`
+  const config = {
     reconnectionDelay: 0,
     forceNew: true,
     transports: ['websocket'],
-  })
+  }
+  const clientSocket =
+    process.env.NODE_ENV === 'production' ? io(config) : io(url, config)
 
   return new Promise<Socket>(function (resolve) {
     clientSocket.on(SocketEvents.Connect, async () => {
