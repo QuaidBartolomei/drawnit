@@ -1,4 +1,3 @@
-// import * as serviceWorker from './serviceWorker';
 import CssBaseline from '@material-ui/core/CssBaseline'
 import Homepage from 'pages/Home'
 import RoomPage from 'pages/Room'
@@ -6,9 +5,8 @@ import { render } from 'react-dom'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { PageRoutes } from 'routes'
-const routes = PageRoutes()
 
-render(<App />, document.getElementById('root'))
+const routes = PageRoutes()
 
 function App() {
   const queryClient = new QueryClient()
@@ -25,7 +23,4 @@ function App() {
   )
 }
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-// serviceWorker.unregister();
+render(<App />, document.getElementById('root'))
