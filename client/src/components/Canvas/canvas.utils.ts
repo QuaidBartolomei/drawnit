@@ -37,10 +37,8 @@ export function getImageString(ref: CanvasRef): string {
 }
 
 export function loadCanvasImage(ref: CanvasRef, image: HTMLImageElement) {
-  console.log('loading canvas image')
-
   const canvasContext = getCanvasContext(ref)
-  if (!canvasContext) return console.log('canvas context not found')
+  if (!canvasContext) return console.error('canvas context not found')
   canvasContext.drawImage(image, 0, 0)
 }
 

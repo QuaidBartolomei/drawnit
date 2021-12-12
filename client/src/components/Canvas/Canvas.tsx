@@ -1,7 +1,7 @@
 import { createStyles, createTheme, makeStyles } from '@material-ui/core/styles'
+import { clearCanvas } from 'components/Canvas/canvas.utils'
 import { BrushStroke } from 'interfaces/brushStroke.interface'
 import { forwardRef, useEffect } from 'react'
-import { clearCanvas } from 'utils/canvas'
 import { SocketEvents } from 'utils/socket'
 
 import CanvasBackgroundImage from './CanvasBackgroundImage'

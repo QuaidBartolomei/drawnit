@@ -1,6 +1,6 @@
 import { CanvasTools } from 'components/Canvas/Canvas'
+import { drawBrushStroke } from 'components/Canvas/canvas.utils'
 import { BrushStroke } from 'interfaces/brushStroke.interface'
-import { drawBrushStroke } from 'utils/canvas'
 
 import { RoomState } from './room.context'
 
