@@ -8,6 +8,7 @@
   "scripts": {
     "build": "npm run build:server && npm run build:client",
     "build:client": "cd client && npm ci --production=false && npm run build && npm prune --production",
+    "build:dev": "cd server && npm run build && cd ../client && npm run build",
     "build:server": "cd server && npm ci --production=false && npm run build && npm prune --production",
     "client": "cd client && npm run start",
     "client:install": "cd client && npm ci",
