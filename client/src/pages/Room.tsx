@@ -1,4 +1,5 @@
 import { createStyles, makeStyles } from '@material-ui/core'
+import Box from '@material-ui/core/Box'
 import { BackdroppedAlert } from 'components/BackdroppedAlert'
 import Canvas from 'components/Canvas/Canvas'
 import CanvasToolbar from 'components/Canvas/CanvasToolbar/CanvasToolbar'
@@ -13,6 +14,13 @@ import { initSocket, SocketEvents } from 'utils/socket'
 
 const useStyles = makeStyles(() =>
   createStyles({
+    pageContainer: {
+      overflow: 'auto',
+      height: '100vh',
+      width: '100vw',
+      margin: 0,
+      padding: 0,
+    },
     canvasContainer: {
       // grid background
       backgroundImage: `linear-gradient(rgba(0,0,0, .3) .1em, transparent .1em), linear-gradient(90deg, rgba(0, 0, 0, .3) .1em, transparent .1em)`,
@@ -72,9 +80,11 @@ function Ready({ room, socket }: { room: Room; socket: Socket }) {
     <RoomProvider room={{ ...room }} canvasRef={canvasRef} socket={socket}>
       <CanvasToolbar />
       <BackdroppedAlert />
-      <div className={classes.canvasContainer}>
-        <Canvas ref={canvasRef} />
-      </div>
+      <Box className={classes.pageContainer}>
+        <div className={classes.canvasContainer}>
+          <Canvas ref={canvasRef} />
+        </div>
+      </Box>
     </RoomProvider>
   )
 }

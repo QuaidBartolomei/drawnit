@@ -1,6 +1,4 @@
 // import * as serviceWorker from './serviceWorker';
-import 'global-styles.css'
-
 import CssBaseline from '@material-ui/core/CssBaseline'
 import Homepage from 'pages/Home'
 import RoomPage from 'pages/Room'
