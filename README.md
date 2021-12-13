@@ -1,5 +1,5 @@
 [![LinkedIn][linkedin-shield]][linkedin-url]
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/QuaidBartolomei/drawnit/CI)
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/QuaidBartolomei/drawnit/CI)](https://github.com/QuaidBartolomei/drawnit/actions)
 
 <!-- PROJECT LOGO -->
 <br />
@@ -83,7 +83,7 @@ Jest unit tests for both the client and server are configured to run automatical
 
 ### Cypress end to end Integration Tests
 
-These tests are performed against a running full stack application. Use the following helper script in the top level package to run the client and dev server and run `cypress open` all in the same terminal window.
+These tests are performed against a running full stack application. Use the following helper script in the top level package to start the client and dev server and run `cypress open` all in the same terminal.
 
 ```bash
 npm run cypress
@@ -91,11 +91,12 @@ npm run cypress
 
 ### Cypress Component Tests
 
-JSX component based unit testing.
+Cypress also provides a component development and testing tool. The Cypress component testing tool can render components in isolation which can be very useful for development.
 
-From the `/client` directory run the following script to start the test browser.
+From the `/client` directory run the following script to start the component test browser.
 
 ```bash
+cd client/
 npm run cyc
 ```
 
