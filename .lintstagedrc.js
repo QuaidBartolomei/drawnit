@@ -5,7 +5,7 @@ module.exports = {
   // format all file types recognized by prettier
   '*': 'prettier --ignore-unknown --write',
 
-  // lint typescript files
+  // lint typescript files and run related unit tests
   'client/**/*.{ts,tsx}': [
     'npm run lint-staged:client --',
     'npm run jest:client -- --findRelatedTests',
