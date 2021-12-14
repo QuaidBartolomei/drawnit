@@ -4,7 +4,7 @@ interface Env {
   AUTH0_CLIENT_ID: string
   AUTH0_CLIENT_SECRET: string
   PORT: string
-  NODE_ENV: 'production' | 'development' | undefined
+  NODE_ENV: 'production' | 'development' | string | undefined
   MONGO_DB_URI: string
   HOST: string
 }

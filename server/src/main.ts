@@ -9,33 +9,40 @@ import path from 'path'
 import favicon from 'serve-favicon'
 import env from 'utils/env.utils'
 
-initDb(env.MONGO_DB_URI || '')
+async function main() {
+  await initDb(env.MONGO_DB_URI || '')
 
-const client = path.join(__dirname, '../../client/build')
-const staticPath = path.join(client, 'static')
-const faviconPath = path.join(client, 'favicon.ico')
+  const client = path.join(__dirname, '../../client/build')
+  const staticPath = path.join(client, 'static')
+  const faviconPath = path.join(client, 'favicon.ico')
 
-const app = initApp()
+  const app = initApp()
 
-app
-  .use(cors({ origin: env.HOST }))
-  .use('/static', serveStaticFiles(staticPath))
-  .use(favicon(faviconPath))
-  .get('/ok', (req, res) => {
-    res.sendStatus(200)
-  })
-  .get('*', (req, res) => {
-    res.sendFile('index.html', {
-      root: client,
+  app
+    .use(cors({ origin: env.HOST }))
+    .use('/static', serveStaticFiles(staticPath))
+    .use(favicon(faviconPath))
+    .get('*', (req, res) => {
+      res.sendFile('index.html', {
+        root: client,
+      })
     })
+
+  const server = initServer(app, () => {
+    console.log('server is listening')
   })
 
-const server = initServer(app, () => {
-  console.log('server is listening')
-})
+  initSocketServer(server)
 
-initSocketServer(server)
+  setInterval(() => {
+    deleteExpiredRooms()
+  }, 24 * 3600 * 1000)
+}
 
-setInterval(() => {
-  deleteExpiredRooms()
-}, 24 * 3600 * 1000)
+main()
+  .then(() => {
+    console.log('server is ready')
+  })
+  .catch((err) => {
+    console.error(err)
+  })

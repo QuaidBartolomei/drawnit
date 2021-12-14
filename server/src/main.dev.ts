@@ -1,18 +1,25 @@
-import cors from 'cors'
 import { initApp } from 'loaders/app.loader'
 import { initMemoryDB } from 'loaders/db.loader.dev'
 import { initServer } from 'loaders/express.loader'
 import { initSocketServer } from 'loaders/socket.loader'
+import env from 'utils/env.utils'
 
-initMemoryDB()
-const app = initApp()
-app.use(cors())
-app.get('/test', (req, res) => {
-  res.sendStatus(200)
-})
-const server = initServer(app, () => {
-  console.log('server is listening')
-})
-initSocketServer(server)
+async function main() {
+  const app = initApp()
+  const server = initServer(app, () => {
+    console.log('server is listening on port:', env.PORT)
+  })
+  initSocketServer(server)
 
-process.on('SIGTERM', () => process.exit())
+  await initMemoryDB()
+
+  process.on('SIGTERM', () => process.exit())
+}
+
+main()
+  .then(() => {
+    console.log('server is ready')
+  })
+  .catch((err) => {
+    console.error(err)
+  })
