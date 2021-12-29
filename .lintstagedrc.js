@@ -8,11 +8,11 @@ module.exports = {
   // lint typescript files and run related unit tests
   'client/**/*.{ts,tsx}': [
     'npm run lint-staged:client --',
-    'npm run jest:client -- --findRelatedTests',
+    'npm run test:client -- --findRelatedTests',
   ],
   'server/**/*.ts': [
     'npm run lint-staged:server --',
-    'npm run jest:server -- --findRelatedTests',
+    'npm run test:server -- --findRelatedTests',
   ],
 
   // lint entire project if eslint settings changed
