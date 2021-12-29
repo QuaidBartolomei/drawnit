@@ -54,14 +54,14 @@ jobs:
         run: npm run cypress:ci
 
       - name: Save screenshots
-        if: always()
+        if: always() # run this step even if previous step failed
         uses: actions/upload-artifact@v2
         with:
           name: cypress-screenshots
           path: client/cypress/screenshots
 
       - name: Save videos
-        if: always()
+        if: always() # run this step even if previous step failed
         uses: actions/upload-artifact@v2
         with:
           name: cypress-videos
