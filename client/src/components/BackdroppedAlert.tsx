@@ -28,7 +28,7 @@ export function BackdroppedAlert() {
   const classes = useStyles()
 
   const handleClose = () => {
-    dispatch({ type: 'set_backdrop_content', payload: null })
+    dispatch({ type: 'set_backdrop_content', payload: <div /> })
   }
 
   return (

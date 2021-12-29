@@ -43,7 +43,7 @@ function ClearCanvasButton() {
   const dispatch = useRoomDispatch()
 
   const hideBackdrop = () => {
-    dispatch({ type: 'set_backdrop_content', payload: null })
+    dispatch({ type: 'set_backdrop_content', payload: <div /> })
   }
 
   function onRemoveBackground() {
@@ -82,7 +82,7 @@ function ClearCanvasButton() {
   )
 
   const handleClick = () => {
-    dispatch({ type: 'set_backdrop_content', payload: <AlertDialog /> })
+    dispatch({ type: 'set_backdrop_content', payload: AlertDialog })
   }
 
   return (

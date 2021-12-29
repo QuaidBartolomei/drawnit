@@ -55,8 +55,8 @@ function Canvas(props: Props, ref: Ref) {
   })
 
   const canvasTools = {
-    [CanvasToolTypes.Brush]: useBrushTool(),
-    [CanvasToolTypes.Pan]: usePanTool(),
+    brush: useBrushTool(),
+    pan: usePanTool(),
   }
 
   useEffect(() => {

@@ -3,6 +3,7 @@ import BrushIcon from '@material-ui/icons/Brush'
 import PanToolIcon from '@material-ui/icons/PanTool'
 
 import BrushColorInput from './BrushColorInput'
+import { CanvasTool } from './canvasTool.schema'
 import CanvasToolButton from './CanvasToolButton'
 import ChangeCanvasBackgroundButton from './ChangeCanvasBackgroundButton'
 import ClearCanvasButton from './ClearCanvasButton'
