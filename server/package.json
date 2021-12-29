@@ -10,7 +10,7 @@
     "lint": "eslint . --cache",
     "serve": "NODE_PATH=./dist node -r dotenv/config dist/main.js",
     "start": "npm run serve",
-    "test": "jest"
+    "test": "jest --runInBand"
   },
   "config": {
     "mongodbMemoryServer": {
