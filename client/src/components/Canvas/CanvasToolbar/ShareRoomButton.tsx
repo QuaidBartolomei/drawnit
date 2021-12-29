@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography'
 import FileCopyIcon from '@material-ui/icons/FileCopy'
 import ShareIcon from '@material-ui/icons/Share'
 import copy from 'clipboard-copy'
+import { useMemo } from 'react'
 import { PageRoutes } from 'routes'
 
 import { useRoomDispatch, useRoomState } from '../room.context'
@@ -38,30 +39,40 @@ export default function ShareRoomButton() {
   const { _id } = useRoomState()
   const url = window.location.origin + PageRoutes(_id).ROOM
 
-  const UrlPreview = () => (
-    <Container className={classes.containerHorizontal}>
-      <TextField className={classes.urlField} value={url} variant="outlined" />
-      <IconButton aria-label="copy" onClick={() => copy(url)}>
-        <FileCopyIcon />
-      </IconButton>
-    </Container>
+  const UrlPreview = useMemo(
+    () => (
+      <Container className={classes.containerHorizontal}>
+        <TextField
+          className={classes.urlField}
+          value={url}
+          variant="outlined"
+        />
+        <IconButton aria-label="copy" onClick={() => copy(url)}>
+          <FileCopyIcon />
+        </IconButton>
+      </Container>
+    ),
+    [url, classes],
   )
 
-  const Children = () => (
-    <div className={classes.child}>
-      <Typography>
-        Use this link to share the room and return to it later.
-      </Typography>
-      <UrlPreview />
-    </div>
+  const Children = useMemo(
+    () => (
+      <div className={classes.child}>
+        <Typography>
+          Use this link to share the room and return to it later.
+        </Typography>
+        {UrlPreview}
+      </div>
+    ),
+    [classes],
   )
 
   const handleToggle = () => {
-    dispatch({ type: 'set_backdrop_content', payload: <Children /> })
+    dispatch({ type: 'set_backdrop_content', payload: Children })
   }
 
   return (
-    <IconButton aria-label={'Share'} onClick={handleToggle}>
+    <IconButton aria-label="Share" onClick={handleToggle}>
       <ShareIcon />
     </IconButton>
   )

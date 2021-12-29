@@ -22,8 +22,8 @@ export function initSocket() {
   const clientSocket =
     process.env.NODE_ENV === 'production' ? io(config) : io(url, config)
 
-  return new Promise<Socket>(function (resolve) {
-    clientSocket.on(SocketEvents.Connect, async () => {
+  return new Promise<Socket>((resolve) => {
+    clientSocket.on(SocketEvents.Connect, () => {
       resolve(clientSocket) // done
     })
   })

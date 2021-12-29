@@ -17,7 +17,7 @@ const useStyles = makeStyles(() =>
   }),
 )
 
-const CanvasBackgroundImage = () => {
+function CanvasBackgroundImage() {
   const classes = useStyles()
   const { canvasImage, canvasRef, backgroundImageUrl = '' } = useRoomState()
 

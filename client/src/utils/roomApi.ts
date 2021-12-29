@@ -22,6 +22,23 @@ export async function createRoom(roomData: Partial<Room> = {}) {
   }
 }
 
+// GET_BACKGROUND_IMAGE: `/room/getImage/${roomId}`,
+export async function getBackgroundImageUrl({
+  _id,
+  backgroundImageId,
+}: Partial<Room>): Promise<string | undefined> {
+  try {
+    if (!backgroundImageId) return ''
+    const res = await axios.get(RoomClientRoutes(_id).GET_BACKGROUND_IMAGE)
+    if (res.status !== StatusCodes.OK) return ''
+    const encodedImage = (await res.data) as string
+    const blob = base64toBlob(encodedImage, 'image/jpeg')
+    return URL.createObjectURL(blob)
+  } catch (error) {
+    console.error(error)
+  }
+}
+
 // GET_ROOM: `/room/get/${roomId}`,
 export async function getRoom(id: string): Promise<Room | undefined> {
   try {
@@ -66,23 +83,6 @@ export async function saveCanvasToDb(
   } catch (error) {
     console.error(error)
     return false
-  }
-}
-
-// GET_BACKGROUND_IMAGE: `/room/getImage/${roomId}`,
-export async function getBackgroundImageUrl({
-  _id,
-  backgroundImageId,
-}: Partial<Room>): Promise<string | undefined> {
-  try {
-    if (!backgroundImageId) return ''
-    const res = await axios.get(RoomClientRoutes(_id).GET_BACKGROUND_IMAGE)
-    if (res.status !== StatusCodes.OK) return ''
-    const encodedImage = (await res.data) as string
-    const blob = base64toBlob(encodedImage, 'image/jpeg')
-    return URL.createObjectURL(blob)
-  } catch (error) {
-    console.error(error)
   }
 }
 

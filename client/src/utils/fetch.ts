@@ -16,7 +16,7 @@ export async function fetchData<T>(route: string): Promise<T | undefined> {
 }
 
 export async function postData<T>(route: string, data: T): Promise<Response> {
-  return await fetch(route, {
+  return fetch(route, {
     body: JSON.stringify(data),
     method: 'POST',
     headers: new Headers({

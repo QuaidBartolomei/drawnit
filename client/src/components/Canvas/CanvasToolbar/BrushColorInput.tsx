@@ -43,18 +43,22 @@ export default function BrushColorInput() {
   const [showColorPicker, setShowColorPicker] = useState(false)
   const toggleColorPicker = () => setShowColorPicker(!showColorPicker)
 
-  const Swatch = () => (
-    <div className={classes.swatch} onClick={toggleColorPicker}>
-      <div className={classes.color} />
-    </div>
-  )
+  function Swatch() {
+    return (
+      <div className={classes.swatch} onClick={toggleColorPicker}>
+        <div className={classes.color} />
+      </div>
+    )
+  }
 
-  const ColorPicker = () => (
-    <div className={classes.popover}>
-      <div className={classes.cover} onClick={toggleColorPicker} />
-      <SketchPicker color={color} onChange={(c) => setColor(c.hex)} />
-    </div>
-  )
+  function ColorPicker() {
+    return (
+      <div className={classes.popover}>
+        <div className={classes.cover} onClick={toggleColorPicker} />
+        <SketchPicker color={color} onChange={(c) => setColor(c.hex)} />
+      </div>
+    )
+  }
 
   return (
     <div>

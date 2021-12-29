@@ -1,19 +1,11 @@
-import { CanvasTools } from 'components/Canvas/Canvas'
 import Room from 'interfaces/room.interface'
 import { isMobile } from 'is-mobile'
-import { createContext, FC, useContext, useReducer } from 'react'
+import { createContext, PropsWithChildren, useContext, useReducer } from 'react'
 import { Socket } from 'socket.io-client'
 
+import { CanvasToolType } from './canvas.utils'
 import { RoomDispatch, roomReducer } from './room.reducer'
-
-export type RoomState = Room & {
-  selectedTool: CanvasTools
-  canvasRef: React.RefObject<HTMLCanvasElement>
-  socket: Socket
-  color: string
-  showBackdrop: boolean
-  backdropContent?: React.ReactNode
-}
+import { RoomState } from './room.schema'
 
 type Props = {
   canvasRef: React.RefObject<HTMLCanvasElement>
@@ -21,11 +13,12 @@ type Props = {
   socket: Socket
 }
 
-const defaultTool: CanvasTools = isMobile({ tablet: true })
-  ? CanvasTools.Pan
-  : CanvasTools.Brush
+const defaultTool: CanvasToolType = isMobile({ tablet: true }) ? 'pan' : 'brush'
 
-export const RoomProvider: FC<Props> = (props) => {
+const StateContext = createContext<RoomState | undefined>(undefined)
+const DispatchContext = createContext<RoomDispatch | undefined>(undefined)
+
+export function RoomProvider(props: PropsWithChildren<Props>) {
   const { children, canvasRef, room, socket } = props
   const initialState: RoomState = {
     ...room,
@@ -62,6 +55,3 @@ export function useRoomDispatch() {
   }
   return context
 }
-
-const StateContext = createContext<RoomState | undefined>(undefined)
-const DispatchContext = createContext<RoomDispatch | undefined>(undefined)

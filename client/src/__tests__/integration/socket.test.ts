@@ -8,11 +8,11 @@ beforeAll(async () => {
   clientSocket = await initSocket()
   clientSocketB = await initSocket()
 })
-afterAll(async () => {
+afterAll(() => {
   clientSocket.disconnect()
 })
 
-test('initSocket successfully connects', async () => {
+test('initSocket successfully connects', () => {
   expect(clientSocket.connected).toBeTruthy()
 })
 

@@ -1,5 +1,9 @@
-import { createStyles, createTheme, makeStyles } from '@material-ui/core/styles'
-import { clearCanvas } from 'components/Canvas/canvas.utils'
+import { createStyles, makeStyles } from '@material-ui/core/styles'
+import {
+  CANVAS_MARGIN,
+  CanvasToolTypes,
+  clearCanvas,
+} from 'components/Canvas/canvas.utils'
 import { BrushStroke } from 'interfaces/brushStroke.interface'
 import { forwardRef, useEffect } from 'react'
 import { SocketEvents } from 'utils/socket'
@@ -9,20 +13,13 @@ import { useBrushTool } from './hooks/useBrushTool'
 import { usePanTool } from './hooks/usePanTool'
 import { useRoomDispatch, useRoomState } from './room.context'
 
-export enum CanvasTools {
-  Brush,
-  Pan,
-}
-
-export const canvasMargin = createTheme({}).spacing(16)
-
-const useStyles = makeStyles(() => {
-  return createStyles({
+const useStyles = makeStyles(() =>
+  createStyles({
     outsideWrapper: ({ width, height }) => ({
       display: 'inline-block',
       height,
       width,
-      margin: canvasMargin,
+      margin: CANVAS_MARGIN,
     }),
     insideWrapper: {
       width: '100%',
@@ -40,13 +37,13 @@ const useStyles = makeStyles(() => {
       ...settings,
       border: 'thin black solid',
     }),
-  })
-})
+  }),
+)
 
 type Props = React.HTMLProps<HTMLCanvasElement>
 type Ref = React.ForwardedRef<HTMLCanvasElement>
 
-const Canvas = (props: Props, ref: Ref) => {
+function Canvas(props: Props, ref: Ref) {
   const { socket, canvasRef, backgroundImageId, selectedTool, width, height } =
     useRoomState()
   const roomDispatch = useRoomDispatch()
@@ -58,8 +55,8 @@ const Canvas = (props: Props, ref: Ref) => {
   })
 
   const canvasTools = {
-    [CanvasTools.Brush]: useBrushTool(),
-    [CanvasTools.Pan]: usePanTool(),
+    [CanvasToolTypes.Brush]: useBrushTool(),
+    [CanvasToolTypes.Pan]: usePanTool(),
   }
 
   useEffect(() => {
@@ -87,7 +84,7 @@ const Canvas = (props: Props, ref: Ref) => {
           {...props}
           {...canvasTools[selectedTool]}
           ref={ref}
-        ></canvas>
+        />
       </div>
     </div>
   )

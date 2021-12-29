@@ -1,6 +1,16 @@
+import { createTheme } from '@material-ui/core/styles'
 import { BrushStroke } from 'interfaces/brushStroke.interface'
 
 type CanvasRef = React.RefObject<HTMLCanvasElement>
+
+export type CanvasToolType = 'brush' | 'pan'
+
+export const CanvasToolTypes: Readonly<any> = {
+  BRUSH: 'brush',
+  PAN: 'pan',
+}
+
+export const CANVAS_MARGIN = createTheme({}).spacing(16)
 
 export function getCanvasContext(
   canvasRef: CanvasRef,

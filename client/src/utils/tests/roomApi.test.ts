@@ -43,9 +43,9 @@ describe('GET_ROOM', () => {
 describe('SET_IMAGE', () => {
   test('invalid room returns undefined', async () => {
     server.use(
-      rest.post(RoomClientRoutes('').SET_IMAGE, (req, res, ctx) => {
-        return res(ctx.status(500))
-      }),
+      rest.post(RoomClientRoutes('').SET_IMAGE, (req, res, ctx) =>
+        res(ctx.status(500)),
+      ),
     )
     const testRoom = await setImage('', imageFile)
     expect(testRoom).toBeFalsy()
@@ -75,9 +75,9 @@ describe('GET_BACKGROUND_IMAGE', () => {
 describe('UPDATE_CANVAS', () => {
   test('invalid room returns undefined', async () => {
     server.use(
-      rest.post(RoomClientRoutes('').UPDATE_CANVAS, (req, res, ctx) => {
-        return res(ctx.status(500))
-      }),
+      rest.post(RoomClientRoutes('').UPDATE_CANVAS, (req, res, ctx) =>
+        res(ctx.status(500)),
+      ),
     )
     const testRoom = await saveCanvasToDb('', '')
     expect(testRoom).toBeFalsy()

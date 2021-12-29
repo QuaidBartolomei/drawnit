@@ -2,7 +2,7 @@ import IconButton from '@material-ui/core/IconButton'
 import { createStyles, makeStyles } from '@material-ui/core/styles'
 import DeleteIcon from '@material-ui/icons/Delete'
 import ImageUploadButton from 'components/ImageUploadButton'
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -25,12 +25,12 @@ export default function ImageInput() {
     </IconButton>
   )
   return (
-    <React.Fragment>
+    <>
       <div className={classes.containerHorizontal}>
         <ImageUploadButton onFileSelect={setValue} />
         {deleteIcon}
       </div>
       {value && <img src={URL.createObjectURL(value)} alt="uploaded file" />}
-    </React.Fragment>
+    </>
   )
 }

@@ -40,34 +40,14 @@ const useStyles = makeStyles(() =>
   }),
 )
 
-export default function RoomPage() {
-  const { id: roomId } = useParams<{ id: string }>()
-  const [socket, setSocket] = useState<undefined | Socket>(undefined)
-
-  const {
-    data: room,
-    isError,
-    error,
-  } = useQuery('getRoom', () => {
-    return getRoom(roomId)
-  })
-
-  useEffect(() => {
-    initSocket().then((socket) => {
-      socket
-        .on(SocketEvents.JoinRoom, () => {
-          setSocket(socket)
-        })
-        .on(SocketEvents.ReloadRoom, () => {
-          window.location.reload()
-        })
-        .emit(SocketEvents.JoinRoom, roomId)
-    })
-  }, [roomId])
-
-  if (isError) console.error('getRoom error: ', error)
-  if (!room || !socket) return <div>loading...</div>
-  return <Ready room={room} socket={socket} />
+function scrollToMiddle(scrollingElementId: string) {
+  const scrollingElement = document.getElementById(scrollingElementId)
+  if (!scrollingElement)
+    return console.error(`element with id: "${scrollingElementId}" not found`)
+  const viewportWidth = window.innerWidth
+  const fullWidth = scrollingElement.scrollWidth
+  const midpoint = (fullWidth - viewportWidth) / 2
+  scrollingElement.scrollTo(midpoint, 0)
 }
 
 function Ready({ room, socket }: { room: Room; socket: Socket }) {
@@ -89,12 +69,30 @@ function Ready({ room, socket }: { room: Room; socket: Socket }) {
   )
 }
 
-function scrollToMiddle(scrollingElementId: string) {
-  const scrollingElement = document.getElementById(scrollingElementId)
-  if (!scrollingElement)
-    return console.error(`element with id: "${scrollingElementId}" not found`)
-  const viewportWidth = window.innerWidth
-  const fullWidth = scrollingElement.scrollWidth
-  const midpoint = (fullWidth - viewportWidth) / 2
-  scrollingElement.scrollTo(midpoint, 0)
+export default function RoomPage() {
+  const { id: roomId } = useParams<{ id: string }>()
+  const [socket, setSocket] = useState<undefined | Socket>(undefined)
+
+  const {
+    data: room,
+    isError,
+    error,
+  } = useQuery('getRoom', () => getRoom(roomId))
+
+  useEffect(() => {
+    initSocket().then((newSocket) => {
+      newSocket
+        .on(SocketEvents.JoinRoom, () => {
+          setSocket(newSocket)
+        })
+        .on(SocketEvents.ReloadRoom, () => {
+          window.location.reload()
+        })
+        .emit(SocketEvents.JoinRoom, roomId)
+    })
+  }, [roomId])
+
+  if (isError) console.error('getRoom error: ', error)
+  if (!room || !socket) return <div>loading...</div>
+  return <Ready room={room} socket={socket} />
 }

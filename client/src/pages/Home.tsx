@@ -8,11 +8,11 @@ const defaultRoomSettings = {
   height: 800,
 }
 
-const Homepage = () => {
+function Homepage() {
   const history = useHistory()
-  const { data: room } = useQuery('create-room', () => {
-    return createRoom(defaultRoomSettings)
-  })
+  const { data: room } = useQuery('create-room', () =>
+    createRoom(defaultRoomSettings),
+  )
   if (!room) return null
   history.push(PageRoutes(room._id).ROOM)
   return null

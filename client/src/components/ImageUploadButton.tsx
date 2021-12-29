@@ -31,32 +31,24 @@ type Props = {
   onFileSelect: (file: File) => void
 }
 
-const ImageUploadButton = ({ onFileSelect, ...props }: ButtonProps & Props) => {
+function ImageUploadButton({ onFileSelect, ...props }: ButtonProps & Props) {
   const classes = useStyles()
 
-  const handleImageUpload = async (
-    e: React.ChangeEvent<HTMLInputElement>,
-  ): Promise<void> => {
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>): void => {
     e.preventDefault()
     e.stopPropagation()
     if (!e.currentTarget) return
-    const files = e.currentTarget.files
+    const { files } = e.currentTarget
     if (!files || !files.length) return
     const file = files[0]
     onFileSelect(file)
   }
 
+  const domId = 'image-file-input'
+
   return (
     <div className={classes.root}>
-      <input
-        accept="image/*"
-        className={classes.fileInput}
-        id="image-file-input"
-        type="file"
-        name="file"
-        onChange={handleImageUpload}
-      />
-      <label htmlFor="image-file-input">
+      <label htmlFor={domId}>
         <Button
           style={{
             width: 16,
@@ -68,6 +60,14 @@ const ImageUploadButton = ({ onFileSelect, ...props }: ButtonProps & Props) => {
           <ImageIcon />
         </Button>
       </label>
+      <input
+        accept="image/*"
+        className={classes.fileInput}
+        id={domId}
+        type="file"
+        name="file"
+        onChange={handleImageUpload}
+      />
     </div>
   )
 }

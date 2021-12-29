@@ -4,6 +4,7 @@ import { createStyles, makeStyles } from '@material-ui/core/styles'
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever'
 import { clearCanvas } from 'components/Canvas/canvas.utils'
 import useSocket from 'components/Canvas/hooks/useSocket'
+import { useMemo } from 'react'
 import { deleteBackgroundImage, saveCanvasToDb } from 'utils/roomApi'
 import { sendClearCanvas } from 'utils/socket'
 
@@ -34,12 +35,16 @@ const useStyles = makeStyles((theme) =>
   }),
 )
 
-const ClearCanvasButton = () => {
+function ClearCanvasButton() {
   const { _id, canvasRef, socket } = useRoomState()
 
   const { sendBackgroundImage } = useSocket()
   const classes = useStyles()
   const dispatch = useRoomDispatch()
+
+  const hideBackdrop = () => {
+    dispatch({ type: 'set_backdrop_content', payload: null })
+  }
 
   function onRemoveBackground() {
     deleteBackgroundImage({ id: _id })
@@ -54,24 +59,27 @@ const ClearCanvasButton = () => {
     hideBackdrop()
   }
 
-  const AlertDialog = () => (
-    <div className={classes.child}>
-      <Button
-        onClick={onRemoveBackground}
-        color="secondary"
-        variant="contained"
-      >
-        Remove Background
-      </Button>
-      <Button onClick={onRemoveChanges} color="secondary" variant="contained">
-        Clear Edits
-      </Button>
-    </div>
+  const AlertDialog = useMemo(
+    () => (
+      <div className={classes.child}>
+        <Button
+          onClick={() => onRemoveBackground()}
+          color="secondary"
+          variant="contained"
+        >
+          Remove Background
+        </Button>
+        <Button
+          onClick={() => onRemoveChanges()}
+          color="secondary"
+          variant="contained"
+        >
+          Clear Edits
+        </Button>
+      </div>
+    ),
+    [onRemoveBackground, classes, onRemoveChanges],
   )
-
-  const hideBackdrop = () => {
-    dispatch({ type: 'set_backdrop_content', payload: null })
-  }
 
   const handleClick = () => {
     dispatch({ type: 'set_backdrop_content', payload: <AlertDialog /> })

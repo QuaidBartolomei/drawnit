@@ -27,12 +27,8 @@ const posts: Post[] = [
 ]
 
 const server = setupServer(
-  rest.get(Routes.GET, (req, res, ctx) => {
-    return res(ctx.json(posts[0]))
-  }),
-  rest.get(Routes.GET_ALL, (req, res, ctx) => {
-    return res(ctx.json(posts))
-  }),
+  rest.get(Routes.GET, (req, res, ctx) => res(ctx.json(posts[0]))),
+  rest.get(Routes.GET_ALL, (req, res, ctx) => res(ctx.json(posts))),
   rest.post(Routes.CREATE, (req, res, ctx) => {
     const post = req.body as Post
     post.id = 111
@@ -44,7 +40,7 @@ beforeAll(() => server.listen())
 afterEach(() => server.resetHandlers())
 afterAll(() => server.close())
 
-export async function validatePost(data: Post | undefined) {
+export function validatePost(data: Post | undefined) {
   expect(data).toBeTruthy()
   expect(data?.id).toBeTruthy()
   expect(data?.body).toBeTruthy()

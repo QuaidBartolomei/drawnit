@@ -2,7 +2,6 @@ import { createStyles, makeStyles } from '@material-ui/core/styles'
 import BrushIcon from '@material-ui/icons/Brush'
 import PanToolIcon from '@material-ui/icons/PanTool'
 
-import { CanvasTools } from '../Canvas'
 import BrushColorInput from './BrushColorInput'
 import CanvasToolButton from './CanvasToolButton'
 import ChangeCanvasBackgroundButton from './ChangeCanvasBackgroundButton'
@@ -30,20 +29,14 @@ const useStyles = makeStyles((theme) =>
   }),
 )
 
-export type CanvasTool = {
-  id: CanvasTools
-  label: string
-  icon: JSX.Element
-}
-
 const canvasTools: CanvasTool[] = [
   {
-    id: CanvasTools.Brush,
+    id: 'brush',
     icon: <BrushIcon />,
     label: 'brush',
   },
   {
-    id: CanvasTools.Pan,
+    id: 'pan',
     icon: <PanToolIcon />,
     label: 'pan',
   },
