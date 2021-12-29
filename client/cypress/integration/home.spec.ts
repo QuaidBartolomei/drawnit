@@ -10,4 +10,5 @@ it('homepage should create room and redirect', () => {
     .trigger('mousemove', { offsetX: 500, offsetY: 500 })
     .trigger('mousemove', { offsetX: 510, offsetY: 500 })
     .trigger('mouseup', { force: true })
+  cy.get('[id=image-file-input]')
 })
