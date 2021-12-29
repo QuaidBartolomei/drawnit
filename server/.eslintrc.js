@@ -4,11 +4,19 @@ module.exports = {
     node: true,
   },
   extends: [
-    'eslint:recommended',
+    'airbnb-base',
     'plugin:import/recommended',
     'plugin:import/typescript',
     'plugin:@typescript-eslint/recommended',
     'prettier',
+  ],
+  overrides: [
+    {
+      files: ['*.ts', '*.tsx'],
+      parserOptions: {
+        project: ['./tsconfig.json'],
+      },
+    },
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -16,10 +24,7 @@ module.exports = {
     sourceType: 'module',
   },
   plugins: ['@typescript-eslint', 'simple-import-sort'],
-  rules: {
-    'simple-import-sort/imports': 'error',
-    'simple-import-sort/exports': 'error',
-  },
+
   settings: {
     'import/parsers': {
       '@typescript-eslint/parser': ['.ts', '.tsx'],
@@ -30,5 +35,29 @@ module.exports = {
         project: './',
       },
     },
+  },
+
+  rules: {
+    'import/extensions': ['error', 'never'],
+    'require-await': 'error',
+    '@typescript-eslint/require-await': 'error',
+    'import/no-extraneous-dependencies': [
+      'error',
+      {
+        devDependencies: [
+          '**/*.test.ts',
+          '**/*.spec.ts',
+          'test/**/*',
+          '**/*.dev.ts',
+        ],
+      },
+    ],
+    'no-console': 'off',
+    'import/prefer-default-export': 'off',
+
+    'no-underscore-dangle': ['error', { allow: ['_id'] }],
+    'no-plusplus': ['error', { allowForLoopAfterthoughts: true }],
+    'no-promise-executor-return': 'off',
+    'consistent-return': 'off',
   },
 }
