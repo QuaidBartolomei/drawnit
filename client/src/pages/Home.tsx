@@ -1,5 +1,5 @@
 import { useQuery } from 'react-query'
-import { useHistory } from 'react-router'
+import { useHistory } from 'react-router-dom'
 import { PageRoutes } from 'routes'
 import { createRoom } from 'utils/roomApi'
 
