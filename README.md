@@ -1,8 +1,6 @@
-[![LinkedIn][linkedin-shield]][linkedin-url]
 [![GitHub Workflow Status](https://img.shields.io/github/workflow/status/QuaidBartolomei/drawnit/CI)](https://github.com/QuaidBartolomei/drawnit/actions)
 
 <!-- PROJECT LOGO -->
-<br />
 <p align="center">
 
  <h1 align="center">Drawnit</h3>
@@ -30,7 +28,16 @@
 
 ## Getting Started
 
-This project contains a `/server` and `/client` applications contained in a top-level parent package. In production the backend server serves the static client build files.
+Start developing from scratch with just 2 commands!
+
+```sh
+npm run full-install
+npm run dev
+```
+
+This will install all three projects (client, server, and top-level) and start the full stack dev server.
+
+This project contains a `/server` and `/client` applications contained in a top-level parent package. In production the backend server serves the client build files statically.
 
 The parent package contains several scripts to help with testing and developing the client and server together.
 
@@ -41,11 +48,11 @@ The parent package contains several scripts to help with testing and developing 
 ### Installation
 
 1. Clone the repo
-   ```bash
+   ```sh
    git clone https://github.com/quaidbartolomei/drawnit.git
    ```
 2. Install NPM packages (Project, Client, Server)
-   ```bash
+   ```sh
    npm run full-install
    ```
 3. (Production only): set the env values
@@ -59,18 +66,18 @@ The parent package contains several scripts to help with testing and developing 
 
 Start the server and client in dev mode with the parent package:
 
-```bash
+```sh
 npm run dev
 ```
 
 or separately
 
-```bash
+```sh
 cd client
 npm start
 ```
 
-```bash
+```sh
 cd server
 npm run dev
 ```
@@ -85,7 +92,7 @@ Jest unit tests for both the client and server are configured to run automatical
 
 These tests are performed against a running full stack application. Use the following helper script in the top level package to start the client and dev server and run `cypress open` all in the same terminal.
 
-```bash
+```sh
 npm run cypress
 ```
 
@@ -95,7 +102,7 @@ Cypress also provides a component development and testing tool. The Cypress comp
 
 From the `/client` directory run the following script to start the component test browser.
 
-```bash
+```sh
 cd client/
 npm run cyc
 ```
