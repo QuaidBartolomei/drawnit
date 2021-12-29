@@ -39,7 +39,6 @@ module.exports = {
 
   rules: {
     'import/extensions': ['error', 'never'],
-    'require-await': 'error',
     '@typescript-eslint/require-await': 'error',
     'import/no-extraneous-dependencies': [
       'error',
@@ -54,7 +53,6 @@ module.exports = {
     ],
     'no-console': 'off',
     'import/prefer-default-export': 'off',
-
     'no-underscore-dangle': ['error', { allow: ['_id'] }],
     'no-plusplus': ['error', { allowForLoopAfterthoughts: true }],
     'no-promise-executor-return': 'off',
