@@ -1,5 +1,6 @@
+import { ButtonBase } from '@material-ui/core'
 import { createStyles, makeStyles } from '@material-ui/core/styles'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { SketchPicker } from 'react-color'
 
 import { useRoomDispatch, useRoomState } from '../room.context'
@@ -43,27 +44,31 @@ export default function BrushColorInput() {
   const [showColorPicker, setShowColorPicker] = useState(false)
   const toggleColorPicker = () => setShowColorPicker(!showColorPicker)
 
-  function Swatch() {
-    return (
-      <div className={classes.swatch} onClick={toggleColorPicker}>
+  const Swatch = useMemo(
+    () => (
+      <ButtonBase
+        className={classes.swatch}
+        onClick={() => toggleColorPicker()}
+      >
         <div className={classes.color} />
-      </div>
-    )
-  }
+      </ButtonBase>
+    ),
+    [classes, toggleColorPicker],
+  )
 
-  function ColorPicker() {
-    return (
-      <div className={classes.popover}>
-        <div className={classes.cover} onClick={toggleColorPicker} />
+  const ColorPicker = useMemo(
+    () => (
+      <ButtonBase onClick={toggleColorPicker} className={classes.popover}>
         <SketchPicker color={color} onChange={(c) => setColor(c.hex)} />
-      </div>
-    )
-  }
+      </ButtonBase>
+    ),
+    [classes, setColor, toggleColorPicker],
+  )
 
   return (
     <div>
-      <Swatch />
-      {showColorPicker && <ColorPicker />}
+      {Swatch}
+      {showColorPicker && ColorPicker}
     </div>
   )
 }

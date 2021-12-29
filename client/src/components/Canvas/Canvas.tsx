@@ -1,7 +1,7 @@
 import { createStyles, makeStyles } from '@material-ui/core/styles'
 import {
   CANVAS_MARGIN,
-  CanvasToolTypes,
+  CanvasToolType,
   clearCanvas,
 } from 'components/Canvas/canvas.utils'
 import { BrushStroke } from 'interfaces/brushStroke.interface'
@@ -40,7 +40,7 @@ const useStyles = makeStyles(() =>
   }),
 )
 
-type Props = React.HTMLProps<HTMLCanvasElement>
+type Props = unknown
 type Ref = React.ForwardedRef<HTMLCanvasElement>
 
 function Canvas(props: Props, ref: Ref) {
@@ -54,7 +54,9 @@ function Canvas(props: Props, ref: Ref) {
     backgroundColor: backgroundImageId ? 'transparent' : 'white',
   })
 
-  const canvasTools = {
+  const canvasTools: {
+    [Property in CanvasToolType]: React.HTMLProps<HTMLCanvasElement>
+  } = {
     brush: useBrushTool(),
     pan: usePanTool(),
   }
@@ -74,15 +76,37 @@ function Canvas(props: Props, ref: Ref) {
     }
   }, [socket, canvasRef])
 
+  const {
+    onMouseDown,
+    onMouseMove,
+    onMouseUp,
+    onMouseLeave,
+    onTouchStart,
+    onTouchMove,
+    onTouchCancel,
+    onTouchEnd,
+    onClick,
+  } = canvasTools[selectedTool]
+
   return (
     <div className={classes.outsideWrapper}>
       <div className={classes.insideWrapper}>
         <CanvasBackgroundImage />
         <canvas
           className={classes.canvas}
-          {...{ height, width }}
-          {...props}
-          {...canvasTools[selectedTool]}
+          {...{
+            height,
+            width,
+            onMouseDown,
+            onMouseMove,
+            onMouseUp,
+            onMouseLeave,
+            onTouchStart,
+            onTouchMove,
+            onTouchCancel,
+            onTouchEnd,
+            onClick,
+          }}
           ref={ref}
         />
       </div>

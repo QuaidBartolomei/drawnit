@@ -1,4 +1,4 @@
-import Button, { ButtonProps } from '@material-ui/core/Button'
+import Button from '@material-ui/core/Button'
 import { createStyles, makeStyles } from '@material-ui/core/styles'
 import ImageIcon from '@material-ui/icons/Image'
 
@@ -31,7 +31,7 @@ type Props = {
   onFileSelect: (file: File) => void
 }
 
-function ImageUploadButton({ onFileSelect, ...props }: ButtonProps & Props) {
+function ImageUploadButton({ onFileSelect }: Props) {
   const classes = useStyles()
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -55,7 +55,6 @@ function ImageUploadButton({ onFileSelect, ...props }: ButtonProps & Props) {
           }}
           color="default"
           component="span"
-          {...props}
         >
           <ImageIcon />
         </Button>

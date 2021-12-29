@@ -5,7 +5,7 @@ type CanvasRef = React.RefObject<HTMLCanvasElement>
 
 export type CanvasToolType = 'brush' | 'pan'
 
-export const CanvasToolTypes: Readonly<any> = {
+export const CanvasToolTypes: Readonly<{ [key: string]: CanvasToolType }> = {
   BRUSH: 'brush',
   PAN: 'pan',
 }

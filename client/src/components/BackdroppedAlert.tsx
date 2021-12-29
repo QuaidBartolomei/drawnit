@@ -1,3 +1,4 @@
+import { ButtonBase } from '@material-ui/core'
 import Backdrop from '@material-ui/core/Backdrop'
 import { createStyles, makeStyles } from '@material-ui/core/styles'
 
@@ -37,7 +38,7 @@ export function BackdroppedAlert() {
       open={backdropContent != null}
       onClick={handleClose}
     >
-      <div
+      <ButtonBase
         className={classes.container}
         onClick={(e) => {
           e.preventDefault()
@@ -45,7 +46,7 @@ export function BackdroppedAlert() {
         }}
       >
         {backdropContent}
-      </div>
+      </ButtonBase>
     </Backdrop>
   )
 }
