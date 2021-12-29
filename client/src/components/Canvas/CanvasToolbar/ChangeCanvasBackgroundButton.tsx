@@ -13,9 +13,5 @@ export default function ChangeCanvasBackgroundButton(): JSX.Element {
     sendBackgroundImage()
   }
 
-  return (
-    <ImageUploadButton onFileSelect={(file) => changeImage(file)}>
-      Set Background
-    </ImageUploadButton>
-  )
+  return <ImageUploadButton onFileSelect={(file) => changeImage(file)} />
 }
