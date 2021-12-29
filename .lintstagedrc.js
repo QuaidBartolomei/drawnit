@@ -16,6 +16,6 @@ module.exports = {
   ],
 
   // lint entire project if eslint settings changed
-  'client/**/.eslint*': 'npm run lint:client',
-  'server/**/.eslint*': 'npm run lint:server',
+  'client/**/.eslint*': () => 'npm run lint:client',
+  'server/**/.eslint*': () => 'npm run lint:server',
 }
