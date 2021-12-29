@@ -29,7 +29,7 @@ const ERROR = 400
 let controlRoom: Room = goodRoomData
 
 beforeAll(async () => {
-  initApp(app)
+  await initApp(app)
 })
 
 beforeEach(async () => {
@@ -104,7 +104,7 @@ test('set image route', async () => {
   await request(app)
     .post(route)
     .set('content-type', 'multipart/form-data')
-    .attach('image', __dirname + '/image.jpg')
+    .attach('image', `${__dirname}/image.jpg`)
     .expect(200)
 })
 
@@ -120,7 +120,7 @@ describe('get background image', () => {
     const controlImage = await setBackgroundImage(room._id, imageFile)
     await request(app)
       .get(RoomClientRoutes(room._id).GET_BACKGROUND_IMAGE)
-      .expect(async (res) => {
+      .expect((res) => {
         const encodedImage = res.text
         expect(encodedImage).toBeDefined()
         expect(encodedImage).toBe(controlImage?.imageBuffer.toString('base64'))
@@ -140,7 +140,7 @@ describe('get background image', () => {
     const controlImage = await setBackgroundImage(room._id, imageFile)
     await request(app)
       .get(RoomClientRoutes(room._id).GET_BACKGROUND_IMAGE)
-      .expect(async (res) => {
+      .expect((res) => {
         const encodedImage = res.text
         expect(encodedImage).toBeDefined()
         expect(encodedImage).toBe(controlImage?.imageBuffer.toString('base64'))

@@ -32,11 +32,11 @@ export const ImageModel = mongoose.model<ImageDocument>(
   collectionName,
   imageSchema,
 )
-export async function createAndSaveImageDocument({
+export function createAndSaveImageDocument({
   file,
   encodedFile,
   mimeType,
-}: Partial<ImageFile>): Promise<ImageDocument | undefined> {
+}: Partial<ImageFile>): Promise<ImageDocument> | undefined {
   const encodedImg = encodedFile || file?.buffer.toString(ENCODING) || undefined
   if (!encodedImg) return undefined
   const imageBuffer = Buffer.from(encodedImg, ENCODING)

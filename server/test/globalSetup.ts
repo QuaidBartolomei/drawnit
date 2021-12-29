@@ -1,9 +1,12 @@
 import { config as configEnv } from 'dotenv'
-configEnv()
 import { MongoMemoryServer } from 'mongodb-memory-server'
 import mongoose from 'mongoose'
 
 import config from './config'
+
+configEnv()
+
+export type Global = { mongoInstance?: MongoMemoryServer }
 
 export default async function globalSetup() {
   if (config.Memory) {
@@ -11,8 +14,7 @@ export default async function globalSetup() {
     // it's needed in global space, because we don't want to create a new instance every test-suite
     const instance = await MongoMemoryServer.create()
     const uri = instance.getUri()
-    ;(global as { __MONGOINSTANCE?: MongoMemoryServer }).__MONGOINSTANCE =
-      instance
+    ;(global as Global).mongoInstance = instance
     process.env.MONGO_URI = uri.slice(0, uri.lastIndexOf('/'))
   } else {
     process.env.MONGO_URI = `mongodb://${config.IP}:${config.Port}`

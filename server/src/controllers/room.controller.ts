@@ -28,7 +28,7 @@ export const roomController = Router()
     }
   })
   .get(RoomRoutes.GET_ROOM, async (req, res) => {
-    const id: string = req.params.id
+    const { id } = req.params
     try {
       console.log('getting room data... ')
       const roomDoc = await getRoomById(id)
@@ -39,7 +39,7 @@ export const roomController = Router()
     }
   })
   .get(RoomRoutes.DELETE_ROOM, async (req, res) => {
-    const id: string = req.params.id
+    const { id } = req.params
     try {
       await RoomModel.findByIdAndDelete(id)
       res.status(200).send()
@@ -56,7 +56,7 @@ export const roomController = Router()
     }
   })
   .get(RoomRoutes.GET_BACKGROUND_IMAGE, async (req, res) => {
-    const id: string = req.params.id
+    const { id } = req.params
     try {
       const image = await getBackgroundImage(id)
       if (!image) return res.status(400).send()
@@ -66,10 +66,10 @@ export const roomController = Router()
     }
   })
   .post(RoomRoutes.SET_IMAGE, multer().single('image'), async (req, res) => {
-    const id: string = req.params.id
+    const { id } = req.params
     try {
-      const file = req.file
-      if (!file) throw 'file not found'
+      const { file } = req
+      if (!file) throw Error('file not found')
       await setBackgroundImage(id, { file })
       const { height, width } = imageSize(file.buffer)
       updateRoomValue(id, { height, width })
@@ -79,7 +79,7 @@ export const roomController = Router()
     }
   })
   .get(RoomRoutes.DELETE_BACKGROUND_IMAGE, async (req, res) => {
-    const id: string = req.params.id
+    const { id } = req.params
     try {
       const success = await deleteBackgroundImage(id)
       if (!success) res.status(400).send()
@@ -89,7 +89,7 @@ export const roomController = Router()
     }
   })
   .post(RoomRoutes.UPDATE_CANVAS, async (req, res) => {
-    const id: string = req.params.id
+    const { id } = req.params
     const data: Partial<Room> = req.body
     try {
       const updatedRoom = await updateRoomValue(id, data)

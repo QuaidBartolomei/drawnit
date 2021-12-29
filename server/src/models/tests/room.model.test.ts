@@ -39,9 +39,11 @@ describe('createAndSaveRoomDoc', () => {
     expect(retrievedRoom).toBeTruthy()
     expect(retrievedRoom?._id).toBe(savedRoom._id)
 
-    for (let index = 0; index < 10; index++) {
-      await createAndSaveRoomDoc(goodRoomData)
-    }
+    await Promise.all(
+      Array(10)
+        .fill(0)
+        .map(() => createAndSaveRoomDoc(goodRoomData)),
+    )
 
     const n = await roomCount()
     expect(n).toBe(11)

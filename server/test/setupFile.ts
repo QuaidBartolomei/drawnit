@@ -1,13 +1,5 @@
 import mongoose from 'mongoose'
 
-beforeAll(async () => {
-  await connect()
-})
-
-afterAll(async () => {
-  await disconnect()
-})
-
 interface ExtraConnectionConfig {
   dbName?: string
   createNewConnection?: boolean
@@ -28,7 +20,7 @@ export async function connect(
     extraConfig.differentMongoose ?? mongoose
   let connection: mongoose.Connection
 
-  const options = Object.assign({}, staticOptions)
+  const options = { ...staticOptions }
 
   // to not duplicate code
   const connectionString = `${process.env.MONGO_URI}/jest`
@@ -51,6 +43,11 @@ export async function connect(
  */
 export async function disconnect(): Promise<void> {
   await mongoose.disconnect()
-
-  return
 }
+
+beforeAll(async () => {
+  await connect()
+})
+afterAll(async () => {
+  await disconnect()
+})

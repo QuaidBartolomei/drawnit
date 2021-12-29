@@ -48,7 +48,7 @@ export const RoomModel = mongoose.model<RoomDocument>(
   roomSchema,
 )
 
-export const createAndSaveRoomDoc = async (data: Partial<Room>) => {
+export const createAndSaveRoomDoc = (data: Partial<Room>) => {
   const room = new RoomModel({ ...data, _id: shortid.generate() })
   room.isNew = true
   return room.save()
@@ -76,7 +76,7 @@ export async function deleteBackgroundImage(roomId: string) {
   const room = await RoomModel.findById(roomId)
   if (!room) return false
   const { backgroundImageId } = room
-  if (!backgroundImageId) return
+  if (!backgroundImageId) return false
   ImageModel.findByIdAndDelete(backgroundImageId)
   room.overwrite({ ...room, backgroundImageId: '' })
   room.backgroundImageId = ''
@@ -92,11 +92,8 @@ export async function getBackgroundImage(roomId: string) {
   return image
 }
 
-export async function updateRoomValue(
-  roomId: string,
-  newSettings: Partial<Room>,
-) {
-  return await RoomModel.findByIdAndUpdate(roomId, newSettings, {
+export function updateRoomValue(roomId: string, newSettings: Partial<Room>) {
+  return RoomModel.findByIdAndUpdate(roomId, newSettings, {
     new: true,
     useFindAndModify: false,
   })
@@ -108,8 +105,8 @@ export async function deleteAllRooms() {
   return roomSuccess && imageSuccess
 }
 
-export async function roomCount(): Promise<number> {
-  return await RoomModel.countDocuments()
+export function roomCount() {
+  return RoomModel.countDocuments()
 }
 
 export const deleteExpiredRooms = async (
