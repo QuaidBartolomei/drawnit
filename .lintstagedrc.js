@@ -12,7 +12,7 @@ module.exports = {
   ],
   'server/**/*.ts': [
     'npm run lint-staged:server --',
-    'npm run test:server -- --findRelatedTests',
+    'npm run test:server -- -- --findRelatedTests',
   ],
 
   // lint entire project if eslint settings changed
