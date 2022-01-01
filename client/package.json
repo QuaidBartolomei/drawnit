@@ -45,6 +45,7 @@
     "@cypress/react": "^5.10.3",
     "@cypress/webpack-dev-server": "^1.7.0",
     "@types/http-status-codes": "^1.2.0",
+    "@types/jest": "^27.4.0",
     "@types/node": "^14.14.14",
     "@types/react": "^17.0.0",
     "@types/react-color": "^3.0.6",
