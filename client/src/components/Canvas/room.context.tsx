@@ -1,7 +1,7 @@
-import Room from 'interfaces/room.interface'
 import { isMobile } from 'is-mobile'
 import { createContext, PropsWithChildren, useContext, useReducer } from 'react'
 import { Socket } from 'socket.io-client'
+import Room from 'interfaces/room.interface'
 
 import { CanvasToolType } from './canvas.utils'
 import { RoomDispatch, roomReducer } from './room.reducer'

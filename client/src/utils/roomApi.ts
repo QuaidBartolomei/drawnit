@@ -64,7 +64,7 @@ export async function setImage(
     console.log('setting image...')
     const res = await uploadFile(RoomClientRoutes(id).SET_IMAGE, imageFile)
     if (res.status !== StatusCodes.OK) return undefined
-    return getRoom(id)
+    return await getRoom(id)
   } catch (error) {
     console.error(error)
   }

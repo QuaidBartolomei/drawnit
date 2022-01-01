@@ -1,5 +1,5 @@
-import { BrushStroke } from 'interfaces/brushStroke.interface'
 import { io, Socket } from 'socket.io-client'
+import { BrushStroke } from 'interfaces/brushStroke.interface'
 
 export const SocketEvents = {
   Connect: 'connect',

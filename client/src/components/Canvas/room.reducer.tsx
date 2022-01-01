@@ -36,6 +36,8 @@ export const roomReducer = (state: RoomState, action: Action): RoomState => {
       drawBrushStroke(state.canvasRef, action.payload)
       return state
     }
+    default:
+      return state
   }
 }
 

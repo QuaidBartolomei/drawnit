@@ -1,7 +1,7 @@
 import { distance, Vector2 } from '@graph-ts/vector2'
+import React, { useState } from 'react'
 import { getImageString } from 'components/Canvas/canvas.utils'
 import useSocket from 'components/Canvas/hooks/useSocket'
-import React, { useState } from 'react'
 import { mousePositionCanvas, touchPositionCanvas } from 'utils/mouse'
 import { saveCanvasToDb } from 'utils/roomApi'
 

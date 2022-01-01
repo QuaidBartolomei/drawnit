@@ -1,9 +1,9 @@
 import CssBaseline from '@material-ui/core/CssBaseline'
-import Homepage from 'pages/Home'
-import RoomPage from 'pages/Room'
 import { render } from 'react-dom'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import Homepage from 'pages/Home'
+import RoomPage from 'pages/Room'
 import { PageRoutes } from 'routes'
 
 const routes = PageRoutes()

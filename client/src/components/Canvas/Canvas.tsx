@@ -1,11 +1,11 @@
 import { createStyles, makeStyles } from '@material-ui/core/styles'
+import { forwardRef, useEffect } from 'react'
 import {
   CANVAS_MARGIN,
   CanvasToolType,
   clearCanvas,
 } from 'components/Canvas/canvas.utils'
 import { BrushStroke } from 'interfaces/brushStroke.interface'
-import { forwardRef, useEffect } from 'react'
 import { SocketEvents } from 'utils/socket'
 
 import CanvasBackgroundImage from './CanvasBackgroundImage'

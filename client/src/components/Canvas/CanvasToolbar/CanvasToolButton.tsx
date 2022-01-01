@@ -1,8 +1,8 @@
 import IconButton from '@material-ui/core/IconButton'
 
+import { CanvasTool } from './canvasTool.schema'
 import { CanvasToolType } from '../canvas.utils'
 import { useRoomDispatch, useRoomState } from '../room.context'
-import { CanvasTool } from './canvasTool.schema'
 
 export type CanvasToolButtonProps = CanvasTool
 

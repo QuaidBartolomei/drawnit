@@ -1,8 +1,8 @@
 import IconButton from '@material-ui/core/IconButton'
 import { createStyles, makeStyles } from '@material-ui/core/styles'
 import DeleteIcon from '@material-ui/icons/Delete'
-import ImageUploadButton from 'components/ImageUploadButton'
 import { useState } from 'react'
+import ImageUploadButton from 'components/ImageUploadButton'
 
 const useStyles = makeStyles(() =>
   createStyles({

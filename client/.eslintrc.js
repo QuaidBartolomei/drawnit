@@ -1,44 +1,17 @@
 module.exports = {
-  env: {
-    browser: true,
-    es2021: true,
-  },
   extends: [
-    'plugin:react/recommended',
-    'eslint:recommended',
     'plugin:import/recommended',
     'plugin:import/typescript',
     'airbnb',
-    'plugin:@typescript-eslint/recommended',
+    'airbnb-typescript',
+    'plugin:react/jsx-runtime',
     'prettier',
   ],
-  overrides: [
-    {
-      files: ['*.ts', '*.tsx'],
-      parserOptions: {
-        project: ['./tsconfig.json'],
-      },
-    },
-  ],
-  parser: '@typescript-eslint/parser',
-  parserOptions: {
-    ecmaFeatures: {
-      jsx: true,
-    },
-    ecmaVersion: 13,
-    project: './tsconfig.json',
-    sourceType: 'module',
-  },
-  plugins: ['react', '@typescript-eslint', 'simple-import-sort'],
+
   rules: {
-    'react/react-in-jsx-scope': 'off',
-    '@typescript-eslint/no-empty-function': 'off',
-    '@typescript-eslint/explicit-module-boundary-types': 'off',
-    'import/no-unresolved': 'error',
-    'simple-import-sort/imports': 'error',
-    'simple-import-sort/exports': 'error',
+    // project settings
     'import/extensions': ['error', 'never'],
-    '@typescript-eslint/require-await': 'error',
+    'import/prefer-default-export': 'off',
     'import/no-extraneous-dependencies': [
       'error',
       {
@@ -51,32 +24,67 @@ module.exports = {
         ],
       },
     ],
-    'no-console': 'off',
-    'import/prefer-default-export': 'off',
+    'react/jsx-filename-extension': ['error', { extensions: ['.tsx'] }],
     'no-underscore-dangle': ['error', { allow: ['_id'] }],
     'no-plusplus': ['error', { allowForLoopAfterthoughts: true }],
     'no-promise-executor-return': 'off',
     'consistent-return': 'off',
-    'react/jsx-props-no-spreading': 'warn',
-    'react/jsx-filename-extension': ['error', { extensions: ['.tsx'] }],
-    'default-case': 'off',
+
+    // need to fix
+    '@typescript-eslint/naming-convention': 'off',
+    'no-console': 'off',
+
+    // false positive
     'jsx-a11y/label-has-associated-control': 'off',
-    'react/no-unstable-nested-components': 'warn',
-    'jsx-a11y/no-static-element-interactions': 'warn',
-    'jsx-a11y/click-events-have-key-events': 'warn',
+
+    // import sorting
+    'import/order': [
+      'error',
+      {
+        groups: [
+          'builtin', // node built in
+          'external', // installed dependencies
+          'internal', // baseUrl
+          'index', // ./
+          'sibling', // ./*
+          'parent', // ../*
+          'object', // ts only
+          'type', // ts only
+        ],
+        alphabetize: {
+          order: 'asc',
+          caseInsensitive: true,
+        },
+      },
+    ],
   },
-  settings: {
-    react: {
-      version: 'detect', // React version. "detect" automatically picks the version you have installed.
+
+  env: {
+    browser: true,
+    es2021: true,
+    jest: true,
+  },
+
+  parser: '@typescript-eslint/parser',
+
+  parserOptions: {
+    ecmaFeatures: {
+      jsx: true,
     },
+    ecmaVersion: 13,
+    project: './tsconfig.base.json',
+    sourceType: 'module',
+  },
+
+  settings: {
     'import/parsers': {
       '@typescript-eslint/parser': ['.ts', '.tsx'],
-      project: ['./tsconfig.json'],
+      project: ['./tsconfig.base.json'],
     },
     'import/resolver': {
-      typescript: {
-        alwaysTryTypes: true, // always try to resolve types under `<root>@types` directory even it doesn't contain any source code, like `@types/unist`
-        project: './tsconfig.json',
+      node: {
+        extensions: ['.ts', '.tsx'],
+        moduleDirectory: ['node_modules', 'src/'],
       },
     },
   },
