@@ -1,6 +1,7 @@
-const tsPreset = require('ts-jest/jest-preset')
 module.exports = {
-  ...tsPreset,
+  transform: {
+    '^.+\\.(t|j)sx?$': ['@swc/jest'],
+  },
   coveragePathIgnorePatterns: ['/node_modules/'],
   modulePaths: ['<rootDir>/src'],
   globalSetup: '<rootDir>/test/globalSetup.ts',
