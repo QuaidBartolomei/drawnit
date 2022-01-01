@@ -1,11 +1,11 @@
+import mongoose, { Schema } from 'mongoose'
+import shortid from 'shortid'
 import Room from 'interfaces/room.interface'
 import {
   createAndSaveImageDocument,
   ImageFile,
   ImageModel,
 } from 'models/image.model'
-import mongoose, { Schema } from 'mongoose'
-import shortid from 'shortid'
 
 const collectionName = 'Room'
 

@@ -1,5 +1,6 @@
 import { Router } from 'express'
 import { imageSize } from 'image-size'
+import multer from 'multer'
 import Room from 'interfaces/room.interface'
 import {
   createAndSaveRoomDoc,
@@ -12,7 +13,6 @@ import {
   setBackgroundImage,
   updateRoomValue,
 } from 'models/room.model'
-import multer from 'multer'
 import { RoomRoutes } from 'routes/room.routes'
 
 export const roomController = Router()

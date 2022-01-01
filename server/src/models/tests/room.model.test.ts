@@ -165,6 +165,7 @@ test('roomCount', async () => {
 
 test('delete expired rooms', async () => {
   await createAndSaveRoomDoc(goodRoomData)
+  // eslint-disable-next-line no-promise-executor-return
   await new Promise((resolve) => setTimeout(resolve, 10))
   await deleteExpiredRooms(5)
   const n = await roomCount()

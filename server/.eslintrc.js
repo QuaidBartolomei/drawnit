@@ -1,61 +1,69 @@
 module.exports = {
-  env: {
-    es2021: true,
-    node: true,
-  },
   extends: [
-    'airbnb-base',
     'plugin:import/recommended',
     'plugin:import/typescript',
-    'plugin:@typescript-eslint/recommended',
+    'airbnb-base',
+    'airbnb-typescript/base',
     'prettier',
   ],
-  overrides: [
-    {
-      files: ['*.ts', '*.tsx'],
-      parserOptions: {
-        project: ['./tsconfig.json'],
+
+  rules: {
+    // project settings
+    'import/extensions': ['error', 'never'],
+    'import/prefer-default-export': 'off',
+    'import/no-extraneous-dependencies': [
+      'error',
+      {
+        devDependencies: ['**/*.{test,spec,dev}.ts', 'test/**/*'],
       },
-    },
-  ],
+    ],
+    'no-underscore-dangle': ['error', { allow: ['_id'] }],
+    'no-plusplus': ['error', { allowForLoopAfterthoughts: true }],
+    'consistent-return': 'off',
+
+    // need to fix
+    '@typescript-eslint/naming-convention': 'off',
+    'no-console': 'off',
+
+    // import sorting
+    'import/order': [
+      'error',
+      {
+        groups: [
+          'builtin', // node built in
+          'external', // installed dependencies
+          'internal', // baseUrl
+          'index', // ./
+          'sibling', // ./*
+          'parent', // ../*
+          'object', // ts only
+          'type', // ts only
+        ],
+        alphabetize: {
+          order: 'asc',
+          caseInsensitive: true,
+        },
+      },
+    ],
+  },
+
   parser: '@typescript-eslint/parser',
+
   parserOptions: {
     ecmaVersion: 13,
     sourceType: 'module',
+    project: ['./tsconfig.json'],
   },
-  plugins: ['@typescript-eslint', 'simple-import-sort'],
 
   settings: {
     'import/parsers': {
       '@typescript-eslint/parser': ['.ts', '.tsx'],
     },
     'import/resolver': {
-      typescript: {
-        alwaysTryTypes: true, // always try to resolve types under `<root>@types` directory even it doesn't contain any source code, like `@types/unist`
-        project: './',
+      node: {
+        extensions: ['.ts'],
+        moduleDirectory: ['node_modules', 'src/'],
       },
     },
-  },
-
-  rules: {
-    'import/extensions': ['error', 'never'],
-    '@typescript-eslint/require-await': 'error',
-    'import/no-extraneous-dependencies': [
-      'error',
-      {
-        devDependencies: [
-          '**/*.test.ts',
-          '**/*.spec.ts',
-          'test/**/*',
-          '**/*.dev.ts',
-        ],
-      },
-    ],
-    'no-console': 'off',
-    'import/prefer-default-export': 'off',
-    'no-underscore-dangle': ['error', { allow: ['_id'] }],
-    'no-plusplus': ['error', { allowForLoopAfterthoughts: true }],
-    'no-promise-executor-return': 'off',
-    'consistent-return': 'off',
   },
 }

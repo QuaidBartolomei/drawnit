@@ -1,4 +1,5 @@
 import express from 'express'
+import request from 'supertest'
 import Room from 'interfaces/room.interface'
 import { initApp } from 'loaders/app.loader'
 import { ImageModel } from 'models/image.model'
@@ -11,7 +12,6 @@ import {
   setBackgroundImage,
 } from 'models/room.model'
 import { RoomClientRoutes } from 'routes/room.routes'
-import request from 'supertest'
 import { imageFile } from 'utils/test.utils'
 
 const goodRoomData: Room = {

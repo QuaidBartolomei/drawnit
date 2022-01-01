@@ -1,6 +1,6 @@
 import express from 'express'
-import { initApp } from 'loaders/app.loader'
 import request from 'supertest'
+import { initApp } from 'loaders/app.loader'
 
 const TEST_ROUTE = '/test'
 const app = express()

@@ -1,7 +1,7 @@
+import { io, Socket as ClientSocket } from 'socket.io-client'
 import { initApp } from 'loaders/app.loader'
 import { initServer } from 'loaders/express.loader'
 import { initSocketServer, SocketEvents } from 'loaders/socket.loader'
-import { io, Socket as ClientSocket } from 'socket.io-client'
 
 const app = initApp()
 const httpServer = initServer(app)

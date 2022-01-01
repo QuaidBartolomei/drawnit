@@ -1,12 +1,12 @@
+import path from 'path'
 import cors from 'cors'
 import { static as serveStaticFiles } from 'express'
+import favicon from 'serve-favicon'
 import { initApp } from 'loaders/app.loader'
 import { initDb } from 'loaders/db.loader'
 import { initServer } from 'loaders/express.loader'
 import { initSocketServer } from 'loaders/socket.loader'
 import { deleteExpiredRooms } from 'models/room.model'
-import path from 'path'
-import favicon from 'serve-favicon'
 import env from 'utils/env.utils'
 
 async function main() {

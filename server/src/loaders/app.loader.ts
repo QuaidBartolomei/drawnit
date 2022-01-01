@@ -1,8 +1,8 @@
-import { roomController } from 'controllers/room.controller'
 import express, { Express, json, urlencoded } from 'express'
 import mongoSanitize from 'express-mongo-sanitize'
-import env from 'utils/env.utils'
 import xssAdvanced from 'xss-advanced'
+import { roomController } from 'controllers/room.controller'
+import env from 'utils/env.utils'
 
 export const initApp = (app = express()): Express => {
   app
