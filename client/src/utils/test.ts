@@ -2,6 +2,7 @@ import { readFileSync } from 'fs'
 import { rest } from 'msw'
 import { setupServer } from 'msw/node'
 import { RoomRoutes } from 'routes'
+import { sigRoute } from './cloudinary'
 
 window.URL.createObjectURL = () => 'a'
 
@@ -30,5 +31,6 @@ export function initServer() {
     rest.get(RoomRoutes.GET_BACKGROUND_IMAGE, (req, res, ctx) =>
       res(ctx.text(imageBuffer.toString('base64'))),
     ),
+    rest.get(sigRoute, (req, res, ctx) => res(ctx.text('1'))),
   )
 }

@@ -10,7 +10,6 @@ import {
 import { imageFile, initServer } from 'utils/test'
 
 const server = initServer()
-
 beforeAll(() => server.listen())
 afterEach(() => server.resetHandlers())
 afterAll(() => server.close())

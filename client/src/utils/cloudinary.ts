@@ -10,13 +10,20 @@ const defaultSettings: Settings = {
   uploadPreset: process.env.REACT_APP_UPLOAD_PRESET,
 }
 
+export const sigRoute = '/api/sig'
+
+export async function getSig() {
+  const res = await axios.get(sigRoute)
+  const sig = res.data
+  console.log(sig)
+  return sig
+}
+
 export async function uploadImageFile(file: File, settings = defaultSettings) {
   const { cloudName, uploadPreset } = settings
   if (!uploadPreset) return console.error('missing env variable: UPLOAD_PRESET')
   if (!cloudName) return console.error('missing env variable: CLOUD_NAME')
-
   const url = `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`
-
   const formData = new FormData()
   formData.append('file', file)
   formData.append('upload_preset', uploadPreset)
