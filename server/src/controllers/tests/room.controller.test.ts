@@ -11,7 +11,7 @@ import {
   RoomModel,
   setBackgroundImage,
 } from 'models/room.model'
-import { RoomClientRoutes } from 'routes/room.routes'
+import { RoomClientRoutes } from 'routes'
 import { imageFile } from 'utils/test.utils'
 
 const goodRoomData: Room = {

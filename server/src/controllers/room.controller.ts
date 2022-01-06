@@ -13,7 +13,7 @@ import {
   setBackgroundImage,
   updateRoomValue,
 } from 'models/room.model'
-import { RoomRoutes } from 'routes/room.routes'
+import { RoomRoutes } from 'routes'
 
 export const roomController = Router()
   .post(RoomRoutes.CREATE_ROOM, async (req, res) => {
