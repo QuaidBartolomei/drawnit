@@ -1,12 +1,9 @@
 import { Router } from 'express'
-import { imageSize } from 'image-size'
-import multer from 'multer'
 import Room from 'interfaces/room.interface'
 import {
   createAndSaveRoomDoc,
   deleteAllRooms,
   deleteBackgroundImage,
-  getBackgroundImage,
   getRoomById,
   roomCount,
   RoomModel,
@@ -55,30 +52,19 @@ export const roomController = Router()
       res.status(500).send()
     }
   })
-  .get(RoomRoutes.GET_BACKGROUND_IMAGE, async (req, res) => {
+
+  .post(RoomRoutes.SET_IMAGE, async (req, res) => {
     const { id } = req.params
     try {
-      const image = await getBackgroundImage(id)
-      if (!image) return res.status(400).send()
-      res.status(200).send(image.imageBuffer.toString('base64'))
-    } catch {
-      res.status(500).send()
-    }
-  })
-  .post(RoomRoutes.SET_IMAGE, multer().single('image'), async (req, res) => {
-    const { id } = req.params
-    try {
-      const { file } = req
-      if (!file) throw Error('file not found')
-      await setBackgroundImage(id, { file })
-      const { height, width } = imageSize(file.buffer)
-      console.log('image size:', { height, width })
+      const { url, height, width } = req.body
+      await setBackgroundImage(id, url)
       await updateRoomValue(id, { height, width })
       res.status(200).send()
     } catch {
       res.status(500).send()
     }
   })
+
   .get(RoomRoutes.DELETE_BACKGROUND_IMAGE, async (req, res) => {
     const { id } = req.params
     try {

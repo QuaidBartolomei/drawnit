@@ -3,5 +3,5 @@ export default interface Room {
   canvasImage: string
   height: number
   width: number
-  backgroundImageId: string
+  backgroundImageUrl: string
 }

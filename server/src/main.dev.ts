@@ -10,9 +10,7 @@ async function main() {
     console.log('server is listening on port:', env.PORT)
   })
   initSocketServer(server)
-
   await initMemoryDB()
-
   process.on('SIGTERM', () => process.exit())
 }
 

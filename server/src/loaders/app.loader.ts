@@ -2,7 +2,7 @@ import express, { Express, json, urlencoded } from 'express'
 import mongoSanitize from 'express-mongo-sanitize'
 import xssAdvanced from 'xss-advanced'
 import { roomController } from 'controllers/room.controller'
-import { cloudinaryController } from 'utils/cloudinary'
+import { cloudinaryController } from 'controllers/upload'
 import env from 'utils/env.utils'
 
 export const initApp = (app = express()): Express => {

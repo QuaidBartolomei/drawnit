@@ -1,11 +1,7 @@
 import mongoose, { Schema } from 'mongoose'
 import shortid from 'shortid'
 import Room from 'interfaces/room.interface'
-import {
-  createAndSaveImageDocument,
-  ImageFile,
-  ImageModel,
-} from 'models/image.model'
+import { ImageModel } from 'models/image.model'
 
 const collectionName = 'Room'
 
@@ -31,7 +27,7 @@ const roomSchema = new Schema({
     type: Number,
     default: 400,
   },
-  backgroundImageId: {
+  backgroundImageUrl: {
     type: String,
     default: '',
   },
@@ -58,38 +54,28 @@ export async function getRoomById(id: string) {
   return (await RoomModel.findById(id)) || undefined
 }
 
-export async function setBackgroundImage(
-  roomId: string,
-  file: Partial<ImageFile>,
-) {
+export async function setBackgroundImage(roomId: string, url: string) {
   const room = await RoomModel.findById(roomId)
   if (!room) return undefined
-  const image = await createAndSaveImageDocument(file)
-  if (!image) return undefined
-  room.overwrite({ ...room, backgroundImageId: image.id })
-  room.backgroundImageId = image.id
+  room.backgroundImageUrl = url
   await room.save()
-  return image
+  return url
 }
 
 export async function deleteBackgroundImage(roomId: string) {
   const room = await RoomModel.findById(roomId)
   if (!room) return false
-  const { backgroundImageId } = room
-  if (!backgroundImageId) return false
-  ImageModel.findByIdAndDelete(backgroundImageId)
-  room.overwrite({ ...room, backgroundImageId: '' })
-  room.backgroundImageId = ''
+  const { backgroundImageUrl } = room
+  if (!backgroundImageUrl) return false
+  room.overwrite({ ...room, backgroundImageUrl: '' })
+  room.backgroundImageUrl = ''
   await room.save()
   return true
 }
 
 export async function getBackgroundImage(roomId: string) {
   const room = await RoomModel.findById(roomId)
-  if (!room || !room.backgroundImageId) return undefined
-  const image = await ImageModel.findById(room.backgroundImageId)
-  if (!image) return undefined
-  return image
+  return room?.backgroundImageUrl
 }
 
 export function updateRoomValue(roomId: string, newSettings: Partial<Room>) {

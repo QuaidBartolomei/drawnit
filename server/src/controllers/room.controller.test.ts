@@ -12,11 +12,10 @@ import {
   setBackgroundImage,
 } from 'models/room.model'
 import { RoomClientRoutes } from 'routes'
-import { imageFile } from 'utils/test.utils'
 
 const goodRoomData: Room = {
   _id: '',
-  backgroundImageId: '',
+  backgroundImageUrl: '',
   canvasImage: '',
   height: 1,
   width: 1,
@@ -28,8 +27,8 @@ const app = express()
 const ERROR = 400
 let controlRoom: Room = goodRoomData
 
-beforeAll(async () => {
-  await initApp(app)
+beforeAll(() => {
+  initApp(app)
 })
 
 beforeEach(async () => {
@@ -61,27 +60,6 @@ describe('CREATE_ROOM', () => {
   })
 })
 
-describe('get room by id route', () => {
-  test('invalid id returns undefined', (done) => {
-    request(app)
-      .get(RoomClientRoutes('badid').GET_ROOM)
-      .expect((res) => {
-        expect(res.text).toBeFalsy()
-      })
-      .expect(ERROR, done)
-  })
-  test('valid id', (done) => {
-    request(app)
-      .get(RoomClientRoutes(controlRoom._id).GET_ROOM)
-      .expect((res) => {
-        const testRoom = JSON.parse(res.text) as Room
-        expect(testRoom).toBeDefined()
-        expect(testRoom._id).toBe(controlRoom._id)
-      })
-      .expect(200, done)
-  })
-})
-
 test('delete room by id route', async () => {
   const { _id } = controlRoom
   expect(_id).toBeTruthy()
@@ -103,50 +81,13 @@ test('set image route', async () => {
   const route = RoomClientRoutes(_id).SET_IMAGE
   await request(app)
     .post(route)
-    .set('content-type', 'multipart/form-data')
-    .attach('image', `${__dirname}/image.jpg`)
+    .send({
+      height: 1, //
+      width: 1,
+      url: 'http',
+    })
+    .set('Accept', 'application/json')
     .expect(200)
-})
-
-describe('get background image', () => {
-  test('invalid room responds with error', (done) => {
-    request(app)
-      .get(RoomClientRoutes('badid').GET_BACKGROUND_IMAGE)
-      .expect(ERROR, done)
-  })
-
-  test('get background image', async () => {
-    const room = controlRoom
-    const controlImage = await setBackgroundImage(room._id, imageFile)
-    await request(app)
-      .get(RoomClientRoutes(room._id).GET_BACKGROUND_IMAGE)
-      .expect((res) => {
-        const encodedImage = res.text
-        expect(encodedImage).toBeDefined()
-        expect(encodedImage).toBe(controlImage?.imageBuffer.toString('base64'))
-      })
-      .expect(200)
-  })
-})
-
-describe('get background image', () => {
-  test('invalid room responds with error', (done) => {
-    request(app)
-      .get(RoomClientRoutes('badid').GET_BACKGROUND_IMAGE)
-      .expect(ERROR, done)
-  })
-  test('get background image', async () => {
-    const room = await createAndSaveRoomDoc(goodRoomData)
-    const controlImage = await setBackgroundImage(room._id, imageFile)
-    await request(app)
-      .get(RoomClientRoutes(room._id).GET_BACKGROUND_IMAGE)
-      .expect((res) => {
-        const encodedImage = res.text
-        expect(encodedImage).toBeDefined()
-        expect(encodedImage).toBe(controlImage?.imageBuffer.toString('base64'))
-      })
-      .expect(200)
-  })
 })
 
 describe('delete background image', () => {
@@ -157,11 +98,10 @@ describe('delete background image', () => {
   })
   test('delete background image', async () => {
     const room = await createAndSaveRoomDoc(goodRoomData)
-    await setBackgroundImage(room._id, imageFile)
+    await setBackgroundImage(room._id, '#')
     await request(app).get(route(room._id)).expect(200)
     const testImage = await getBackgroundImage(room._id)
     expect(testImage).toBeFalsy()
-    expect(testImage?.id).toBeFalsy()
   })
 })
 

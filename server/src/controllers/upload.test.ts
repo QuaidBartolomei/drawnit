@@ -1,17 +1,11 @@
 import express from 'express'
 import request from 'supertest'
+import { sigRoute } from 'controllers/upload'
 import { initApp } from 'loaders/app.loader'
-import { getSignature, sigRoute } from './cloudinary'
 
 const app = express()
-beforeAll(async () => {
+beforeAll(() => {
   initApp(app)
-})
-
-it('should get sig', async () => {
-  const sig = await getSignature()
-  console.log(sig)
-  expect(sig).toBeTruthy()
 })
 
 it('should return sig on api call', async () => {

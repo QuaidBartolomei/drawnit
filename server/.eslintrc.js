@@ -20,9 +20,10 @@ module.exports = {
     'no-underscore-dangle': ['error', { allow: ['_id'] }],
     'no-plusplus': ['error', { allowForLoopAfterthoughts: true }],
     'consistent-return': 'off',
-
+    '@typescript-eslint/await-thenable': 'error',
     // need to fix
     '@typescript-eslint/naming-convention': 'off',
+    '@typescript-eslint/require-await': 'error',
     'no-console': 'off',
 
     // import sorting

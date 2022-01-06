@@ -48,6 +48,7 @@ export async function disconnect(): Promise<void> {
 beforeAll(async () => {
   await connect()
 })
+
 afterAll(async () => {
   await disconnect()
 })

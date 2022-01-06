@@ -12,15 +12,16 @@ import {
   setBackgroundImage,
   updateRoomValue,
 } from 'models/room.model'
-import { imageFile } from 'utils/test.utils'
 
 const goodRoomData: Room = {
   _id: '',
-  backgroundImageId: '',
+  backgroundImageUrl: '',
   canvasImage: '',
   height: 1,
   width: 1,
 }
+
+const imageFile = ''
 
 beforeEach(async () => {
   await RoomModel.deleteMany({})
@@ -31,7 +32,7 @@ describe('createAndSaveRoomDoc', () => {
   test('create & save room successfully', async () => {
     const savedRoom = await createAndSaveRoomDoc(goodRoomData)
     expect(savedRoom._id).toBeDefined()
-    expect(savedRoom.backgroundImageId).toBe(goodRoomData.backgroundImageId)
+    expect(savedRoom.backgroundImageUrl).toBe(goodRoomData.backgroundImageUrl)
     expect(savedRoom.canvasImage).toBe(goodRoomData.canvasImage)
     expect(savedRoom.height).toBe(goodRoomData.height)
     expect(savedRoom.width).toBe(goodRoomData.width)
@@ -60,7 +61,7 @@ describe('get room by id', () => {
     const roomControl = await createAndSaveRoomDoc(goodRoomData)
     const roomTest = await getRoomById(roomControl._id)
     expect(roomTest).toBeDefined()
-    expect(roomTest?.backgroundImageId).toBe(roomControl.backgroundImageId)
+    expect(roomTest?.backgroundImageUrl).toBe(roomControl.backgroundImageUrl)
     expect(roomTest?.canvasImage).toBe(roomControl.canvasImage)
     expect(roomTest?.height).toBe(roomControl.height)
     expect(roomTest?.width).toBe(roomControl.width)
@@ -77,13 +78,13 @@ test('get all rooms', async () => {
 describe('set background image', () => {
   test('set background image: invalid room returns undefined', async () => {
     const image = await setBackgroundImage('', imageFile)
-    expect(image).toBeUndefined()
+    expect(image).toBeFalsy()
   })
 
   test('set background image: invalid image file returns undefined', async () => {
     const { _id } = await createAndSaveRoomDoc(goodRoomData)
-    const image = await setBackgroundImage(_id, {})
-    expect(image).toBeUndefined()
+    const image = await setBackgroundImage(_id, '')
+    expect(image).toBeFalsy()
   })
 
   test('valid params return image file', async () => {
@@ -91,43 +92,35 @@ describe('set background image', () => {
     const image = await setBackgroundImage(_id, imageFile)
     const room = await getRoomById(_id)
     expect(image).toBeDefined()
-    expect(image?.id).toBeDefined()
-    expect(image?.id).toBe(room?.backgroundImageId)
+    expect(image).toBe(room?.backgroundImageUrl)
   })
 })
 
 describe('get background image', () => {
   test('invaid room id returns undefined', async () => {
     const testImage = await getBackgroundImage('')
-    expect(testImage).toBeUndefined()
+    expect(testImage).toBeFalsy()
   })
   test('room with no image returns undefined', async () => {
     const { _id } = await createAndSaveRoomDoc(goodRoomData)
     const testImage = await getBackgroundImage(_id)
-    expect(testImage).toBeUndefined()
+    expect(testImage).toBeFalsy()
   })
   test('valid params return image file', async () => {
     const room = await createAndSaveRoomDoc(goodRoomData)
-    const controlImage = await setBackgroundImage(room._id, imageFile)
     const testImage = await getBackgroundImage(room._id)
     expect(testImage).toBeDefined()
-    expect(testImage?.id).toBeDefined()
-    expect(testImage?.id).toBe(controlImage?.id)
   })
 })
 
 describe('delete background image', () => {
   test('valid params return image file', async () => {
     const room = await createAndSaveRoomDoc(goodRoomData)
-    const controlImage = await setBackgroundImage(room._id, imageFile)
     let testImage = await getBackgroundImage(room._id)
     expect(testImage).toBeDefined()
-    expect(testImage?.id).toBeDefined()
-    expect(testImage?.id).toBe(controlImage?.id)
     await deleteBackgroundImage(room._id)
     testImage = await getBackgroundImage(room._id)
     expect(testImage).toBeFalsy()
-    expect(testImage?.id).toBeFalsy()
   })
 })
 
