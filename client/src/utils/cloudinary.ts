@@ -14,27 +14,40 @@ export const sigRoute = '/api/sig'
 
 export async function getSig() {
   const res = await axios.get(sigRoute)
-  const sig = res.data
-  console.log(sig)
+  const sig = res.data?.sig
+  console.log('SIG:', sig)
   return sig
 }
 
-export async function uploadImageFile(file: File, settings = defaultSettings) {
+export type BackgroundImage = {
+  height: number
+  width: number
+  secure_url: string
+}
+
+export async function uploadImageFile(
+  file: File,
+  settings = defaultSettings,
+): Promise<BackgroundImage | void> {
   const { cloudName, uploadPreset } = settings
   if (!uploadPreset) return console.error('missing env variable: UPLOAD_PRESET')
   if (!cloudName) return console.error('missing env variable: CLOUD_NAME')
   const url = `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`
   const formData = new FormData()
+  // const signature = await getSig()
+  // formData.append('signature', signature)
   formData.append('file', file)
   formData.append('upload_preset', uploadPreset)
-  const res = await axios({
-    method: 'POST',
-    url,
-    withCredentials: false,
-    data: formData,
-    headers: { 'X-Requested-With': 'XMLHttpRequest' },
-  })
-  return (
-    (res?.data?.secure_url as string) || console.error(`Image upload failed`)
-  )
+  try {
+    const res = await axios({
+      method: 'POST',
+      url,
+      withCredentials: false,
+      data: formData,
+      headers: { 'X-Requested-With': 'XMLHttpRequest' },
+    })
+    return res.data
+  } catch (err) {
+    console.error(`Image upload failed:`, err)
+  }
 }

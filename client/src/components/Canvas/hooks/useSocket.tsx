@@ -7,7 +7,7 @@ export default function useSocket() {
   const { _id: roomId, socket } = useRoomState()
 
   return {
-    sendBackgroundImage: () => {
+    updateBackgroundIMage: () => {
       socket.emit(SocketEvents.BackgroundImage, roomId)
     },
     sendBrushStroke: (brushStroke: BrushStroke) => {

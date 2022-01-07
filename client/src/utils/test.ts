@@ -18,7 +18,12 @@ export function initServer() {
       res(ctx.json({ _id: '1' })),
     ),
     rest.post(RoomRoutes.SET_IMAGE, (req, res, ctx) =>
-      res(ctx.json({ _id: req.params.id, backgroundImageId: '1' })),
+      res(
+        ctx.json({
+          _id: req.params.id,
+          backgroundImageUrl: req.params.secure_url,
+        }),
+      ),
     ),
     rest.post(RoomRoutes.UPDATE_CANVAS, (req, res, ctx) =>
       res(ctx.status(200)),
@@ -31,6 +36,6 @@ export function initServer() {
     rest.get(RoomRoutes.GET_BACKGROUND_IMAGE, (req, res, ctx) =>
       res(ctx.text(imageBuffer.toString('base64'))),
     ),
-    rest.get(sigRoute, (req, res, ctx) => res(ctx.text('1'))),
+    rest.get(sigRoute, (req, res, ctx) => res(ctx.json({ sig: '1' }))),
   )
 }

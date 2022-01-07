@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) =>
 function ClearCanvasButton() {
   const { _id, canvasRef, socket } = useRoomState()
 
-  const { sendBackgroundImage } = useSocket()
+  const { updateBackgroundIMage } = useSocket()
   const classes = useStyles()
   const dispatch = useRoomDispatch()
 
@@ -48,7 +48,7 @@ function ClearCanvasButton() {
 
   function onRemoveBackground() {
     deleteBackgroundImage({ id: _id })
-    sendBackgroundImage()
+    updateBackgroundIMage()
     hideBackdrop()
   }
 

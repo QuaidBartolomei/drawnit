@@ -2,38 +2,20 @@ import axios, { AxiosResponse } from 'axios'
 import { StatusCodes } from 'http-status-codes'
 import Room from 'interfaces/room.interface'
 import { RoomClientRoutes } from 'routes'
-import { base64toBlob } from 'utils/blob'
-import { uploadFile } from 'utils/fetch'
+import { BackgroundImage } from './cloudinary'
 
 // CREATE_ROOM: '/room/create',
 export async function createRoom(roomData: Partial<Room> = {}) {
   try {
     const response = await axios.post(RoomClientRoutes().CREATE_ROOM, {
       _id: '',
-      backgroundImageId: '',
+      backgroundImageUrl: '',
       canvasImage: '',
       height: 1,
       width: 1,
       ...roomData,
     })
     return response.data as Room
-  } catch (error) {
-    console.error(error)
-  }
-}
-
-// GET_BACKGROUND_IMAGE: `/room/getImage/${roomId}`,
-export async function getBackgroundImageUrl({
-  _id,
-  backgroundImageId,
-}: Partial<Room>): Promise<string | undefined> {
-  try {
-    if (!backgroundImageId) return ''
-    const res = await axios.get(RoomClientRoutes(_id).GET_BACKGROUND_IMAGE)
-    if (res.status !== StatusCodes.OK) return ''
-    const encodedImage = (await res.data) as string
-    const blob = base64toBlob(encodedImage, 'image/jpeg')
-    return URL.createObjectURL(blob)
   } catch (error) {
     console.error(error)
   }
@@ -47,8 +29,7 @@ export async function getRoom(id: string): Promise<Room | undefined> {
     const response: AxiosResponse<Room> = await axios.get(route)
     if (response.status !== 200) throw new Error('room not found')
     const room = response.data as Room
-    const backgroundImageUrl = await getBackgroundImageUrl(room)
-    return { ...room, backgroundImageUrl }
+    return room
   } catch (error) {
     console.error(error)
     return undefined
@@ -58,11 +39,11 @@ export async function getRoom(id: string): Promise<Room | undefined> {
 // SET_IMAGE: `/room/setImage/${roomId}`,
 export async function setImage(
   id: string,
-  imageFile: File,
+  image: BackgroundImage,
 ): Promise<Room | undefined> {
   try {
     console.log('setting image...')
-    const res = await uploadFile(RoomClientRoutes(id).SET_IMAGE, imageFile)
+    const res = await axios.post(RoomClientRoutes(id).SET_IMAGE, image)
     if (res.status !== StatusCodes.OK) return undefined
     return await getRoom(id)
   } catch (error) {

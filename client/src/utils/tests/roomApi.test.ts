@@ -1,13 +1,13 @@
 import { rest } from 'msw'
 import { RoomClientRoutes } from 'routes'
-import {
-  createRoom,
-  getBackgroundImageUrl,
-  getRoom,
-  saveCanvasToDb,
-  setImage,
-} from 'utils/roomApi'
-import { imageFile, initServer } from 'utils/test'
+import { createRoom, getRoom, saveCanvasToDb, setImage } from 'utils/roomApi'
+import { initServer } from 'utils/test'
+
+const imageFile = {
+  height: 100,
+  width: 100,
+  secure_url: '',
+}
 
 const server = initServer()
 beforeAll(() => server.listen())
@@ -53,20 +53,6 @@ describe('SET_IMAGE', () => {
     const id = '2'
     const testRoom = await setImage(id, imageFile)
     expect(testRoom).toBeTruthy()
-  })
-})
-
-// GET_BACKGROUND_IMAGE: `/room/getImage/${roomId}`,
-describe('GET_BACKGROUND_IMAGE', () => {
-  test('valid room', async () => {
-    const id = '2'
-    const testRoom = await setImage(id, imageFile)
-    expect(testRoom).toBeTruthy()
-    const encodedImage = await getBackgroundImageUrl({
-      _id: testRoom?._id,
-      backgroundImageId: '2',
-    })
-    expect(encodedImage).toBeTruthy()
   })
 })
 
