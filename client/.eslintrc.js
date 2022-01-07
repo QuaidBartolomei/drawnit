@@ -72,14 +72,14 @@ module.exports = {
       jsx: true,
     },
     ecmaVersion: 13,
-    project: './tsconfig.base.json',
+    project: ['./tsconfig.json', 'cypress/tsconfig.json'],
     sourceType: 'module',
   },
 
   settings: {
     'import/parsers': {
       '@typescript-eslint/parser': ['.ts', '.tsx'],
-      project: ['./tsconfig.base.json'],
+      project: ['./tsconfig.json', 'cypress/tsconfig.json'],
     },
     'import/resolver': {
       node: {

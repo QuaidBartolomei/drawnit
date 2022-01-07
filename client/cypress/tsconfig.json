@@ -1,9 +1,9 @@
 {
-  "extends": "../tsconfig.base.json",
-  "include": ["**/*.ts"],
+  "include": ["**/*.ts", "**/*.tsx"],
   "compilerOptions": {
     "noEmit": false,
     "isolatedModules": false,
+    "jsx": "react-jsx",
     "types": ["cypress", "cypress-file-upload"]
   }
 }
