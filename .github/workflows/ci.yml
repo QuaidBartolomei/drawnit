@@ -6,6 +6,12 @@ on:
   pull_request:
     branches: [dev/main, main]
 
+env:
+  CLOUDINARY_API_KEY: ${{secrets.CLOUDINARY_API_KEY}}
+  CLOUDINARY_API_SECRET: ${{secrets.CLOUDINARY_API_SECRET}}
+  MONGO_DB_URI: ${{ secrets.MONGO_DB_URI }}
+  REACT_APP_CLOUD_NAME: ${{ secrets.REACT_APP_CLOUD_NAME }}
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -30,9 +36,6 @@ jobs:
 
       - name: Server Tests
         working-directory: server
-        env:
-          CLOUDINARY_API_KEY: ${{secrets.CLOUDINARY_API_KEY}}
-          CLOUDINARY_API_SECRET: ${{secrets.CLOUDINARY_API_SECRET}}
         run: npx jest --ci
 
       - name: Client Unit Tests
@@ -52,8 +55,6 @@ jobs:
         run: npx cypress run-ct
 
       - name: Cypress End to End
-        env:
-          MONGO_DB_URI: ${{ secrets.MONGO_DB_URI }}
         run: npm run cypress:ci
 
       - name: Save screenshots
