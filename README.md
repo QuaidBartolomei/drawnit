@@ -14,18 +14,6 @@
     <a href="https://drawnit.herokuapp.com">View Demo</a>
   </p>
 
-- [Getting Started](#getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
-- [Developing](#developing)
-- [Testing](#testing)
-  - [Jest Unit Tests](#jest-unit-tests)
-  - [Cypress end to end Integration Tests](#cypress-end-to-end-integration-tests)
-  - [Cypress Component Tests](#cypress-component-tests)
-  - [Commit Hooks / Lint-Staged](#commit-hooks--lint-staged)
-- [Built With](#built-with)
-- [Contact](#contact)
-
 ## Getting Started
 
 Start developing from scratch with just 2 commands!
@@ -88,9 +76,9 @@ npm run dev
 
 Jest unit tests for both the client and server are configured to run automatically with lint-staged. `npm run jest:client` and `npm run jest:server` can be used to manually trigger a test run.
 
-### Cypress end to end Integration Tests
+### Cypress Integration Tests
 
-These tests are performed against a running full stack application. Use the following helper script in the top level package to start the client and dev server and run `cypress open` all in the same terminal.
+These tests are performed against a running full stack application. Use the following script in the top level package to start the client and dev server and run `cypress open` all in the same terminal.
 
 ```sh
 npm run cypress
