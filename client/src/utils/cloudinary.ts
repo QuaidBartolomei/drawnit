@@ -12,7 +12,13 @@ const defaultSettings: Settings = {
 
 export const sigRoute = '/api/sig'
 
-export async function getSig() {
+interface SignData {
+  signature: string
+  timestamp: string
+  api_key: string
+}
+
+export async function getSignData(): Promise<SignData> {
   const res = await axios.get(sigRoute)
   const sig = res.data?.sig
   console.log('SIG:', sig)
@@ -34,17 +40,17 @@ export async function uploadImageFile(
   if (!cloudName) return console.error('missing env variable: CLOUD_NAME')
   const url = `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`
   const formData = new FormData()
-  // const signature = await getSig()
-  // formData.append('signature', signature)
+  const sig = await getSignData()
+  const { signature, api_key, timestamp } = sig
+  formData.append('signature', signature)
+  formData.append('api_key', api_key)
+  formData.append('timestamp', timestamp)
   formData.append('file', file)
-  formData.append('upload_preset', uploadPreset)
   try {
     const res = await axios({
       method: 'POST',
       url,
-      withCredentials: false,
       data: formData,
-      headers: { 'X-Requested-With': 'XMLHttpRequest' },
     })
     return res.data
   } catch (err) {

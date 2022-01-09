@@ -36,6 +36,16 @@ export function initServer() {
     rest.get(RoomRoutes.GET_BACKGROUND_IMAGE, (req, res, ctx) =>
       res(ctx.text(imageBuffer.toString('base64'))),
     ),
-    rest.get(sigRoute, (req, res, ctx) => res(ctx.json({ sig: '1' }))),
+    rest.get(sigRoute, (req, res, ctx) =>
+      res(
+        ctx.json({
+          sig: {
+            signature: '1',
+            timestamp: '1',
+            api_key: '1',
+          },
+        }),
+      ),
+    ),
   )
 }

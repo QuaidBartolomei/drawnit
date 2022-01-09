@@ -1,3 +1,4 @@
+import cors from 'cors'
 import { initApp } from 'loaders/app.loader'
 import { initMemoryDB } from 'loaders/db.loader.dev'
 import { initServer } from 'loaders/express.loader'
@@ -6,6 +7,7 @@ import env from 'utils/env.utils'
 
 async function main() {
   const app = initApp()
+  app.use(cors({ origin: env.HOST }))
   const server = initServer(app, () => {
     console.log('server is listening on port:', env.PORT)
   })

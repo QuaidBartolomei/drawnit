@@ -14,8 +14,19 @@ const defaultSettings: Settings = {
   api_secret: process.env.CLOUDINARY_API_SECRET,
 }
 
-export function getSignature(settings = defaultSettings) {
-  const { api_secret = '' } = settings
+interface SignData {
+  signature: string
+  timestamp: number
+  api_key: string
+}
+
+export function getSignature(settings = defaultSettings): SignData {
+  const { api_secret = '', api_key = '' } = settings
   const timestamp = Math.round(new Date().getTime() / 1000)
-  return v2.utils.api_sign_request({ timestamp }, api_secret)
+  const signature = v2.utils.api_sign_request({ timestamp }, api_secret)
+  return {
+    timestamp,
+    signature,
+    api_key,
+  }
 }
