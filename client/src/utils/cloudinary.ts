@@ -2,27 +2,16 @@ import axios from 'axios'
 
 type Settings = {
   cloudName: string | undefined
-  uploadPreset: string | undefined
 }
 
 const defaultSettings: Settings = {
   cloudName: process.env.REACT_APP_CLOUD_NAME,
-  uploadPreset: process.env.REACT_APP_UPLOAD_PRESET,
 }
-
-export const sigRoute = '/api/sig'
 
 interface SignData {
   signature: string
   timestamp: string
   api_key: string
-}
-
-export async function getSignData(): Promise<SignData> {
-  const res = await axios.get(sigRoute)
-  const sig = res.data?.sig
-  console.log('SIG:', sig)
-  return sig
 }
 
 export type BackgroundImage = {
@@ -31,12 +20,20 @@ export type BackgroundImage = {
   secure_url: string
 }
 
+export const sigRoute = '/api/sig'
+
+export async function getSignData(): Promise<SignData> {
+  const res = await axios.get(sigRoute)
+  const sig = res.data?.sig
+  console.log('SIG:', sig)
+  return sig
+}
+
 export async function uploadImageFile(
   file: File,
   settings = defaultSettings,
 ): Promise<BackgroundImage | void> {
-  const { cloudName, uploadPreset } = settings
-  if (!uploadPreset) return console.error('missing env variable: UPLOAD_PRESET')
+  const { cloudName } = settings
   if (!cloudName) return console.error('missing env variable: CLOUD_NAME')
   const url = `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`
   const formData = new FormData()
