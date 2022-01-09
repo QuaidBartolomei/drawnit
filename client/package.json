@@ -11,7 +11,8 @@
     "start": "react-scripts start",
     "test": "react-scripts test --testURL=http://localhost:4000",
     "test-integration": "npm run test -- src/__tests__/integration",
-    "test-unit": "npm run test -- --testPathIgnorePatterns=src/__tests__/integration cypress"
+    "test-unit": "npm run test -- --testPathIgnorePatterns=__tests__/integration cypress",
+    "test:staged": "npm run test-unit -- --watchAll=false --passWithNoTests"
   },
   "browserslist": {
     "production": [
