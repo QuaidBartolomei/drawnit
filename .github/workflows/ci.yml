@@ -30,6 +30,9 @@ jobs:
 
       - name: Server Tests
         working-directory: server
+        env:
+          CLOUDINARY_API_KEY: ${{secrets.CLOUDINARY_API_KEY}}
+          CLOUDINARY_API_SECRET: ${{secrets.CLOUDINARY_API_SECRET}}
         run: npx jest --ci
 
       - name: Client Unit Tests
