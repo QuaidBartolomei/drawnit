@@ -1,5 +1,4 @@
 import path from 'path'
-import cors from 'cors'
 import { static as serveStaticFiles } from 'express'
 import favicon from 'serve-favicon'
 import { initApp } from 'loaders/app.loader'
@@ -19,7 +18,6 @@ async function main() {
   const app = initApp()
 
   app
-    .use(cors({ origin: env.HOST }))
     .use('/static', serveStaticFiles(staticPath))
     .use(favicon(faviconPath))
     .get('*', (req, res) => {
